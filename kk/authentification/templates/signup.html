@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style/auth.css">
+    <title>Document</title>
+</head>
+<body>
+   
+
+    <div class="login_container">
+        
+                <form method="POST" class="form_container" >  
+                    
+                   {% csrf_token %}
+                    <h1 class="title">Create association </h1>
+                    {% for field in form %}            
+                    {{field }}
+                    {% endfor%}
+
+                    {% for field in form2 %}            
+                    {{field }}
+                    {% endfor%}
+                    
+                    <p class="message">
+                        {{form.errors}}
+                    </p>
+                   
+                    <button type="submit" class="green_btn">
+                        send
+                    </button>
+                    <p class="account">Already have an account ?   
+                     <a href="{% url 'login'%}">Login</a>
+                    </p>   
+                </form>
+            </div>
+            <div class="right">	
+            </div>
+        </div>
+    </div>
+    <script>
+        var form_fields = document.getElementsByTagName('input')
+        var select = document.querySelector("select")
+        
+        form_fields[1].placeholder='Username'
+        form_fields[2].placeholder='Email'
+        form_fields[3].placeholder='phone Number'
+        
+        form_fields[4].placeholder='password'
+        form_fields[5].placeholder='confirm password '
+        form_fields[6].placeholder='name of asociation '
+        form_fields[7].placeholder='file '
+
+        form_fields[1].classList.add('input1')
+        form_fields[2].classList.add('input1')
+        form_fields[3].classList.add('input1')
+        
+        form_fields[4].classList.add('input1')
+        form_fields[5].classList.add('input1')
+        form_fields[7].classList.add('input1')
+        form_fields[6].classList.add('input1')
+        select.classList.add('input1')
+
+        
+        
+        
+        
+    </script>
+    
+</body>
+</html>

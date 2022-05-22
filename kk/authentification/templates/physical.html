@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="login_form_container">
+        <div class="left">
+            <form method="POST" class="form_container" >  
+               {% csrf_token %}
+                <h1 class="title">Create user </h1>
+                {% for field in form %}            
+                {{field }}
+                {% endfor%}
+                {% for field in form2 %}            
+                {{field }}
+                {% endfor%}
+                <p class="message">
+                    {{form.errors}}
+                </p>
+                <button type="submit" class="green_btn">
+                    send
+                </button>
+                <p class="account">Already have an account ?   
+                 <a href="{% url 'createuser'%}">Login</a>
+                </p>   
+            </form>
+        </div>
+</body>
+</html>
