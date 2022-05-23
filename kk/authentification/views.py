@@ -80,9 +80,10 @@ def Loginin (request):
     return render(request,'login.html',context)
 
 def Profile (request):
-    
     context= {}
     return render(request,'profile.html',context)
+
+
 def Select (request):
     
     context= {}
