@@ -81,9 +81,12 @@ def Loginin (request):
 
 def Profile (request):
     
-
     context= {}
     return render(request,'profile.html',context)
+def Select (request):
+    
+    context= {}
+    return render(request,'select.html',context)
 
 
 def Logoutt (request):
