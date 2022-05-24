@@ -98,6 +98,7 @@ def Logoutt (request):
 
 
 def ListCagniote (request):
+    cagnites= Cagniote.objects.all()
     form = CreateCagniote ()
     if request.method =='POST':
         username = request.user
@@ -113,5 +114,5 @@ def ListCagniote (request):
                 sommeDemander = somme 
             )
 
-    context= {'form':form}
+    context= {'form':form , 'cagniotes':cagnites}
     return render(request,'cagniote.html',context)

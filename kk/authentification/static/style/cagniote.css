@@ -72,9 +72,6 @@
     border-radius: 15px;
     margin-right: 20px;
 }
-.progress-bar{
-    width: 200px;
-}
 
 button{
     color: white;
@@ -92,4 +89,11 @@ button{
 .progress{
     width: 25%;
     height: 25px;
+    background-color:#ccc;
+    border-radius: 15px;
+}
+.progress-bar{
+    height:100%;
+    background-color:rgb(35, 116, 209);
+    border-radius: 15px;
 }
