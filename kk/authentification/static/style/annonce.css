@@ -1,0 +1,86 @@
+.container {
+    background: rgb(255, 255, 255) none repeat scroll ;
+    box-shadow:0 4px 12px 0 rgba(0,0,0,0.05);
+    border-radius: 15px;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 25px;
+}
+
+.postbox {
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 150px;
+}
+
+.postbox a{
+    height:60px;
+}
+.postbox img{
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+}
+
+.newpst-input {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: top;
+    width: 90%;
+    border-radius: 0;
+    
+}
+
+.newpst-input textarea {
+    outline: none;
+    float: left;
+    width: 100%;
+    height: 100px;
+    overflow: auto;
+    resize: none;
+    padding: 10px;
+    border: none;
+}
+
+.newpst-input textarea::placeholder{
+    color:#A0AEC0;
+}
+
+
+.attachments > ul {
+    list-style: outside none none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 0px;
+
+}
+
+.newpst-input form{
+    height: 100%;
+    border: 1px solid RGBA(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+
+
+@media screen and (max-width: 980px)
+{
+    .central-meta {
+        margin: 10px 10px 10px 0;
+        width: 100%;
+    }
+}
+
+
+
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+

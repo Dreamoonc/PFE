@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpRequest
 from django.contrib.auth import authenticate , login ,logout
 from .models import *
-from .forms import  CreateUserForm ,LoginForm ,CreateAssociation , CreatePersonne
+from .forms import *
 
 from django.contrib import messages
 # Create your views here.
@@ -83,7 +83,19 @@ def Profile (request):
     context= {}
     return render(request,'profile.html',context)
 
-
+def Annonce (request):
+    if request.method == "POST":
+        formAnnonce =AnnonceForm(data=request.POST)
+        if formAnnonce.is_valid():
+            print("hello")
+            formAnnonce.auteur=request.user
+            print("here")
+            formAnnonce.save()
+            return redirect("profile")  
+    else:
+        print("don t woek")
+        formAnnonce=AnnonceForm
+    return render(request,'annonce.html',{'formAnnonce':formAnnonce})
 
 def Select (request):
     

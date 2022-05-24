@@ -1,7 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser , BaseUserManager
+from django.utils import timezone
 # Create your models here.
 
+TYPE_ANNONCE=(
+    ('demande','demande'),
+    ("don","don")
+)
 WILLAYA=(
 (1,	'Adrar'	),
 (2,	'Chlef'	),
@@ -136,3 +141,9 @@ class Association (models.Model):
     file = models.CharField (max_length=200)
     willaya=models.CharField(choices=WILLAYA ,  max_length=10)
 
+class Annonce (models.Model):
+    contenu=models.TextField()
+    date=models.DateTimeField(default=timezone.now)
+    image = models.ImageField(null=True , blank=True)
+    type=models.CharField(choices=TYPE_ANNONCE,max_length=10,default='demande')
+    auteur= models.ForeignKey(User,on_delete=models.CASCADE)

@@ -1,4 +1,6 @@
+from tkinter import Widget
 from django import forms
+from django.forms import ModelForm, TextInput
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from django.contrib.auth import authenticate 
@@ -35,3 +37,19 @@ class CreatePersonne (forms.ModelForm):
      class Meta:
         model=PhysicalUser
         fields=["first_name","last_name","willaya"]
+
+
+class AnnonceForm (ModelForm):
+    contenu= forms.TextInput()
+    image=forms.ImageField()
+    type=forms.Select()
+    class Meta:
+        model=Annonce
+        fields="__all__"
+        exclude=['date','auteur']
+        # widgets={
+        #     'Contenu': TextInput()
+        #     'NivEtude'
+        # }
+
+            
