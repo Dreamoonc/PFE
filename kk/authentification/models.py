@@ -104,7 +104,7 @@ class User(AbstractBaseUser):
     is_active=models.BooleanField(default=True)
     is_staff=models.BooleanField(default=False)
     is_superuser=models.BooleanField(default=False)
-
+    
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS=['username','phone']
 
@@ -136,3 +136,14 @@ class Association (models.Model):
     file = models.CharField (max_length=200)
     willaya=models.CharField(choices=WILLAYA ,  max_length=10)
 
+class Cagniote (models.Model):
+    titre = models.CharField(max_length=255)
+    contenu = models.TextField(max_length=600)
+    sommeDemander= models.FloatField()
+    sommeRecolter = models.FloatField(default=0)
+    dateCreation = models.DateField(auto_now=True)
+    user = models.ForeignKey(Association , on_delete=models.CASCADE)
+    
+
+    def __str__(self):
+        return self.titre

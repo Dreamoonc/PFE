@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpRequest
 from django.contrib.auth import authenticate , login ,logout
 from .models import *
-from .forms import  CreateUserForm ,LoginForm ,CreateAssociation , CreatePersonne
+from .forms import  CreateCagniote, CreateUserForm ,LoginForm ,CreateAssociation , CreatePersonne
 
 from django.contrib import messages
 # Create your views here.
@@ -95,3 +95,23 @@ def Logoutt (request):
     logout(request)
     return redirect('login')
 
+
+
+def ListCagniote (request):
+    form = CreateCagniote ()
+    if request.method =='POST':
+        username = request.user
+        association = Association.objects.get(user=username)
+        if form.is_valid :
+            titre = request.POST['titre']
+            contenu = request.POST['contenu']
+            somme = request.POST['sommeDemander']
+            Cagniote.objects.create(
+                user = association,
+                titre = titre ,
+                contenu =contenu ,
+                sommeDemander = somme 
+            )
+
+    context= {'form':form}
+    return render(request,'cagniote.html',context)

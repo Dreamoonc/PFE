@@ -35,3 +35,8 @@ class CreatePersonne (forms.ModelForm):
      class Meta:
         model=PhysicalUser
         fields=["first_name","last_name","willaya"]
+
+class CreateCagniote (forms.ModelForm):
+     class Meta:
+        model= Cagniote
+        fields=["titre","contenu","sommeDemander"]
