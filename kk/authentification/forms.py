@@ -39,19 +39,20 @@ class CreatePersonne (forms.ModelForm):
         fields=["first_name","last_name","willaya"]
 
 class AnnonceForm (ModelForm):
-    contenu= forms.TextInput()
-    image=forms.ImageField()
-    type=forms.Select()
     class Meta:
         model=Annonce
-        fields="__all__"
-        exclude=['date','auteur']
+        fields=['contenu','image','type']
         # widgets={
         #     'Contenu': TextInput()
         #     'NivEtude'
         # }
+        widgets={
+            'contenu':forms.Textarea(attrs={'class':'textholder','placeholder':'ecrire ...'})
+        }
 
             
 class CreateCagniote (forms.ModelForm):
+    class Meta:
         model= Cagniote
         fields=["titre","contenu","sommeDemander"]
+

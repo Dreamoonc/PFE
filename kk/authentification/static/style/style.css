@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 body{
-    background-color: #F7FAFC;
-    font-family:'Roboto' ;
+    background-color: #F7FAFC !important;
+    font-family:'Roboto',sans-serif !important;
 }
 a{
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .sidebar{
-    position: sticky;
+    position: sticky ;
     font-weight: 500;
     width: 250px;
     background-color: rgb(255, 255, 255);
     box-shadow:0 4px 12px 0 rgba(0,0,0,0.05);
     border-radius: 15px;
     height: 95vh;
-    top: 15px;
+    top: 15px ;
     margin-top: 15px;
 }
 ul{
@@ -35,6 +35,9 @@ ul{
 .sidebar li:hover{
     box-shadow: 0 4px 12px 0 rgba(0,0,0,0.05);
     border-radius: 10px;
+}
+.sidebar a:hover{
+    color: #A0AEC0!important;
 }
 .sidebar a{
     text-decoration: none;
@@ -58,9 +61,9 @@ ul{
     color: #4FD1C5;
 }
 
-.navbar {
+.navBar {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row-reverse ;
     height: 60px;
     width: 100%;
     margin-bottom: 15px ;
@@ -70,7 +73,7 @@ ul{
     box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
 }
 
-.navbar img{
+.navBar img{
     border-radius: 100%;
     height: 35px;
     margin-right: 35px;

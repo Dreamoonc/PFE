@@ -77,23 +77,12 @@ def Loginin (request):
     context= {'form':form}
     return render(request,'login.html',context)
 
+
 def Profile (request):
     context= {}
     return render(request,'profile.html',context)
 
-def Annonce (request):
-    if request.method == "POST":
-        formAnnonce =AnnonceForm(data=request.POST)
-        if formAnnonce.is_valid():
-            print("hello")
-            formAnnonce.auteur=request.user
-            print("here")
-            formAnnonce.save()
-            return redirect("profile")  
-    else:
-        print("don t woek")
-        formAnnonce=AnnonceForm
-    return render(request,'annonce.html',{'formAnnonce':formAnnonce})
+
 
 def Select (request):
     
@@ -105,7 +94,31 @@ def Logoutt (request):
     logout(request)
     return redirect('login')
 
+def annonce (request):
+    annonces= Annonce.objects.all()
+    formAnnonce = AnnonceForm()
+    if request.method =='POST':
+        auteur= request.user
+        if formAnnonce.is_valid :
+            image = request.FILES['image']
+            contenu = request.POST['contenu']
+            type = request.POST['type']
+            Annonce.objects.create(
+                auteur = auteur,
+                image = image ,
+                contenu =contenu ,
+                type = type 
+            )
+            return redirect('annonce')
 
+    context= {'formAnnonce':formAnnonce , 'annonces':annonces}
+    return render(request,'annonce.html',context)
+
+def delete_annonce (request,myid) :
+    item = Annonce.objects.get(id =myid)
+    item.delete()
+    messages.info(request,'Annonce supprimé')
+    return redirect(annonce)
 
 def ListCagniote (request):
     cagnites= Cagniote.objects.all()
