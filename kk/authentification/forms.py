@@ -38,7 +38,6 @@ class CreatePersonne (forms.ModelForm):
         model=PhysicalUser
         fields=["first_name","last_name","willaya"]
 
-
 class AnnonceForm (ModelForm):
     contenu= forms.TextInput()
     image=forms.ImageField()
@@ -53,3 +52,6 @@ class AnnonceForm (ModelForm):
         # }
 
             
+class CreateCagniote (forms.ModelForm):
+        model= Cagniote
+        fields=["titre","contenu","sommeDemander"]

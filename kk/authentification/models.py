@@ -109,7 +109,7 @@ class User(AbstractBaseUser):
     is_active=models.BooleanField(default=True)
     is_staff=models.BooleanField(default=False)
     is_superuser=models.BooleanField(default=False)
-
+    
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS=['username','phone']
 
@@ -147,3 +147,14 @@ class Annonce (models.Model):
     image = models.ImageField(null=True , blank=True)
     type=models.CharField(choices=TYPE_ANNONCE,max_length=10,default='demande')
     auteur= models.ForeignKey(User,on_delete=models.CASCADE)
+class Cagniote (models.Model):
+    titre = models.CharField(max_length=255)
+    contenu = models.TextField(max_length=600)
+    sommeDemander= models.FloatField()
+    sommeRecolter = models.FloatField(default=0)
+    dateCreation = models.DateField(auto_now=True)
+    user = models.ForeignKey(Association , on_delete=models.CASCADE)
+    
+
+    def __str__(self):
+        return self.titre

@@ -2,10 +2,8 @@ from django.shortcuts import redirect, render
 from django.http import HttpRequest
 from django.contrib.auth import authenticate , login ,logout
 from .models import *
-from .forms import *
-
+from .forms import  *
 from django.contrib import messages
-# Create your views here.
 
 
 def Register (request):
@@ -107,3 +105,24 @@ def Logoutt (request):
     logout(request)
     return redirect('login')
 
+
+
+def ListCagniote (request):
+    cagnites= Cagniote.objects.all()
+    form = CreateCagniote ()
+    if request.method =='POST':
+        username = request.user
+        association = Association.objects.get(user=username)
+        if form.is_valid :
+            titre = request.POST['titre']
+            contenu = request.POST['contenu']
+            somme = request.POST['sommeDemander']
+            Cagniote.objects.create(
+                user = association,
+                titre = titre ,
+                contenu =contenu ,
+                sommeDemander = somme 
+            )
+
+    context= {'form':form , 'cagniotes':cagnites}
+    return render(request,'cagniote.html',context)

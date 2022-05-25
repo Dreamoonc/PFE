@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/style/cagniote.css">
+    <link rel="stylesheet" href="../static/style/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="core1">
+
+        <section>
+            <div class="sidebar">
+                <ul>
+                    <li><a href="">
+                            <div><i class="fa-solid fa-house"></i></div></i> Annonce
+                        </a></li>
+                    <li> <a href="">
+                            <div><i class="fa-solid fa-user"></i></div> Profile
+                        </a> </li>
+                    <li> <a href="{% url 'cagniote' %}">cagnotte</a> </li>
+                    <li> <a href="{% url 'logout'%}">logout</a></li>
+                </ul>
+            </div>
+        </section>
+        <div class="core2">
+            <section style="width:100%;">
+                <div class="navbar">
+                    <img alt="Image profile" src="https://bit.ly/dan-abramov">
+                    <div class="icon">
+                        <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
+                            class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+            <section class="cagniotes">
+                {% for cagniote in cagniotes%}
+                <div class="cagniote">
+                    <div class="head flex">
+                        <div class="user">
+                            <img src="../static/images/background.png" alt="userProfile" width="50" height="50">
+                            <span>{{ cagniote.user.user}} </span>
+                        </div>
+
+                        <p>{{cagniote.dateCreation}}</p>
+                    </div>
+                    <div class="core flex">
+                        <img src="../static/images/background.png" alt="userProfile" width="250" height="200">
+                        <div>
+                            <h1>{{cagniote.titre}} </h1>
+                            <p>
+                                {{cagniote.contenu}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="foot  ">
+                        <button>envoyer argent</button>
+
+                        <p>{{ cagniote.sommeRecolter}} DA</p>
+                        <div class="progress">
+                            <div class="progress-bar w-75" role="progressbar"  style="width:20%;">  </div>
+                        </div>
+                        <p>{{cagniote.sommeDemander}} DA</p>
+                    </div>
+                
+
+                </div>
+{% endfor %}
+
+
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+            <a href="#ajout">
+                <button type="button" class="button">
+                    <i class="fa-solid fa-pencil fa-lg"></i>
+                    <p>EDIT</p>
+                </button>
+            </a>
+            <div id="ajout" class="modal">
+                <div class="modal__content">
+                    <section>
+                        <form class="form" action="" method="post">
+                            <h1>creer votre cagniote </h1>
+                            {% csrf_token %}
+                            {% for field in form %}
+                            {{ field }}
+                            {% endfor %}
+                            <input class="green_btn" type="submit" value="envoyer">
+                        </form>
+                    </section>
+
+                    <a href="#" class="modal__close">&times;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        var form_fields = document.getElementsByTagName('input')
+        var text = document.querySelector('textarea')
+        form_fields[1].placeholder = 'titre'
+        form_fields[2].placeholder = 'Somme'
+        text.placeholder = 'contenu'
+
+
+
+        form_fields[1].classList.add('input')
+        form_fields[2].classList.add('input')
+        text.classList.add('input')
+    </script>
+</body>
+
+</html>
