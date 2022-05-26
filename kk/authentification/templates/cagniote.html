@@ -19,10 +19,10 @@
         <section>
             <div class="sidebar">
                 <ul>
-                    <li><a href="">
+                    <li><a href="{% url 'annonce' %}">
                             <div><i class="fa-solid fa-house"></i></div></i> Annonce
                         </a></li>
-                    <li> <a href="">
+                    <li> <a href="{% url 'profile' %}">
                             <div><i class="fa-solid fa-user"></i></div> Profile
                         </a> </li>
                     <li> <a href="{% url 'cagniote' %}">cagnotte</a> </li>
@@ -67,11 +67,11 @@
                     <div class="foot  ">
                         <button>envoyer argent</button>
 
-                        <p>{{ cagniote.sommeRecolter}} DA</p>
+                        <p id="recolte"> {{ cagniote.sommeRecolter}}<span  style="margin-left:5px ;">da</span> </p>
                         <div class="progress">
-                            <div class="progress-bar w-75" role="progressbar"  style="width:20%;">  </div>
+                            <div id="progress" class="progress-bar w-75" role="progressbar"  >  </div>
                         </div>
-                        <p>{{cagniote.sommeDemander}} DA</p>
+                        <p id="demande">{{cagniote.sommeDemander}} <span>da</span>  </p>
                     </div>
                 
 
@@ -81,23 +81,13 @@
 
             </section>
 
-
-
-
-
-
-
-
-
-
-
-
+            
             <a href="#ajout">
-                <button type="button" class="button">
-                    <i class="fa-solid fa-pencil fa-lg"></i>
-                    <p>EDIT</p>
+                <button type="button" class="btn_add">  
+                    <i class="fa-duotone fa-plus fa-4x"></i>
                 </button>
             </a>
+            
             <div id="ajout" class="modal">
                 <div class="modal__content">
                     <section>
@@ -111,9 +101,10 @@
                         </form>
                     </section>
 
-                    <a href="#" class="modal__close">&times;</a>
+                    <a href="" class="modal__close">&times;</a>
                 </div>
             </div>
+            
 
         </div>
     </div>
@@ -125,8 +116,17 @@
         form_fields[1].placeholder = 'titre'
         form_fields[2].placeholder = 'Somme'
         text.placeholder = 'contenu'
+        var progress = document.querySelectorAll('#progress')
+        var demandes = document.querySelectorAll('#demande')
+        var recoltes = document.querySelectorAll('#recolte')
 
+        for(var i=0 ; i<progress.length ;i++){
+            a = parseFloat(demandes[i].innerHTML)
+            
+            b = parseFloat(recoltes[i].innerHTML)
 
+            progress[i].style.width=(b*100/a) +"%"
+        }
 
         form_fields[1].classList.add('input')
         form_fields[2].classList.add('input')

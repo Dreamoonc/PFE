@@ -13,7 +13,6 @@
 	margin: 15px 0;
 	font-size: 14px;
 }
-
 .input:focus{
 	z-index: 1;
     border-color: rgb(49, 130, 206);
@@ -47,7 +46,7 @@
 }
 .cagniote{
     border-radius: 20px;
-    margin :5%;
+    margin :6%;
     box-shadow: 0px 0px 4px rgb(180, 180, 180);
 }
 .head{  
@@ -96,4 +95,15 @@ button{
     height:100%;
     background-color:rgb(35, 116, 209);
     border-radius: 15px;
+}
+
+.btn_add{
+        
+        background-color: #5be4a8;
+        width: 60px;
+        height: 60px;
+        right: 15px;
+        bottom: 20px;
+        border-radius: 100%;
+        position: fixed;
 }
