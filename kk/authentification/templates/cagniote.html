@@ -46,7 +46,7 @@
             </section>
             <section class="cagniotes">
                 {% for cagniote in cagniotes%}
-                {% if cagniote.sommeDemander > cagniote.sommeRecolter  %}
+                
                 <div class="cagniote">
                     <div class="head flex">
                         <div class="user">
@@ -66,8 +66,11 @@
                         </div>
                     </div>
                     <div class="foot  ">
+                        {% if cagniote.sommeDemander > cagniote.sommeRecolter  %}
                         <button>envoyer argent</button>
-
+                        {% else %}
+                        <p>cagniote fermer </p>
+                        {% endif %}
                         <p id="recolte"> {{ cagniote.sommeRecolter}}<span  style="margin-left:5px ;">da</span> </p>
                         <div class="progress">
                             <div id="progress" class="progress-bar w-75" role="progressbar"  >  </div>
@@ -77,7 +80,7 @@
                 
 
                 </div>
-                {% endif %}
+                
 {% endfor %}
 
 
