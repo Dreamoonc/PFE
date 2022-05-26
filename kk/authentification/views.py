@@ -16,14 +16,15 @@ def Register (request):
             name = request.POST['name']
             file = request.POST['file']
             willaya = request.POST['willaya']
-             
+            
             user = form.save()
+            user.is_association =True
+            user.save()
             Association.objects.create(
                     user=user ,
                     name=name ,
                     file=file,
                     willaya=willaya
-
             )
 
             messages.success(request,'account created seccefully ')
@@ -48,6 +49,8 @@ def RegisterUser (request):
             willaya = request.POST['willaya']
              
             user = form.save()
+            user.is_person =True
+            user.save()
             PhysicalUser.objects.create(
                     user=user ,
                     first_name=name ,
@@ -139,3 +142,9 @@ def ListCagniote (request):
 
     context= {'form':form , 'cagniotes':cagnites}
     return render(request,'cagniote.html',context)
+
+
+def Admin (request):
+    
+    context= {}
+    return render(request,'admin.html',context)

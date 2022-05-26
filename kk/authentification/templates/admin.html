@@ -1,0 +1,93 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/admin.css' %}">
+
+
+    <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="core1">
+
+        <section>
+            <div class="sidebar">
+                <ul>
+                    <li><a href="{% url 'annonce'%}">
+                            <div><i class="fa-solid fa-house"></i></div></i> Annonce
+                        </a></li>
+                    <li> <a href="">
+                            <div><i class="fa-solid fa-user"></i></div> Profile
+                        </a> </li>
+                    <li> <a href="{% url 'cagniote' %}">cagnotte</a> </li>
+                    <li> <a href="{% url 'logout'%}">logout</a></li>
+                </ul>
+            </div>
+        </section>
+        <div class="core2">
+            <section style="width:100%;">
+                <div class="navBar">
+                    <img alt="Image profile" src="https://bit.ly/dan-abramov">
+                    <div class="icon">
+                        <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
+                            class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+            <div class="dashbord">
+                <div class="row">
+                    <div class="col" >
+                        <i class="fa-solid fa-user fa-3x"></i>
+                        <div class="contenu">
+                            <p>personne</p>
+                            <p>300</p>
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <i class="fa-solid fa-hand-holding-hand fa-3x"></i>
+                        <div class="contenu">
+                            <p>association</p>
+                            <p>300</p>
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <i class="fa-solid fa-circle-plus fa-3x"></i>
+                        <div class="contenu">
+                            <p>publication</p>
+                            <p>300</p>
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <i class="fa-solid fa-hand-holding-dollar fa-3x"></i>
+                        <div class="contenu">
+                            <p>cagniote</p>
+                            <p>300</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+ 
+        </div>
+
+
+        
+    </div>
+
+
+</body>
+
+</html>

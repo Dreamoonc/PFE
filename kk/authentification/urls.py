@@ -12,5 +12,6 @@ urlpatterns = [
     path('createuser/',views.RegisterUser,name='createuser'),
     path('select/',views.Select,name='select'),
     path('cagniote/',views.ListCagniote,name='cagniote'),
-     path('delete_annonce/<str:myid>/',delete_annonce,name='delete_annonce'),
+    path('delete_annonce/<str:myid>/',delete_annonce,name='delete_annonce'),
+    path('administrateur/',views.Admin,name='administrateur'),
 ]

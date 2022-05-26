@@ -46,6 +46,7 @@
             </section>
             <section class="cagniotes">
                 {% for cagniote in cagniotes%}
+                {% if cagniote.sommeDemander > cagniote.sommeRecolter  %}
                 <div class="cagniote">
                     <div class="head flex">
                         <div class="user">
@@ -76,18 +77,19 @@
                 
 
                 </div>
+                {% endif %}
 {% endfor %}
 
 
             </section>
 
-            
+            {% if request.user.is_association == True %}
             <a href="#ajout">
                 <button type="button" class="btn_add">  
                     <i class="fa-duotone fa-plus fa-4x"></i>
                 </button>
             </a>
-            
+            {% endif %}
             <div id="ajout" class="modal">
                 <div class="modal__content">
                     <section>
@@ -108,7 +110,6 @@
 
         </div>
     </div>
-
 
     <script>
         var form_fields = document.getElementsByTagName('input')
