@@ -42,20 +42,24 @@
                     
                     <table cellspacing="0">
                        <tr>
-                          <th>Username</th>
+                          <th>nom</th>
                           <th>Email</th>
                           <th>File</th>
                           <th>Accepter</th>
                           <th>Refuser</th>
                        </tr>
+                       {% for association in associations %}
+                       {% if association.is_valid == False  %}
                  
                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td>{{association.name}}</td>
+                          <td>{{association.user.email}}</td>
+                          <td>{{association.file}}</td>
+                          <td><a href="{% url 'valider' association.user_id %}">accepter</a></td>
+                          <td><a href="{% url 'deleteAssociation' association.user.id %}">refuser</a></td>
                        </tr>
+                       {% endif %}
+                       {% endfor %}
                  
                     </table>
                  </div>

@@ -1,3 +1,4 @@
+
 from django.shortcuts import redirect, render
 from django.http import HttpRequest
 from django.contrib.auth import authenticate , login ,logout
@@ -75,8 +76,16 @@ def Loginin (request):
             password=request.POST['password']
             user = authenticate(request , email=email,password=password )  
             if user is not None :
-                login (request , user ) 
-                return redirect('profile')
+                if  user.is_association   :
+                    ass = Association.objects.get(user = user)
+                    if ass.is_valid == True :
+                        login (request , user ) 
+                        return redirect('profile')
+                    else :
+                        messages.error(request , "cette association n'est pas valide")
+                else :
+                    login (request , user ) 
+                    return redirect('profile')           
     context= {'form':form}
     return render(request,'login.html',context)
 
@@ -160,3 +169,22 @@ def Arreter (request,myid) :
     item.save()
     
     return redirect(ListCagniote)
+
+def Control (request):
+    associations = Association.objects.all()
+
+    context= {'associations': associations}
+    return render(request,'control.html',context)    
+
+def Valider (request,myid) :
+    item = Association.objects.get(user_id =myid)
+    item.is_valid = True
+    item.save()
+    
+    return redirect(Control)
+
+def deleteAssociation (request,myid) :
+    item = User.objects.get(id =myid)
+    item.delete()
+    
+    return redirect(Control)

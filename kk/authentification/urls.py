@@ -15,4 +15,7 @@ urlpatterns = [
     path('delete_annonce/<str:myid>/',delete_annonce,name='delete_annonce'),
     path('administrateur/',views.Admin,name='administrateur'),
     path('arreter/<str:myid>/',Arreter,name='arreter'),
+    path('control/',views.Control,name='control'),
+    path('valider/<str:myid>/',Valider,name='valider'),
+    path('deleteAssociation/<str:myid>/',deleteAssociation,name='deleteAssociation'),
 ]

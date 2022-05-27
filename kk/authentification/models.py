@@ -143,6 +143,7 @@ class Association (models.Model):
     name = models.CharField(max_length=255)
     file = models.CharField (max_length=200)
     willaya=models.CharField(choices=WILLAYA ,  max_length=10)
+    is_valid = models.BooleanField(default=False)
 
 class Annonce (models.Model):
     contenu=models.TextField(max_length=600)
