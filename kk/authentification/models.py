@@ -162,6 +162,7 @@ class Cagniote (models.Model):
     sommeRecolter = models.FloatField(default=0)
     dateCreation = models.DateField(auto_now=True)
     user = models.ForeignKey(Association , on_delete=models.CASCADE)
+    arret=models.BooleanField(default=False)
     
 
     def __str__(self):

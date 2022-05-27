@@ -148,3 +148,10 @@ def Admin (request):
     
     context= {}
     return render(request,'admin.html',context)
+
+def Arreter (request,myid) :
+    item = Cagniote.objects.get(id =myid)
+    item.arret = True
+    item.save()
+    
+    return redirect(ListCagniote)

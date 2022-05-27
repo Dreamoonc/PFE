@@ -52,9 +52,15 @@
                         <div class="user">
                             <img src="../static/images/background.png" alt="userProfile" width="50" height="50">
                             <span>{{ cagniote.user.user}} </span>
-                        </div>
+                            <p>{{cagniote.dateCreation}}</p>
+                            <input id="hidden" type="hidden" value="{{ cagniote.id}}">
 
-                        <p>{{cagniote.dateCreation}}</p>
+                        </div>
+                        {% if request.user == cagniote.user.user & cagniote.arret ==False %} 
+                        <a href="{% url 'arreter' cagniote.id  %}">
+                            <button>arreter</button>
+                        </a>
+                        {% endif %}                    
                     </div>
                     <div class="core flex">
                         <img src="../static/images/background.png" alt="userProfile" width="250" height="200">
@@ -66,11 +72,15 @@
                         </div>
                     </div>
                     <div class="foot  ">
-                        {% if cagniote.sommeDemander > cagniote.sommeRecolter  %}
-                        <button>envoyer argent</button>
-                        {% else %}
-                        <p>cagniote fermer </p>
+                        {% if cagniote.arret == False    %}
+                        {% if cagniote.sommeRecolter <  cagniote.sommeDemander %}
+                        <button id="envoi">envoyer argent</button>
                         {% endif %}
+                        {% endif %}
+                        {% if cagniote.arret == True  or cagniote.sommeRecolter >=  cagniote.sommeDemander  %}
+                        <p id="message"> cagniote fermer </p>
+                        {% endif %}
+                        
                         <p id="recolte"> {{ cagniote.sommeRecolter}}<span  style="margin-left:5px ;">da</span> </p>
                         <div class="progress">
                             <div id="progress" class="progress-bar w-75" role="progressbar"  >  </div>
@@ -131,6 +141,8 @@
 
             progress[i].style.width=(b*100/a) +"%"
         }
+
+       
 
         form_fields[1].classList.add('input')
         form_fields[2].classList.add('input')

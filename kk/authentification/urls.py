@@ -14,4 +14,5 @@ urlpatterns = [
     path('cagniote/',views.ListCagniote,name='cagniote'),
     path('delete_annonce/<str:myid>/',delete_annonce,name='delete_annonce'),
     path('administrateur/',views.Admin,name='administrateur'),
+    path('arreter/<str:myid>/',Arreter,name='arreter'),
 ]
