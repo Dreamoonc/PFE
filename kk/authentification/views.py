@@ -145,8 +145,13 @@ def ListCagniote (request):
 
 
 def Admin (request):
+    cagniote = Cagniote.objects.all()
+    association = Association.objects.all()
+    person = PhysicalUser.objects.all()
+    annonce = Annonce.objects.all()
     
-    context= {}
+    
+    context= {'cagniote':cagniote.__len__,'association':association.__len__ , 'person':person.__len__ ,'annonce':annonce.__len__}
     return render(request,'admin.html',context)
 
 def Arreter (request,myid) :

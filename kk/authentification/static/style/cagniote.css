@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 .form{
     display: flex;
     flex-direction: column;
@@ -107,3 +108,76 @@ button{
         border-radius: 100%;
         position: fixed;
 }
+
+span {
+    font-size: 20px;
+}
+.date {
+    margin: 0;
+    font-size: 13px;
+    color: gray;
+}
+
+.post-block {
+	background: #fff;
+	padding: 25px;
+	margin-bottom: 25px;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);
+	transition: all 0.2s;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+.dropdown-menu {
+    
+    transform: translate3d(845px, 607px, 0px);
+    will-change: transform;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0.25rem;
+}
+.text-danger{
+    color: black;
+    padding: 20px;
+}
+.cc{
+    padding: 10px;
+}
+.fa-ellipsis-v{
+   color:#2374d1 ; 
+}
+.fa-ellipsis-v:hover{
+    color:#062446 ; 
+}
+
+button:hover{
+    background-color: #88e9bf;   
+    cursor: pointer; 
+}
+
+.core p{
+    color: #3e3f40;
+    font-size: 18px;
+}
+.core h1{
+    
+    font-size: 30px;
+}
+
