@@ -18,4 +18,6 @@ urlpatterns = [
     path('control/',views.Control,name='control'),
     path('valider/<str:myid>/',Valider,name='valider'),
     path('deleteAssociation/<str:myid>/',deleteAssociation,name='deleteAssociation'),
+    path('deleteuser/<str:myid>/',deleteUser,name='deleteuser'),
+    path('deleteAnnonce/<str:myid>/',deleteAnnonce,name='deleteAnnonce'),
 ]

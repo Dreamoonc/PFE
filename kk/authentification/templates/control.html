@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +9,19 @@
     <link rel="stylesheet" href="../static/style/style.css">
     <title>Document</title>
 </head>
+
 <body>
     <div class="core1">
 
         <section>
             <div class="sidebar">
                 <ul>
-                    <li><a href="{% url 'annonce'%}"><div><i class="fa-solid fa-house"></i></div></i> Annonce</a></li>
-                    <li> <a href=""> <div><i class="fa-solid fa-user"></i></div> Profile</a> </li>
+                    <li><a href="{% url 'annonce'%}">
+                            <div><i class="fa-solid fa-house"></i></div></i> Annonce
+                        </a></li>
+                    <li> <a href="">
+                            <div><i class="fa-solid fa-user"></i></div> Profile
+                        </a> </li>
                     <li> <a href="{% url 'cagniote' %}">cagnotte</a> </li>
                     <li> <a href="{% url 'logout'%}">logout</a></li>
                 </ul>
@@ -37,36 +43,106 @@
             </section>
             <section class="contenu">
                 
+                    <div class="table-users">
+                        <div class="header">Users</div>
+
+                        <table cellspacing="0">
+                            
+                                <tr>
+                                <th>username</th>
+                                <th>Email</th>
+                                <th>nombre de signial</th>
+                                <th>supprimer</th>
+                            </tr>
+                            
+                            
+                            
+                                 
+                            {% for user in users %}
+                            {% if user.signial > 0 %}
+
+                            <tr>
+                                <td>{{user.username}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.signial}}</td>
+                                <td><a href="{% url 'deleteuser' user.id %}">supprimer</a></td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                           
+
+                        </table>
+                    </div>
+                    <div class="table-users">
+                        <div class="header">Annonces</div>
+
+                        <table cellspacing="0">
+                            
+                            <tr>
+                                <th>Email</th>
+                                <th>nombre de signial</th>
+                                <th>afficher annonce</th>
+                                <th>supprimer</th>
+                            </tr>
+                        
+                        
+
+                        
+                            {% for annonce in annonces %}
+                            {% if annonce.signial > 0 %}
+
+                            <tr>   
+                                <td>{{annonce.user.email}}</td>
+                                <td>{{user.signial}}</td>
+                                <td>lien</td>
+                                <td><a href="{% url 'deleteuser' user.id %}">supprimer</a></td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        
+                        </table>
+                    </div>
+                   
+
+                   
+
+                
+
                 <div class="table-users">
                     <div class="header">Associations</div>
-                    
+
                     <table cellspacing="0">
-                       <tr>
-                          <th>nom</th>
-                          <th>Email</th>
-                          <th>File</th>
-                          <th>Accepter</th>
-                          <th>Refuser</th>
-                       </tr>
-                       {% for association in associations %}
-                       {% if association.is_valid == False  %}
-                 
-                       <tr>
-                          <td>{{association.name}}</td>
-                          <td>{{association.user.email}}</td>
-                          <td>{{association.file}}</td>
-                          <td><a href="{% url 'valider' association.user_id %}">accepter</a></td>
-                          <td><a href="{% url 'deleteAssociation' association.user.id %}">refuser</a></td>
-                       </tr>
-                       {% endif %}
-                       {% endfor %}
-                 
+                        
+
+                        
+                        <tr>
+                            <th>nom</th>
+                            <th>Email</th>
+                            <th>File</th>
+                            <th>Accepter</th>
+                            <th>Refuser</th>
+                        </tr>
+                    
+                    
+                        {% for association in associations %}
+                        {% if association.is_valid == False %}
+
+                        <tr>
+                            <td>{{association.name}}</td>
+                            <td>{{association.user.email}}</td>
+                            <td>{{association.file}}</td>
+                            <td><a href="{% url 'valider' association.user_id %}">accepter</a></td>
+                            <td><a href="{% url 'deleteAssociation' association.user.id %}">refuser</a></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
                     </table>
-                 </div>
-                
+                </div>
+
             </section>
 
-            
+
         </div>
 
     </div>
@@ -76,4 +152,5 @@
 
 
 </body>
+
 </html>

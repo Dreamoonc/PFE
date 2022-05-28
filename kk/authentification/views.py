@@ -172,8 +172,10 @@ def Arreter (request,myid) :
 
 def Control (request):
     associations = Association.objects.all()
+    users = User.objects.all()
+    annonces = Annonce.objects.all()
 
-    context= {'associations': associations}
+    context= {'associations': associations,'users':users, 'annonces':annonces}
     return render(request,'control.html',context)    
 
 def Valider (request,myid) :
@@ -185,6 +187,18 @@ def Valider (request,myid) :
 
 def deleteAssociation (request,myid) :
     item = User.objects.get(id =myid)
+    item.delete()
+    
+    return redirect(Control)
+
+def deleteUser (request,myid) :
+    item = User.objects.get(id =myid)
+    item.delete()
+    
+    return redirect(Control)
+
+def deleteAnnonce (request,myid) :
+    item = Annonce.objects.get(id =myid)
     item.delete()
     
     return redirect(Control)

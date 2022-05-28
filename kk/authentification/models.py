@@ -105,6 +105,7 @@ class User(AbstractBaseUser):
     username = models.CharField(verbose_name = "username",max_length=60,unique=True)
     phone = models.CharField(max_length=10 , verbose_name="phone number ")
     img = models.BinaryField(verbose_name="image")
+    signial = models.IntegerField(default=0)
 
     is_admin=models.BooleanField(default=False)
     is_active=models.BooleanField(default=True)
@@ -150,6 +151,7 @@ class Annonce (models.Model):
     date=models.DateTimeField(default=timezone.now)
     image = models.ImageField(null=True , blank=True, upload_to='images/')
     type=models.CharField(choices=TYPE_ANNONCE,max_length=10,default='demande')
+    signial = models.IntegerField(default=0)
     auteur= models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
