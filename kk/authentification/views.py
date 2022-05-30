@@ -218,3 +218,13 @@ def deleteAnnonce (request,myid) :
     item.delete()
     
     return redirect(Control)
+
+
+def List_Association (request):
+    associations = Association.objects.all()
+    paginator= Paginator(associations,10)
+    page_number=request.GET.get('page')
+    associations=paginator.get_page(page_number)
+
+    context= {'associations':associations}
+    return render(request,'listAssociations.html',context)

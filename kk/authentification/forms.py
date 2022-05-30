@@ -31,7 +31,7 @@ class LoginForm(forms.ModelForm):
 class CreateAssociation (forms.ModelForm):
      class Meta:
         model=Association
-        fields=["name","file","willaya"]
+        fields=["name","file","willaya","type","category"]
 
 class CreatePersonne (forms.ModelForm):
      class Meta:

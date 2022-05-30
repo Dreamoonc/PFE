@@ -49,58 +49,59 @@
 
                     <table cellspacing="0">
                         <thead>
-                        <tr>
-                            <th>username</th>
-                            <th>Email</th>
-                            <th>nombre de signial</th>
-                            <th>supprimer</th>
-                        </tr>
-</thead>
+                            <tr>
+                                <th>username</th>
+                                <th>Email</th>
+                                <th>nombre de signial</th>
+                                <th>supprimer</th>
+                            </tr>
+                        </thead>
 
 
-<tbody>
-                        {% for user in users %}
-                        {% if user.signial > 0 %}
+                        <tbody>
+                            {% for user in users %}
+                            {% if user.signial > 0 %}
 
-                        <tr>
-                            <td data-column="First Name">{{user.username}}</td>
-                            <td data-column="First Name">{{user.email}}</td>
-                            <td data-column="First Name">{{user.signial}}</td>
-                            <td data-column="First Name"><a href="{% url 'deleteuser' user.id %}">
-                                <i class="fa-solid fa-trash-can"></i> </a></td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
+                            <tr>
+                                <td data-column="First Name">{{user.username}}</td>
+                                <td data-column="First Name">{{user.email}}</td>
+                                <td data-column="First Name">{{user.signial}}</td>
+                                <td data-column="First Name"><a href="{% url 'deleteuser' user.id %}">
+                                        <i class="fa-solid fa-trash-can"></i> </a></td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
 
-</tbody>
+                        </tbody>
                     </table>
 
                     <div class="pagination">
                         <span class="step-links">
                             {% if users.has_previous %}
-                           
-                            <a href="?page={{ users.previous_page_number }}" class="control"><i class="fa-solid fa-angle-left"></i></a>
-                            {% else  %}
+
+                            <a href="?page={{ users.previous_page_number }}" class="control"><i
+                                    class="fa-solid fa-angle-left"></i></a>
+                            {% else %}
                             <a href="#" class="control"><i class="fa-solid fa-angle-left"></i></a>
                             {% endif %}
 
                             <span class="current">
-                                
+
                                 {% for i in users.paginator.page_range %}
                                 {% if users.number == i %}
                                 <a class="num" href="#">{{ i }} </a>
                                 {% else %}
-                                <a class="num active"  href="?page={{ i }}">{{ i }}</a>
+                                <a class="num active" href="?page={{ i }}">{{ i }}</a>
                                 {% endif %}
                                 {% endfor %}
 
 
                             </span>
-                             {% if users.has_next %}
-                               <a href="?page={{ users.next_page_number }}" class="control"><i class="fa-solid fa-angle-right"></i></a>
-                             {% else %}
-                             <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
-                             {% endif %}
+                            {% if users.has_next %}
+                            <a href="?page={{ users.next_page_number }}" class="control"><i class="fa-solid fa-angle-right"></i></a>
+                            {% else %}
+                            <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
+                            {% endif %}
                         </span>
                     </div>
 
@@ -112,147 +113,131 @@
                     <table cellspacing="0">
                         <thead>
 
-                        <tr>
-                            <th>Email</th>
-                            <th>nombre de signial</th>
-                            <th>afficher annonce</th>
-                            <th>supprimer</th>
-                        </tr>
-</thead>
-<tbody>
+                            <tr>
+                                <th>Email</th>
+                                <th>nombre de signial</th>
+                                <th>afficher annonce</th>
+                                <th>supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
 
-                        {% for annonce in annonces %}
-                        {% if annonce.signial > 0 %}
+                            {% for annonce in annonces %}
+                            {% if annonce.signial > 0 %}
 
-                        <tr>
-                            <td data-column="First Name">{{annonce.user.email}}</td>
-                            <td data-column="First Name">{{user.signial}}</td>
-                            <td data-column="First Name">lien</td>
-                            <td data-column="First Name"><a href="{% url 'deleteuser' user.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-</tbody>
+                            <tr>
+                                <td data-column="First Name">{{annonce.user.email}}</td>
+                                <td data-column="First Name">{{user.signial}}</td>
+                                <td data-column="First Name">lien</td>
+                                <td data-column="First Name"><a href="{% url 'deleteuser' user.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
                     </table>
 
                     <div class="pagination">
                         <span class="step-links">
                             {% if annonces.has_previous %}
-                           
-                            <a href="?page={{ annonces.previous_page_number }}" class="control"><i class="fa-solid fa-angle-left"></i></a>
-                            {% else  %}
+
+                            <a href="?page={{ annonces.previous_page_number }}" class="control"><i
+                                    class="fa-solid fa-angle-left"></i></a>
+                            {% else %}
                             <a href="#" class="control"><i class="fa-solid fa-angle-left"></i></a>
                             {% endif %}
 
                             <span class="current">
-                                
+
                                 {% for i in annonces.paginator.page_range %}
                                 {% if annonces.number == i %}
                                 <a class="num" href="#">{{ i }} </a>
                                 {% else %}
-                                <a class="num active"  href="?page={{ i }}">{{ i }}</a>
+                                <a class="num active" href="?page={{ i }}">{{ i }}</a>
                                 {% endif %}
                                 {% endfor %}
 
 
                             </span>
-                             {% if annonces.has_next %}
-                               <a href="?page={{ annonces.next_page_number }}" class="control"><i class="fa-solid fa-angle-right"></i></a>
-                             {% else %}
-                             <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
-                             {% endif %}
+                            {% if annonces.has_next %}
+                            <a href="?page={{ annonces.next_page_number }}" class="control">
+                                <i class="fa-solid fa-angle-right"></i></a>
+                            {% else %}
+                            <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
+                            {% endif %}
                         </span>
                     </div>
 
                 </div>
-
-
-
-
-
-
-
                 <div class="table-users">
                     <div class="header">Associations</div>
 
                     <table cellspacing="0">
                         <thead>
-
-
-
-                        <tr>
-                            <th>nom</th>
-                            <th>Email</th>
-                            <th>File</th>
-                            <th>Accepter</th>
-                            <th>Refuser</th>
-                        </tr></thead>
+                            <tr>
+                                <th>nom</th>
+                                <th>Email</th>
+                                <th>File</th>
+                                <th>Accepter</th>
+                                <th>Refuser</th>
+                            </tr>
+                        </thead>
                         <tbody>
-
-
-                        {% for association in associations %}
-                        {% if association.is_valid == False %}
-
-                        <tr>
-                            <td data-column="First Name">{{association.name}}</td>
-                            <td data-column="First Name">{{association.user.email}}</td>
-                            <td data-column="First Name">{{association.file}}</td>
-                            <td data-column="First Name"><a href="{% url 'valider' association.user_id %}"><i
-                                        class="fa-solid fa-check"></i></a>
-                            </td>
-                            <td data-column="First Name"><a href="{% url 'deleteAssociation' association.user.id %}"><i
-                                        class="fa-solid fa-xmark"></i></a></td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-</tbody>
+                            {% for association in associations %}
+                            {% if association.is_valid == False %}
+                            <tr>
+                                <td data-column="First Name">{{association.name}}</td>
+                                <td data-column="First Name">{{association.user.email}}</td>
+                                <td data-column="First Name">{{association.file}}</td>
+                                <td data-column="First Name"><a href="{% url 'valider' association.user_id %}"><i
+                                            class="fa-solid fa-check"></i></a>
+                                </td>
+                                <td data-column="First Name"><a href="{% url 'deleteAssociation' association.user.id %}">
+                                    <i class="fa-solid fa-xmark"></i></a></td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
                     </table>
-
-
 
                     <div class="pagination">
                         <span class="step-links">
                             {% if associations.has_previous %}
-                           
-                            <a href="?page={{ associations.previous_page_number }}" class="control"><i class="fa-solid fa-angle-left"></i></a>
-                            {% else  %}
+
+                            <a href="?page={{ associations.previous_page_number }}" class="control">
+                                <i class="fa-solid fa-angle-left"></i></a>
+                            {% else %}
                             <a href="#" class="control"><i class="fa-solid fa-angle-left"></i></a>
                             {% endif %}
 
                             <span class="current">
-                                
+
                                 {% for i in associations.paginator.page_range %}
                                 {% if associations.number == i %}
                                 <a class="num" href="#">{{ i }} </a>
                                 {% else %}
-                                <a class="num active"  href="?page={{ i }}">{{ i }}</a>
+                                <a class="num active" href="?page={{ i }}">{{ i }}</a>
                                 {% endif %}
                                 {% endfor %}
 
 
                             </span>
-                             {% if associations.has_next %}
-                               <a href="?page={{ associations.next_page_number }}" class="control"><i class="fa-solid fa-angle-right"></i></a>
-                             {% else %}
-                             <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
-                             {% endif %}
+                            {% if associations.has_next %}
+                            <a href="?page={{ associations.next_page_number }}" class="control">
+                                <i class="fa-solid fa-angle-right"></i></a>
+                            {% else %}
+                            <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
+                            {% endif %}
                         </span>
                     </div>
 
                 </div>
 
-
-
             </section>
-
 
         </div>
 
     </div>
-
-
-
 
 
 </body>

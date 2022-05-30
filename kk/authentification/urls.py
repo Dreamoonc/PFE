@@ -16,6 +16,7 @@ urlpatterns = [
     path('administrateur/',views.Admin,name='administrateur'),
     path('arreter/<str:myid>/',Arreter,name='arreter'),
     path('control/',views.Control,name='control'),
+    path('list_association/',views.List_Association,name='list_association'),
     path('valider/<str:myid>/',Valider,name='valider'),
     path('deleteAssociation/<str:myid>/',deleteAssociation,name='deleteAssociation'),
     path('deleteuser/<str:myid>/',deleteUser,name='deleteuser'),

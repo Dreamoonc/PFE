@@ -1,0 +1,125 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/associationsList.css' %}">
+    <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="core1">
+
+        <section>
+            <div class="sidebar">
+                <ul>
+                    <li><a href="{% url 'annonce'%}"><div><i class="fa-solid fa-house"></i></div></i> Annonce</a></li>
+                    <li> <a href=""> <div><i class="fa-solid fa-user"></i></div> Profile</a> </li>
+                    <li> <a href="{% url 'cagniote' %}">cagnotte</a> </li>
+                    <li> <a href="{% url 'logout'%}">logout</a></li>
+                </ul>
+            </div>
+        </section>
+        <div class="core2">
+            <section style="width:100%;">
+                <div class="navBar">
+                    <img alt="Image profile" src="https://bit.ly/dan-abramov">
+                    <div class="icon">
+                        <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
+                            class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="table-users">
+                    <div class="header">
+                        <h3>ASSOCIATIONS</h3>
+                        <div>
+                            <i class="fa-solid fa-filter"></i>
+                        </div>
+                    </div>
+
+                    <table cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>nom</th>
+                                <th>Email</th>
+                                <th>File</th>
+                                <th>Accepter</th>
+                                <th>Refuser</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for association in associations %}
+                            {% if association.is_valid == False %}
+                            <tr>
+                                <td data-column="First Name">{{association.name}}</td>
+                                <td data-column="First Name">{{association.user.email}}</td>
+                                <td data-column="First Name">{{association.file}}</td>
+                                <td data-column="First Name"><a href="{% url 'valider' association.user_id %}"><i
+                                            class="fa-solid fa-check"></i></a>
+                                </td>
+                                <td data-column="First Name"><a href="{% url 'deleteAssociation' association.user.id %}">
+                                    <i class="fa-solid fa-xmark"></i></a></td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if associations.has_previous %}
+
+                            <a href="?page={{ associations.previous_page_number }}" class="control">
+                                <i class="fa-solid fa-angle-left"></i></a>
+                            {% else %}
+                            <a href="#" class="control"><i class="fa-solid fa-angle-left"></i></a>
+                            {% endif %}
+
+                            <span class="current">
+
+                                {% for i in associations.paginator.page_range %}
+                                {% if associations.number == i %}
+                                <a class="num" href="#">{{ i }} </a>
+                                {% else %}
+                                <a class="num active" href="?page={{ i }}">{{ i }}</a>
+                                {% endif %}
+                                {% endfor %}
+
+
+                            </span>
+                            {% if associations.has_next %}
+                            <a href="?page={{ associations.next_page_number }}" class="control">
+                                <i class="fa-solid fa-angle-right"></i></a>
+                            {% else %}
+                            <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
+                            {% endif %}
+                        </span>
+                    </div>
+
+                </div>
+                
+            </section>
+
+            
+            
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

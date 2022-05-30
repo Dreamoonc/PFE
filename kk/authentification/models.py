@@ -1,4 +1,5 @@
 from distutils.command.upload import upload
+from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser , BaseUserManager
 from django.utils import timezone
@@ -7,6 +8,18 @@ from django.utils import timezone
 TYPE_ANNONCE=(
     ('demande','demande'),
     ("don","don")
+)
+TYPE_ASSOCIATION=(
+    ('National','National'),
+    ('Locale','Locale')
+)
+CATEGORY_ASSOCIATION =(
+    ("Association d'handicapé", "Association d'handicapé"),
+    ('association de grands malades ','association de grands malades '),
+    ("de solidarité humanitaire","de solidarité humanitaire"),
+    ('association des femmes' , 'association des femmes'),
+    ("association d'enfances","association d'enfances"),
+    ('association culturelles et sport pour handicapés','association culturelles et sport pour handicapés')
 )
 WILLAYA=(
 (1,	'Adrar'	),
@@ -143,6 +156,8 @@ class Association (models.Model):
     user = models.OneToOneField(User , on_delete=models.CASCADE, primary_key=True,)
     name = models.CharField(max_length=255)
     file = models.CharField (max_length=200)
+    type = models.CharField(choices=TYPE_ASSOCIATION ,  max_length=10)
+    category = models.CharField(choices=CATEGORY_ASSOCIATION ,  max_length=50)
     willaya=models.CharField(choices=WILLAYA ,  max_length=10)
     is_valid = models.BooleanField(default=False)
 
