@@ -7,6 +7,7 @@ from .models import *
 from django.core.paginator import Paginator 
 from .forms import  *
 from django.contrib import messages
+from .filters import *
 
 
 def Register (request):
@@ -222,9 +223,13 @@ def deleteAnnonce (request,myid) :
 
 def List_Association (request):
     associations = Association.objects.all()
+
+    a= AssociationFilter(request.GET, queryset=associations)
+    associations=a.qs
+
     paginator= Paginator(associations,10)
     page_number=request.GET.get('page')
     associations=paginator.get_page(page_number)
 
-    context= {'associations':associations}
+    context= {'associations':associations , "filtre":a}
     return render(request,'listAssociations.html',context)

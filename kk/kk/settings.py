@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentification',
     'livereload',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
