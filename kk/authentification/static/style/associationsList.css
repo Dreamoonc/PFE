@@ -1,8 +1,8 @@
 .header {
     color: #16365f;
     padding: 20px 10px;
-    font-size: 25px;
-    /* font-weight: 700; */
+    
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -152,4 +152,42 @@
   }
   .active{
     color:#2463ec
+  }
+
+
+  .input {
+    outline: none;
+    width: 150px;
+    padding: 10px;
+    border-radius: 15px;
+    border:#E2E8F0 1px solid;
+    margin: 15px 0;
+    font-size: 14px;
+  }
+  .input:focus{
+    z-index: 1;
+      border-color: rgb(49, 130, 206);
+      box-shadow: rgb(49 130 206) 0px 0px 0px 1px;
+  }
+
+  option[selected]{
+    display : none 
+  }
+
+  .green_btn {
+    border: none;
+      outline: none;
+      padding: 10px 0;
+      margin: 0;
+      border-radius: 15px;
+      width: 150px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      background-color: #5be4a8;
+      color: white;
+    margin-top: 25px;
+  }
+  .green_btn:hover{
+    background-color:  #88e9bf;
   }
