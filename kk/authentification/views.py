@@ -1,8 +1,10 @@
 
+from xml.dom.pulldom import parseString
 from django.shortcuts import redirect, render
 from django.http import HttpRequest
 from django.contrib.auth import authenticate , login ,logout
 from .models import *
+from django.core.paginator import Paginator 
 from .forms import  *
 from django.contrib import messages
 
@@ -174,6 +176,20 @@ def Control (request):
     associations = Association.objects.all()
     users = User.objects.all()
     annonces = Annonce.objects.all()
+
+    paginator= Paginator(users,5)
+    page_number=request.GET.get('page')
+    users=paginator.get_page(page_number)
+
+    paginator= Paginator(associations,5)
+    page_number=request.GET.get('page')
+    associations=paginator.get_page(page_number)
+
+    paginator= Paginator(annonces,5)
+    page_number=request.GET.get('page')
+    annonces=paginator.get_page(page_number)
+
+    
 
     context= {'associations': associations,'users':users, 'annonces':annonces}
     return render(request,'control.html',context)    
