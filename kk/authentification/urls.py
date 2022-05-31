@@ -4,7 +4,9 @@ from .views import *
 
 
 urlpatterns = [
-    path('',views.Profile,name='profile'),
+    # path('',views.Profile,name='profile'),
+    path('profile/',UserEdit.as_view(),name='profile'),
+    path('<int:pk>/profil/',ShowProfilePersonne.as_view(),name='ShowProfilePersonne'),
     path('annonce/',views.annonce,name='annonce'),
     path('login/',views.Loginin,name='login'),
     path('signup/',views.Register,name='signup'),
@@ -21,4 +23,8 @@ urlpatterns = [
     path('deleteAssociation/<str:myid>/',deleteAssociation,name='deleteAssociation'),
     path('deleteuser/<str:myid>/',deleteUser,name='deleteuser'),
     path('deleteAnnonce/<str:myid>/',deleteAnnonce,name='deleteAnnonce'),
+    path('add_comment/<str:myid>/',views.add_comment,name='add_comment'),
+    path('updateAnnonce/<int:pk>/',views.updateAnnonce , name="updateAnnonce"),
+    path('password/',PasswordChange.as_view()),
+    path('password_success/',views.password_success,name="password_success"),
 ]

@@ -21,7 +21,7 @@
                     <ul>
                         <li><a href="{% url 'annonce'%}"><div><i class="fa-solid fa-house"></i></div></i> Annonce</a></li>
                         <li> <a href="{% url 'profile'%}"> <div><i class="fa-solid fa-user"></i></div> Profile</a> </li>
-                        <li> <a href="">cagnotte</a> </li>
+                        <li> <a href="{% url 'cagniote'%}"> <div><i class="fa-solid fa-hand-holding-dollar"></i></div> cagnotte</a> </li>
                         <li> <a href="">lorem ipsum</a></li>
     
                     </ul>
@@ -31,7 +31,7 @@
         <div class="core2">
             <section style="width:100%;">
                 <div class="navBar">
-                    <a href="{% url 'profile'%}"><img alt="Image profile" src="https://bit.ly/dan-abramov"></a>
+                    <a href="{% url 'profile'%}"><img alt="Image profile" src="{{request.user.img.url}}"></a>
                     <div class="icon">
                         <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
                             height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -46,9 +46,9 @@
             <section>
                 <div class="container2">
                     <div class="postbox">
-                        <a href="{% url 'profile'%}"><img src="https://bit.ly/dan-abramov" alt=""></a>
+                        <a href="{% url 'profile'%}"><img src="{{request.user.img.url}}" alt=""></a>
                         <div class="newpst-input">
-                            <form method="POST" enctype="multipart/form-data">
+                            <form method="POST" enctype="multipart/form-data" >
                                 {% csrf_token %}
                                 {{formAnnonce.contenu}}
                                 <div class="attachments">
@@ -75,18 +75,28 @@
             <section class="main-content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-6 offset-sm-3">
+                        <div class="col-sm-8 offset-sm-2">
                             {% for  annonce in annonces%}
                             <div class="post-block">
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex mb-3">
+                                        {% if annonce.auteur.id == request.user.id%}
                                         <div class="mr-2">
-                                            <a href="{% url 'profile'%}" class="text-dark"><img src="https://bit.ly/dan-abramov" alt="User" class="author-img"></a>
+                                            <a href="{% url 'profile' %}" class="text-dark"><img src="{{annonce.auteur.img.url}}" alt="User" class="author-img"></a>
                                         </div>
                                         <div>
-                                            <h5 class="mb-0"><a href="#!" class="text-dark">{{annonce.auteur.username}}</a></h5>
-                                            <p class="mb-0 text-muted">5m</p>
+                                            <h5 class="mb-0"><a href="{% url 'profile' %}" class="text-dark">{{annonce.auteur.username}}</a></h5>
+                                            <p class="mb-0 text-muted">{{annonce.date}}</p>
                                         </div>
+                                        {% else %}
+                                        <div class="mr-2">
+                                            <a href="{% url 'ShowProfilePersonne' annonce.auteur.id %}" class="text-dark"><img src="{{annonce.auteur.img.url}}" alt="User" class="author-img"></a>
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-0"><a href="{% url 'ShowProfilePersonne' annonce.auteur.id %}" class="text-dark">{{annonce.auteur.username}}</a></h5>
+                                            <p class="mb-0 text-muted">{{annonce.date}}</p>
+                                        </div>
+                                        {% endif%}
                                     </div>
                                     <div class="post-block__user-options">
                                         <a href="#!" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
@@ -94,22 +104,28 @@
                                                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                            <a class="dropdown-item text-dark" href="#!"><i class="fa fa-pencil mr-1"></i>Edit</a>
+                                            {% if user.id == annonce.auteur.id %}
+                                            <a class="dropdown-item text-dark" href="{% url 'updateAnnonce' annonce.id %}"><i class="fa fa-pencil mr-1"></i>Edit</a>
                                             <a class="dropdown-item text-danger" href="{% url 'delete_annonce' annonce.id %}"><i class="fa fa-trash mr-1"></i>Delete</a>
+                                            {% else %}
+                                            <a class="dropdown-item text-dark" href="#!">Signaler</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="post-block__content mb-2">
                                     <p>{{annonce.contenu}}</p>
                                     {% if annonce.image %}
-                                    <img src="{{annonce.image.url}}" alt="Content img">
+                                    <div>
+                                        <img src="{{annonce.image.url}}" alt="Content img">
+                                    </div>
                                     {% endif %}
                                 </div>
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between mb-2">
                                         <div class="d-flex">
                                             <a href="#!" class="text-danger mr-2"><span><i class="fa fa-heart"></i></span></a>
-                                            <a href="#!" class="text-dark mr-2"><span>Comment</span></a>
+                                            <a href="#comment" class="text-dark mr-2"><span>Comment</span></a>
                                         </div>
                                         <a href="#!" class="text-dark"><span>Share</span></a>
                                     </div>
@@ -118,26 +134,49 @@
                                 <hr>
                                 <div class="post-block__comments">
                                     <!-- Comment Input -->
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Add your comment">
-                                        <div class="input-group-append">
-                                              <button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
+                                    <form action="{% url 'add_comment' annonce.id %}" method="post">
+                                        <div class="input-group mb-3" id="comment">
+                                            {% csrf_token %}
+                                            {{commentForm.contenu}}
+                                            <!-- <input type="text" class="form-control" placeholder="Add your comment"> -->
+                                            <div class="input-group-append">
+                                                  <button class="btn btn-primary" type="submit" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
+                                    
                                     <!-- Comment content -->
+                                    {%if not annonce.comments.all %}
+                                    <p>Aucun commentaire ...</p>
+                                    {% else %}
+                                        {% for comment in annonce.comments.all%}
                                     <div class="comment-view-box mb-3">
+                                        {% if annonce.auteur.id == request.user.id%}
                                         <div class="d-flex mb-2">
-                                            <img src="img/user2.jpg" alt="User img" class="author-img author-img--small mr-2">
+                                            <a href="{% url 'profile' %}"><img src="{{comment.auteur.img.url}}" alt="User img" class="author-img author-img--small mr-2"></a>
                                             <div>
-                                                <h6 class="mb-1"><a href="#!" class="text-dark">John doe</a> <small class="text-muted">1m</small></h6>
-                                                <p class="mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <h6 class="mb-1"><a href="{% url 'profile' %}" class="text-dark">{{comment.auteur.username}}</a> <small class="text-muted">{{comment.date}}</small></h6>
+                                                <p class="mb-1">{{comment.contenu}}</p>
                                                 <div class="d-flex">
                                                     <a href="#!" class="text-dark mr-2"><span><i class="fa fa-heart-o"></i></span></a>
-                                                    <a href="#!" class="text-dark mr-2"><span>Reply</span></a>
                                                 </div>
                                             </div>
                                         </div>
+                                        {% else %}
+                                        <div class="d-flex mb-2">
+                                            <a href="{% url 'ShowProfilePersonne' comment.auteur.id %}"><img src="{{comment.auteur.img.url}}" alt="User img" class="author-img author-img--small mr-2"></a>
+                                            <div>
+                                                <h6 class="mb-1"><a href="{% url 'ShowProfilePersonne' annonce.auteur.id %}" class="text-dark">{{comment.auteur.username}}</a> <small class="text-muted">{{comment.date}}</small></h6>
+                                                <p class="mb-1">{{comment.contenu}}</p>
+                                                <div class="d-flex">
+                                                    <a href="#!" class="text-dark mr-2"><span><i class="fa fa-heart-o"></i></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
                                     </div>
+                                        {%endfor%}
+                                    {%endif%}
                                     <!-- More Comments -->
                                     <hr>
                                     <a href="#!" class="text-dark">View More comments <span class="font-weight-bold">(12)</span></a>

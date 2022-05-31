@@ -1,6 +1,6 @@
 
 from xml.dom.pulldom import parseString
-from django.shortcuts import redirect, render
+from django.shortcuts import  get_object_or_404, redirect, render
 from django.http import HttpRequest
 from django.contrib.auth import authenticate , login ,logout
 from .models import *
@@ -8,7 +8,12 @@ from django.core.paginator import Paginator
 from .forms import  *
 from django.contrib import messages
 from .filters import *
-
+from django.contrib.auth.forms import UserChangeForm ,PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView
+from django.views import generic
+from django.contrib import messages
 
 def Register (request):
     form = CreateUserForm()
@@ -92,10 +97,57 @@ def Loginin (request):
     context= {'form':form}
     return render(request,'login.html',context)
 
+class UserEdit (generic.UpdateView):
+    form_class=EditProfileForm
+    template_name= 'profile.html'
+    success_url=reverse_lazy('profile')
+    def get_object(self):
+        return self.request.user
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['annonces'] = Annonce.objects.filter(auteur=self.request.user)
+        if self.request.user.is_person == True:
+            context['info']=PhysicalUser.objects.get(user=self.request.user)
+        elif self.request.user.association == True:
+            context['info']=Association.objects.get(user=self.request.user)
+        return context
 
-def Profile (request):
-    context= {}
-    return render(request,'profile.html',context)
+class ShowProfilePersonne(DetailView):
+    model=User
+    template_name= 'personneProfile.html'
+    def get_context_data(self, *args,**kwargs):
+        profile=User.objects.all()
+        context=super(ShowProfilePersonne,self).get_context_data(*args,**kwargs)
+        page_user = get_object_or_404(User,id=self.kwargs['pk'])
+        context['page_user']=page_user
+        auteur=User.objects.get(id=self.kwargs['pk'])
+        context['annonces']=Annonce.objects.filter(auteur=auteur)
+        if auteur.is_person == True:
+            context['info']=PhysicalUser.objects.get(user=auteur)
+        elif auteur.is_association == True:
+            context['info']=Association.objects.get(user=auteur)
+        return context
+
+class PasswordChange (PasswordChangeView):
+    form_class=PasswordForm
+    template_name='passwordChange.html'
+    success_url = reverse_lazy('password_success')
+
+
+def password_success(request):
+    return render(request,'password_success.html')
+
+def updateAnnonce (request,pk):
+    itemup = Annonce.objects.get(id =pk)
+    formAnnonce=AnnonceForm(instance = itemup)
+    if request.method == 'POST' :
+        formAnnonce=AnnonceForm(request.POST, request.FILES, instance=itemup)
+        if formAnnonce.is_valid():
+            formAnnonce.save()
+            return redirect('annonce')
+    context={'formAnnonce':formAnnonce}    
+    return render(request,'annonce.html',context)
+   
 
 
 
@@ -111,11 +163,14 @@ def Logoutt (request):
 
 def annonce (request):
     annonces= Annonce.objects.all()
-    formAnnonce = AnnonceForm()
+    formAnnonce=AnnonceForm()
     if request.method =='POST':
         auteur= request.user
         if formAnnonce.is_valid :
-            image = request.FILES['image']
+            if request.FILES:
+                image = request.FILES['image']
+            else:
+                image = request.POST['image']
             contenu = request.POST['contenu']
             type = request.POST['type']
             Annonce.objects.create(
@@ -125,15 +180,38 @@ def annonce (request):
                 type = type 
             )
             return redirect('annonce')
-
-    context= {'formAnnonce':formAnnonce , 'annonces':annonces}
+        else:
+            formAnnonce = AnnonceForm()
+    commentForm=CommentForm()
+    context= {'formAnnonce':formAnnonce , 'annonces':annonces ,'commentForm':commentForm}
     return render(request,'annonce.html',context)
+
+def add_comment (request,myid):
+    formComment=CommentForm()
+    if request.method == "POST":
+        auteur=request.user
+        annonce=Annonce.objects.get(id=myid)
+        if formComment.is_valid:
+            contenu=request.POST['contenu']
+            Comment.objects.create(
+                auteur=auteur,
+                contenu=contenu,
+                annonce=annonce
+            )
+            return redirect('annonce')
+        else:
+            formComment=CommentForm()
+    context={}
+    return render(request,'annonce.html',context)
+
+
 
 def delete_annonce (request,myid) :
     item = Annonce.objects.get(id =myid)
     item.delete()
     messages.info(request,'Annonce supprimé')
     return redirect(annonce)
+
 
 def ListCagniote (request):
     cagnites= Cagniote.objects.all()

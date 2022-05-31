@@ -111,13 +111,11 @@ class UserManager(BaseUserManager):
         return user 
         
 
-
-
 class User(AbstractBaseUser):
     email = models.EmailField(verbose_name = "email adress",max_length=60,unique=True )
     username = models.CharField(verbose_name = "username",max_length=60,unique=True)
     phone = models.CharField(max_length=10 , verbose_name="phone number ")
-    img = models.BinaryField(verbose_name="image")
+    img = models.ImageField(verbose_name="image", upload_to='images/' ,default='profile.png')
     signial = models.IntegerField(default=0)
 
     is_admin=models.BooleanField(default=False)
@@ -163,16 +161,22 @@ class Association (models.Model):
 
 class Annonce (models.Model):
     contenu=models.TextField(max_length=600)
-    date=models.DateTimeField(default=timezone.now)
+    date=models.DateTimeField(auto_now_add=True)
     image = models.ImageField(null=True , blank=True, upload_to='images/')
     type=models.CharField(choices=TYPE_ANNONCE,max_length=10,default='demande')
-    signial = models.IntegerField(default=0)
     auteur= models.ForeignKey(User,on_delete=models.CASCADE)
-
+    signial = models.IntegerField(default=0)
     def __str__(self):
-        return self.auteur +" "+self.date
+        return str(self.id)
+    class Meta:
+        ordering = ['-date']
 
-
+class Comment(models.Model):
+    annonce=models.ForeignKey(Annonce, related_name="comments",on_delete=models.CASCADE)
+    contenu=models.CharField(max_length=200)
+    date=models.DateTimeField(auto_now_add=True)
+    auteur=models.ForeignKey(User,on_delete=models.CASCADE)
+    
 class Cagniote (models.Model):
     titre = models.CharField(max_length=255)
     contenu = models.TextField(max_length=600)

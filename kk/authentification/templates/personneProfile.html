@@ -6,12 +6,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="{% static 'style/annonce.css' %}"> 
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
     <link rel="stylesheet" href="{% static 'style/profile.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
-    
+
     <title>Document</title>
 </head>
 
@@ -49,21 +50,21 @@
                         <div class="cover2">
                             <div class="cover3">
                                 <span class="avatar">
-                                    <img alt="Image profile" src="{{request.user.img.url}}">
+                                    <img alt="Image profile" src="{{page_user.img.url}}">
                                 </span>
                                 <div class="coverInfo">
-                                    <p class="pseudo">{{request.user.username}}</p>
-                                    {%if request.user.is_person == True %}
+                                    <p class="pseudo">{{page_user.username}}</p>
+                                    {%if page_user.is_person == True %}
                                     <p class="type">Personne</p>
                                     {% else%}
-                                    <p class="type"></p>
+                                    <p class="type">Association</p>
                                     {% endif  %}
                                 </div>
                             </div>
-                            <a href="#ajout" >
+                            <a href="#" >
                                 <button type="button" class="button1">
-                                    <i class="fa-solid fa-pencil fa-lg"></i>
-                                    <p>EDIT</p>
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                    <p>Signaler</p>
                                 </button>
                             </a>
                            
@@ -72,7 +73,7 @@
                 </div>
             </section>
 
-            <div class="core3">
+                      <div class="core3">
                 <section class="main-content">
                     <div class="container">
                         <div class="row">
@@ -142,7 +143,8 @@
                                                 {{commentForm.contenu}}
                                                 <!-- <input type="text" class="form-control" placeholder="Add your comment"> -->
                                                 <div class="input-group-append">
-                                                      <button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
+                                                    
+                                                      <button class="btn btn-primary" type="submit" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
                                                 </div>
                                             </div>
                                         </form>
@@ -189,17 +191,7 @@
                     </div>
                 </section>
             </div>
-
-            <div id="ajout" class="modal1">
-                <div class="modal__content1">
-                    <form method="POST" class="form" enctype="multipart/form-data"  >
-                        {% csrf_token %}
-                        {{form}}
-                        <input type="submit" value="modifier" class="green_btn">
-                    </form>
-                    <a href="#" class="modal__close1">&times;</a>
-                </div>
-            </div>
+            
             
         </div>
 
