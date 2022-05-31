@@ -1,9 +1,10 @@
 
 from django import forms
-from django.forms import ModelForm, TextInput ,PasswordInput
+from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm , PasswordChangeForm
 from .models import *
 from django.contrib.auth import authenticate 
+
 
 class CreateUserForm (UserCreationForm):
     class Meta :
@@ -39,11 +40,14 @@ class CreatePersonne (forms.ModelForm):
         fields=["first_name","last_name","willaya"]
 
 class AnnonceForm (ModelForm):
+    # image=forms.ImageField(widget=)
     class Meta:
         model=Annonce
         fields=['contenu','image','type']
         widgets={
-            'contenu':forms.Textarea(attrs={'class':'textholder','placeholder':'ecrire ...'})
+            'contenu':forms.Textarea(attrs={'class':'textholder','placeholder':'ecrire ...'}),
+            'image':forms.widgets.FileInput(attrs={'id':'image_input'}),
+            'type':forms.Select(attrs={'class':'input'})
         }
 
 class CommentForm (ModelForm):

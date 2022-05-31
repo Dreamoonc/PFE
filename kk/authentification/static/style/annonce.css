@@ -65,9 +65,13 @@ body {
     list-style: outside none none;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content:flex-end;
+    align-items:center;
     padding: 0px;
 
+}
+.attachments li{
+    margin-right: 15px;
 }
 
 .newpst-input form{
@@ -133,3 +137,38 @@ body {
     box-sizing: border-box;
 }
 
+#image_input{
+    display: none;
+}
+
+.attachments .fa{
+    margin-top: 15px;
+}
+.input {
+	outline: none;
+	width:100%;
+	padding: 5px 10px;
+	border-radius: 0px;
+	border:#E2E8F0 2px solid;
+
+	font-size: 14px;
+}
+
+.input:focus{
+
+    border-color: rgb(49, 130, 206);
+    box-shadow: rgb(49 130 206) 0px 0px 0px 1px;
+}
+
+.ajouter{
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    background-color: #5be4a8;
+    color: white;
+
+}

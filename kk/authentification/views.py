@@ -150,7 +150,6 @@ def updateAnnonce (request,pk):
    
 
 
-
 def Select (request):
     
     context= {}
