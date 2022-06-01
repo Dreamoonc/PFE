@@ -15,6 +15,7 @@ urlpatterns = [
     path('select/',views.Select,name='select'),
     path('cagniote/',views.ListCagniote,name='cagniote'),
     path('delete_annonce/<str:myid>/',delete_annonce,name='delete_annonce'),
+    path('delete_comment/<str:myid>/',delete_comment,name='delete_comment'),
     path('administrateur/',views.Admin,name='administrateur'),
     path('arreter/<str:myid>/',Arreter,name='arreter'),
     path('control/',views.Control,name='control'),

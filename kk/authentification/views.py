@@ -215,6 +215,11 @@ def delete_annonce (request,myid) :
     messages.info(request,'Annonce supprimé')
     return redirect(annonce)
 
+def delete_comment (request,myid):
+    item=Comment.objects.get(id=myid)
+    item.delete()
+    messages.info(request,'commentaire supprimé')
+    return  redirect(annonce)
 
 def ListCagniote (request):
     cagnites= Cagniote.objects.all()
