@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
     <link rel="stylesheet" href="{% static 'style/associationsList.css' %}">
+    <link rel="stylesheet" href="{% static 'style/kk.css' %}">
     <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
 
     <title>Document</title>
@@ -20,8 +21,12 @@
         <section>
             <div class="sidebar">
                 <ul>
-                    <li><a href="{% url 'annonce'%}"><div><i class="fa-solid fa-house"></i></div></i> Annonce</a></li>
-                    <li> <a href=""> <div><i class="fa-solid fa-user"></i></div> Profile</a> </li>
+                    <li><a href="{% url 'annonce'%}">
+                            <div><i class="fa-solid fa-house"></i></div></i> Annonce
+                        </a></li>
+                    <li> <a href="">
+                            <div><i class="fa-solid fa-user"></i></div> Profile
+                        </a> </li>
                     <li> <a href="{% url 'cagniote' %}">cagnotte</a> </li>
                     <li> <a href="{% url 'logout'%}">logout</a></li>
                 </ul>
@@ -45,15 +50,34 @@
                 <div class="table-users">
                     <div class="header">
                         <h3>ASSOCIATIONS</h3>
+
                         <div class="filtrage">
-                            <form action="" methode="get">
-                                {{filtre.form}}
-                                <button class="green_btn" type="submit"> Search </button>
+                            <form action="" methode="get" id="searchbox">
+                                <input type="text" placeholder="chercher"  name="q">
+                                <button  id="button-submit" type="submit"> <i class="fa-solid fa-magnifying-glass"></i> </button>
                             </form>
+
+                            <div class="dd">
+                            <div class="dd-a"><i class="fa-solid fa-filter"></i></div>
+                            <input type="checkbox">
+                            <div class="dd-c">
+                                <form class="formFilter" action="" methode="get">
+                                    {{filtre.form}}
+                                    <button class="green_btn" type="submit"> Search </button>
+                                </form>
+                             
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                            <i class="fa-solid fa-filter"></i>
-                        </div>
+                    
+
+                        
+                        
+
+
+
+
+
                     </div>
 
                     <table cellspacing="0">
@@ -61,25 +85,24 @@
                             <tr>
                                 <th>nom</th>
                                 <th>Email</th>
-                                <th>File</th>
-                                <th>Accepter</th>
-                                <th>Refuser</th>
+                                <th>type</th>
+                                <th>willaya</th>
+                                <th>category</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for association in associations %}
-                            {% if association.is_valid == False %}
+                            
                             <tr>
-                                <td data-column="First Name">{{association.name}}</td>
-                                <td data-column="First Name">{{association.user.email}}</td>
-                                <td data-column="First Name">{{association.file}}</td>
-                                <td data-column="First Name"><a href="{% url 'valider' association.user_id %}"><i
-                                            class="fa-solid fa-check"></i></a>
+                                <td data-column="nom">{{association.name}}</td>
+                                <td data-column="Email">{{association.user.email}}</td>
+                                <td data-column="type">{{association.type}}</td>
+                                <td data-column="willaya"> {{association.willaya}}
                                 </td>
-                                <td data-column="First Name"><a href="{% url 'deleteAssociation' association.user.id %}">
-                                    <i class="fa-solid fa-xmark"></i></a></td>
+                                <td data-column="category">{{association.category}}
+                                       </td>
                             </tr>
-                            {% endif %}
+                            
                             {% endfor %}
                         </tbody>
                     </table>
@@ -116,15 +139,14 @@
                     </div>
 
                 </div>
-                
+
             </section>
 
-            
-            
+
+
         </div>
 
     </div>
-
 
 
 </body>

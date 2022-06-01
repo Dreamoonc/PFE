@@ -85,12 +85,11 @@ WILLAYA=(
 
 
 class AssociationFilter(django_filters.FilterSet):
-    name=CharFilter(label='',widget=TextInput(attrs={'placeholder':'nom association','class':'input'}))
     willaya=ChoiceFilter(choices=WILLAYA,label='',empty_label="willaya",widget=Select(attrs={'class':'input'}))
     type=ChoiceFilter(choices=TYPE_ASSOCIATION,label='',empty_label="type",widget=Select(attrs={'class':'input'}))
     category=ChoiceFilter(choices=CATEGORY_ASSOCIATION,label='',empty_label="category",widget=Select(attrs={'class':'input'}))
 
     class  Meta :
        model = Association
-       fields = ['name','willaya','type','category']
-       
+       fields = ['willaya','type','category']
+

@@ -1,193 +1,199 @@
 .header {
-    color: #16365f;
-    padding: 20px 10px;
-    
-    
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  color: #16365f;
+  padding: 20px 10px;
+  
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-  table { 
-      width: 100%; 
-      border-collapse: collapse; 
-      
-      }
-    .table-users{
-      background-color: white;
-      border-radius: 15px;
-      box-shadow: 0px 4px 12px #eee;
-      margin-bottom: 30px;
-      margin-top:   20px;
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    
     }
-  
-  tbody tr:nth-child(2n){
-    background-color : #f7f9fb;
-  }
-  
-  th { 
-      color: #a0aec0;
-    font-weight: 400;
-      
-      }
-  
-  td, th { 
-      padding: 10px; 
-      text-align: left; 
-      font-size: 18px;
-      }
-  
-  
-  tr{
-    color: #16365f;
-  }
-  thead tr {
-    background-color : white ;
-  }
-  tbody tr:hover{
-    background-color : #2f33a7;;
-    color: white;
-  }
-  tbody tr:nth-child(2n):hover{
-    background-color : #2f33a7;
-    color: white;
-  }
-  tbody tr:nth-child(2n):hover{
-    background-color : #2f33a7;
-    color: white;
-  }
-  
-  /* 
-  Max width before this PARTICULAR table gets nasty
-  This query will take effect for any screen smaller than 760px
-  and also iPads specifically.
-  */
-  @media 
-  only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px)  {
-  
-      table { 
-            width: 100%; 
-      }
-  
-      /* Force table to not be like tables anymore */
-      table, thead, tbody, th, td, tr { 
-          display: block; 
-      }
-      
-      /* Hide table headers (but not display: none;, for accessibility) */
-      thead tr { 
-          position: absolute;
-          top: -9999px;
-          left: -9999px;
-      }
-      
-  
-      
-      td { 
-          /* Behave  like a "row" */
-          border: none;
-          position: relative;
-          padding-left: 50%; 
-      }
-  
-      td:before { 
-          /* Now like a table header */
-          position: absolute;
-          /* Top/left values mimic padding */
-          top: 6px;
-          left: 6px;
-          width: 45%; 
-          padding-right: 10px; 
-          white-space: nowrap;
-          /* Label the data */
-          content: attr(data-column);
-  
-          color: #000;
-          font-weight: bold;
-      }
-  
-  }
-  
-  table  .fa-trash-can{
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    color: rgb(231, 93, 93);
-    padding-left: 30px;
-  }
-  table .fa-xmark{
-    color: rgb(231, 93, 93);
-    margin-left: 25px;
-    padding: 2px 5px;
-    border:  rgb(231, 93, 93) 2px solid ;
-  }
-  table .fa-check{
-    color: rgb(87, 219, 120);
-    margin-left: 25px;
-    padding: 2px;
-    border:  rgb(87, 219, 120) 2px solid ;
-  }
-  
-  .fa-angle-right{
-    margin-left: 25px; 
-    color: gray;
-  }
-  .fa-angle-left{
-    margin-right: 10px; 
-    color: gray;
-  }
-  
-  .control{
-    text-decoration: none;
-    color: #2463ec;
-  }
-  .control:hover{
-    color: #fec200;
-  }
-  .pagination {
-    text-align: center;
-    padding: 20px;
-  }
-  a.num {
-    padding-left: 15px;
-  }
-  .active{
-    color:#2463ec
-  }
-
-
-  .input {
-    outline: none;
-    width: 150px;
-    padding: 10px;
+  .table-users{
+    background-color: white;
     border-radius: 15px;
-    border:#E2E8F0 1px solid;
-    margin: 15px 0;
-    font-size: 14px;
-  }
-  .input:focus{
-    z-index: 1;
-      border-color: rgb(49, 130, 206);
-      box-shadow: rgb(49 130 206) 0px 0px 0px 1px;
+    box-shadow: 0px 4px 12px #eee;
+    margin-bottom: 30px;
+    margin-top:   20px;
   }
 
-  option[selected]{
-    display : none 
-  }
+tbody tr:nth-child(2n){
+  background-color : #f7f9fb;
+}
 
-  .green_btn {
-    border: none;
-      outline: none;
-      padding: 10px 0;
-      margin: 0;
-      border-radius: 15px;
-      width: 150px;
-      font-weight: bold;
-      font-size: 15px;
-      cursor: pointer;
-      background-color: #5be4a8;
-      color: white;
-    margin-top: 25px;
-  }
-  .green_btn:hover{
-    background-color:  #88e9bf;
-  }
+th { 
+    color: #a0aec0;
+  font-weight: 400;
+    
+    }
+
+td, th { 
+    padding: 10px; 
+    text-align: left; 
+    font-size: 18px;
+    }
+
+
+tr{
+  color: #16365f;
+}
+thead tr {
+  background-color : white ;
+}
+tbody tr:hover{
+  background-color : #2f33a7;;
+  color: white;
+}
+tbody tr:nth-child(2n):hover{
+  background-color : #2f33a7;
+  color: white;
+}
+tbody tr:nth-child(2n):hover{
+  background-color : #2f33a7;
+  color: white;
+}
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+    table { 
+          width: 100%; 
+    }
+
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+    
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+
+    
+    td { 
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-left: 50%; 
+    }
+
+    td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+        /* Label the data */
+        content: attr(data-column);
+
+        color: #000;
+        font-weight: bold;
+    }
+
+}
+
+table  .fa-trash-can{
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: rgb(231, 93, 93);
+  padding-left: 30px;
+}
+table .fa-xmark{
+  color: rgb(231, 93, 93);
+  margin-left: 25px;
+  padding: 2px 5px;
+  border:  rgb(231, 93, 93) 2px solid ;
+}
+table .fa-check{
+  color: rgb(87, 219, 120);
+  margin-left: 25px;
+  padding: 2px;
+  border:  rgb(87, 219, 120) 2px solid ;
+}
+
+.fa-angle-right{
+  margin-left: 25px; 
+  color: gray;
+}
+.fa-angle-left{
+  margin-right: 10px; 
+  color: gray;
+}
+
+.control{
+  text-decoration: none;
+  color: #2463ec;
+}
+.control:hover{
+  color: #fec200;
+}
+.pagination {
+  text-align: center;
+  padding: 20px;
+}
+a.num {
+  padding-left: 15px;
+}
+.active{
+  color:#2463ec
+}
+
+
+.input {
+  outline: none;
+  width: 150px;
+  padding: 10px;
+  border-radius: 15px;
+  border:#E2E8F0 1px solid;
+  margin: 15px 0;
+  font-size: 14px;
+}
+.input:focus{
+  z-index: 1;
+    border-color: rgb(49, 130, 206);
+    box-shadow: rgb(49 130 206) 0px 0px 0px 1px;
+}
+
+option[selected]{
+  display : none 
+}
+
+.green_btn {
+  border: none;
+    outline: none;
+    padding: 10px 0;
+    margin: 0;
+    border-radius: 15px;
+    width: 150px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    background-color: #5be4a8;
+    color: white;
+  margin-top: 25px;
+}
+.green_btn:hover{
+  background-color:  #88e9bf;
+}
+
+
+form.formFilter {
+  display: flex;
+  flex-direction: column;
+}

@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'authentification',
     'livereload',
     'django_filters',
-    'foundation_filefield_widget',
+    
 ]
 
 MIDDLEWARE = [
