@@ -315,3 +315,9 @@ def List_Association (request):
 
     context= {'associations':associations , "filtre":a}
     return render(request,'listAssociations.html',context)
+
+def Landing(request):
+    return render(request,'landing.html')
+
+def landingRecherche(request):
+    return render(request,'landingRecherche.html')

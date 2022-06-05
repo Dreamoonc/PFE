@@ -4,7 +4,8 @@ from .views import *
 
 
 urlpatterns = [
-    # path('',views.Profile,name='profile'),
+    path('',views.Landing,name='landing'),
+    path('assosrecherche/',views.landingRecherche,name='landingRecherche'),
     path('profile/',UserEdit.as_view(),name='profile'),
     path('<int:pk>/profil/',ShowProfilePersonne.as_view(),name='ShowProfilePersonne'),
     path('annonce/',views.annonce,name='annonce'),

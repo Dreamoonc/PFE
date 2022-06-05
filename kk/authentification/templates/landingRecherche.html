@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    {%load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/landing.css' %}">
+    <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <section class="nav">
+        <nav class="nav_back">
+            <div class="connexion">
+                <a class="button_login" href="{% url 'login'%}">connecter</a>
+                <a class="button_signup"  href="{% url 'select'%}"  > S'inscrire</a>
+            </div>
+        </nav>
+    </section>
+
+    <header class="kk">
+        <video autoplay loop muted plays-inline class="back_video">
+            <source src="../static/video/banner.mp4" type="video/mp4">
+        </video>
+        <div class="side">
+            <h1 class="title">
+            Cherchez Une Association Pres De Chez Vous
+         </h1> 
+         <p class="descreption">
+          <!-- Par <span>localisation</span>, <span>type</span> et <span>cathégorie</span>  -->
+        
+         </p>
+        </div>        
+     </header>
+         <div class="more">
+
+           
+
+         </div>
+     </div>
+</body>
+</html>

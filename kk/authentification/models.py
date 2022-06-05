@@ -1,4 +1,5 @@
 from distutils.command.upload import upload
+from pyexpat import model
 from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser , BaseUserManager
@@ -20,6 +21,14 @@ CATEGORY_ASSOCIATION =(
     ('association des femmes' , 'association des femmes'),
     ("association d'enfances","association d'enfances"),
     ('association culturelles et sport pour handicapés','association culturelles et sport pour handicapés')
+)
+CATEGORY_ANNONCE =(
+    ("Alimentaire", "Alimentaire"),
+    ('Medical','Medical'),
+    ("Vestimentaire","Vestimentaire"),
+    ('Educatif' , 'Educatif'),
+    ("Financière","Financière"),
+    ("Autre","Autre")
 )
 WILLAYA=(
 (1,	'Adrar'	),
@@ -189,3 +198,9 @@ class Cagniote (models.Model):
 
     def __str__(self):
         return self.titre
+
+class localisation (models.Model):
+    id= models.IntegerField(primary_key=True)
+    commune_name= models.CharField(max_length=255)
+    daira_name=models.CharField(max_length=255)
+    wilaya_name=models.CharField(max_length=255)

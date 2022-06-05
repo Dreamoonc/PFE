@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    {%load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/landing.css' %}">
+    <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <section class="nav">
+        <nav class="nav_back">
+            <div class="connexion">
+                <a class="button_login" href="{% url 'login'%}">connecter</a>
+                <a class="button_signup"  href="{% url 'select'%}"  > S'inscrire</a>
+            </div>
+        </nav>
+    </section>
+
+    <header class="kk">
+        <video autoplay loop muted plays-inline class="back_video">
+            <source src="../static/video/banner.mp4" type="video/mp4">
+        </video>
+        <div class="side">
+            <h1 class="title">
+             Plateforme Collaborative De Solidaritée Citoyenne
+         </h1> 
+         <p class="descreption">
+         Avez vous <span>besoin d'aide</span> , de faire un <span>don</span> ou bien du <span>bénévolat</span> ? 
+        
+         </p>
+        </div>        
+     </header>
+         <div class="more">
+
+             <section class="statistic">
+                     <div class="ligne">         
+                        <div class="elem">
+                            <div class="elem1">
+                                <h1>0</h1>
+                                <h5>Associations</h5>
+                                <p>Agréer par l'etat, de tout le territoire national  </p>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="elem">
+                            <hr>
+                            <div class="elem1">
+                                <h1>0</h1>
+                                <h5>Annonces</h5>
+                                <p>Poster par des personnes ou bien des associations, pour faire des demandes d'aide ou de soutien</p>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="elem">
+                            <hr>
+                            <div class="elem1">
+                                <h1>0</h1>
+                                <h5>Cagnottes</h5>
+                                <p>Creer par les association pour recolter des dons financier pour des causes importantes</p>
+                            </div>
+                            
+                        </div>
+                        <div class="elem">
+                            <hr>
+                            <div class="elem1">
+                                <h1>0</h1>
+                                <h5>Missions de bénévolat</h5>
+                                <p>Proposer pour les personnes, afin d'aider e</p>
+                            </div>
+                        </div>
+                     </div>
+             </section>
+             <section class="section">
+                 <div class="contenu">
+                     <div class="center">
+                      <h2>Présentation De Notre Plateforme</h2>
+                      <p>C'est une plateforme collaborative qui fournit un espace de dialogue afin d'apporter de l’aide d’une façon fiable et rapide</p>
+                     </div>
+
+                     <div class="why_section">
+                            <div class="why">
+                               <i class="fa-solid fa-circle-question fa-2x"></i>
+                               <h5>Pourquoi?</h5>
+                               <p>Pour orienter les personnes a comment trouver des associations , faire la demarche de demande de soutien ou d'aide, ainsi que contribuer dans des cagniottes et faire du benevolat.  </p>
+                            </div>
+                            <div class="why">
+                               <i class="fa-solid fa-people-group fa-2x"></i>
+                               <h5>Pourqui?</h5>
+                               <p>Dedier au associations, les personnes en besoin de soutien et d'aide et aussi les personnes qui veulent faire des dons ou du benevolat.</p>
+                            </div>
+                    </div>
+
+                </div>
+             </section>
+             <section class="section">
+                 <div class="contenu">
+                    <h2>Cherchez une Association pres de chez vous</h2>
+                     <div class="left">
+                        <div class="wilaya">
+                            <div><a href="{% url 'landingRecherche'%}">Alger</a></div>
+                            <div><a href="{% url 'landingRecherche'%}">Tipaza</a></div>
+                            <div><a href="{% url 'landingRecherche'%}">Naama</a></div>
+                            <div><a href="{% url 'landingRecherche'%}">Oran</a></div>
+                            <div><a href="{% url 'landingRecherche'%}">Tizi ouazou</a></div>
+                            <div><a href="{% url 'landingRecherche'%}">Blida</a></div>
+                            <div><a href="{% url 'landingRecherche'%}">Mascara</a></div>
+                            <div><a href="{% url 'landingRecherche'%}">Chlef</a></div>
+                            <div><a href="{% url 'landingRecherche'%}">Adrar</a></div>
+                            <div><a href="{% url 'landingRecherche'%}">+</a></div>
+                        </div>
+                        <div class="link">
+                            <p>Nous offrons une recherche des association par wilaya , daira , commune ainsi que type et cathégorie...</p>
+                            <a href="{% url 'landingRecherche'%}"> Découvrir les associations</a>
+                            <img src="../static/images/im.jpg" alt="">
+                        </div>
+                     </div>
+                     <div class="right">
+                         <img src="../static/images/mapDz.png" alt="">
+                     </div>
+                 </div>
+             </section>
+
+         </div>
+         <footer>
+             
+         </footer>
+     </div>
+</body>
+</html>
