@@ -29,4 +29,5 @@ urlpatterns = [
     path('updateAnnonce/<int:pk>/',views.updateAnnonce , name="updateAnnonce"),
     path('password/',PasswordChange.as_view()),
     path('password_success/',views.password_success,name="password_success"),
+    path('<int:pk>/depotArgent/',views.depotArgent,name="depotArgent"),
 ]

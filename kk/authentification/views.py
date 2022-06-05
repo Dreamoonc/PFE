@@ -329,3 +329,6 @@ def Landing(request):
 
 def landingRecherche(request):
     return render(request,'landingRecherche.html')
+
+def depotArgent(request):
+    return render(request,'depotArgent.html')
