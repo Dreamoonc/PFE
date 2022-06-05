@@ -10,6 +10,16 @@ TYPE_ANNONCE=(
     ('demande','demande'),
     ("don","don")
 )
+TYPE_BENEVOLE =(
+("SOLIDARITÉ ET INSERTION","SOLIDARITÉ ET INSERTION"),
+("ÉDUCATION POUR TOUS","ÉDUCATION POUR TOUS"),
+("PRÉVENTION ET PROTECTION","PRÉVENTION ET PROTECTION"),
+("ART ET CULTURE POUR TOUS","ART ET CULTURE POUR TOUS"),
+("PROTECTION DE LA NATURE","PROTECTION DE LA NATURE"),
+("SPORT POUR TOUS","SPORT POUR TOUS"),
+("SANTE POUR TOUS","SANTE POUR TOUS")
+
+)
 TYPE_ASSOCIATION=(
     ('National','National'),
     ('Locale','Locale')
@@ -204,3 +214,15 @@ class localisation (models.Model):
     commune_name= models.CharField(max_length=255)
     daira_name=models.CharField(max_length=255)
     wilaya_name=models.CharField(max_length=255)
+class Benevole (models.Model):
+    titre = models.CharField(max_length=255)
+    contenu = models.TextField(max_length=600)
+    nbr_max = models.IntegerField()
+    nbr_actuel = models.IntegerField(default=0)
+    adresse = models.CharField(max_length=255)
+    date =models.DateField()
+    type = models.CharField(choices=TYPE_BENEVOLE  ,  max_length=60)
+    association = models.ForeignKey(Association ,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.titre

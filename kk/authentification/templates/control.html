@@ -50,21 +50,23 @@
                     <table cellspacing="0">
                         <thead>
                             <tr>
-                                <th>username</th>
+                                <th>Username</th>
                                 <th>Email</th>
-                                <th>nombre de signial</th>
-                                <th>supprimer</th>
+                                <th>Signialement</th>
+                                <th>Supprimer</th>
                             </tr>
                         </thead>
+
+
                         <tbody>
                             {% for user in users %}
                             {% if user.signial > 0 %}
 
                             <tr>
-                                <td data-column="First Name">{{user.username}}</td>
-                                <td data-column="First Name">{{user.email}}</td>
-                                <td data-column="First Name">{{user.signial}}</td>
-                                <td data-column="First Name"><a href="{% url 'deleteuser' user.id %}">
+                                <td data-column="Username">{{user.username}}</td>
+                                <td data-column="email">{{user.email}}</td>
+                                <td data-column="signialement">{{user.signial}}</td>
+                                <td data-column="supprimer"><a href="{% url 'deleteuser' user.id %}">
                                         <i class="fa-solid fa-trash-can"></i> </a></td>
                             </tr>
                             {% endif %}
@@ -112,9 +114,9 @@
                         <thead>
 
                             <tr>
-                                <th>Email</th>
-                                <th>nombre de signial</th>
-                                <th>afficher annonce</th>
+                                <th>Username</th>
+                                <th>Signialement</th>
+                                <th>Annonce</th>
                                 <th>supprimer</th>
                             </tr>
                         </thead>
@@ -125,10 +127,10 @@
                             {% if annonce.signial > 0 %}
 
                             <tr>
-                                <td data-column="First Name">{{annonce.user.email}}</td>
-                                <td data-column="First Name">{{user.signial}}</td>
-                                <td data-column="First Name">lien</td>
-                                <td data-column="First Name"><a href="{% url 'deleteuser' user.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
+                                <td data-column="Auter">{{annonce.auteur.username}}</td>
+                                <td data-column="Signialement">{{annonce.auteur.signial}}</td>
+                                <td data-column="Annonce"><a>lien</a></td>
+                                <td data-column="Supprimer"><a href="{% url 'deleteuser' user.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
                             </tr>
                             {% endif %}
                             {% endfor %}
@@ -167,7 +169,7 @@
                     </div>
 
                 </div>
-                <div class="table-users">
+                <div class="table-users user">
                     <div class="header">Associations</div>
 
                     <table cellspacing="0">
@@ -175,7 +177,7 @@
                             <tr>
                                 <th>nom</th>
                                 <th>Email</th>
-                                <th>File</th>
+                                <th>Fiche</th>
                                 <th>Accepter</th>
                                 <th>Refuser</th>
                             </tr>
@@ -184,13 +186,13 @@
                             {% for association in associations %}
                             {% if association.is_valid == False %}
                             <tr>
-                                <td data-column="First Name">{{association.name}}</td>
-                                <td data-column="First Name">{{association.user.email}}</td>
-                                <td data-column="First Name">{{association.file}}</td>
-                                <td data-column="First Name"><a href="{% url 'valider' association.user_id %}"><i
+                                <td data-column="Name">{{association.name}}</td>
+                                <td data-column="Email">{{association.user.email}}</td>
+                                <td data-column="Fiche">{{association.file}}</td>
+                                <td data-column="Accepter"><a href="{% url 'valider' association.user_id %}"><i
                                             class="fa-solid fa-check"></i></a>
                                 </td>
-                                <td data-column="First Name"><a href="{% url 'deleteAssociation' association.user.id %}">
+                                <td data-column="Refuser"><a href="{% url 'deleteAssociation' association.user.id %}">
                                     <i class="fa-solid fa-xmark"></i></a></td>
                             </tr>
                             {% endif %}

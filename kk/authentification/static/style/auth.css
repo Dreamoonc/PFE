@@ -80,24 +80,23 @@
     border-color: rgb(49, 130, 206);
     box-shadow: rgb(49 130 206) 0px 0px 0px 1px;
 }
-.error_msg {
-	width: 370px;
-	padding: 15px;
-	margin: 5px 0;
-	font-size: 16px;
-	background-color: #f34646;
-	color: white;
-	border-radius: 5px;
-	text-align: center;
-}
 
+ul.errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: LEFT;
+}
+li {
+  list-style: none;
+}
 .right {
 	flex: 1 1 ;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-image: url('../images/5474102.jpg');
+	background-image: url('../images/authjpg.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
@@ -116,12 +115,12 @@
     font-weight: bold;
     font-size: 15px;
     cursor: pointer;
-    background-color: #5be4a8;
+    background-color: #4FD1C5;
     color: white;
 	margin-top: 25px;
 }
 .green_btn:hover{
-	background-color:  #88e9bf;
+	background-color:  #4FD1C5;
 }
 
 
@@ -131,7 +130,7 @@
 	text-align: center;
 }
 span{
-	color: #5be4a8;
+	color: #4FD1C5;
 	padding-left: 5px;
 	font-weight: 700;
 	
@@ -147,7 +146,7 @@ span{
 	font-weight: bold;
 	font-size: 15px;
 	cursor: pointer;
-	background-color: #5be4a8;
+	background-color: #4FD1C5;
 	color: white;
 }
 .center{
@@ -157,17 +156,17 @@ span{
 
 /*  progress */
 :root {
-    --primary-color: #5be4a8;
+    --primary-color: #4FD1C5;
   }
   
- 
+
   
 .progressbar {
     position: relative;
     display: flex;
     justify-content: space-between;
     counter-reset: step;
-    margin: 1rem 0 4rem;
+    margin: 1rem 0 2rem;
   }
   
   .progressbar::before,
@@ -219,6 +218,9 @@ span{
     color: #f3f3f3;
 	
   }
+  .input2{
+    width: 400px;
+  }
   
   
   .form-step {
@@ -257,7 +259,14 @@ span{
     box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--primary-color);
   }
 .kk{
-		background-color: #5be4a8;
+		background-color: #4FD1C5;
 		color: white;
 	}
- 
+
+  @media screen and (max-width:700px)
+  {
+      .right{
+        display: none;
+      }
+      
+  }

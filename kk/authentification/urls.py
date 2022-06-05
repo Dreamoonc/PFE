@@ -29,4 +29,6 @@ urlpatterns = [
     path('updateAnnonce/<int:pk>/',views.updateAnnonce , name="updateAnnonce"),
     path('password/',PasswordChange.as_view()),
     path('password_success/',views.password_success,name="password_success"),
+    path('benevole/',views.ListeBenevole,name='benevole'),
+    path('<int:pk>/profilBenevole/',ShowProfileBenevole.as_view(),name='ShowProfileBenevole'),
 ]
