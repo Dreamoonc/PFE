@@ -84,3 +84,7 @@ class PasswordForm(PasswordChangeForm):
     old_password: forms.CharField(widget=forms.PasswordInput(attrs={'class':'input','type':'password'}))
     class Meta:
         model=User
+class CreateBenevole (forms.ModelForm):
+    class Meta:
+        model= Benevole
+        fields=["titre","contenu","adresse","type","nbr_max"]

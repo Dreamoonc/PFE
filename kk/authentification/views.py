@@ -332,3 +332,39 @@ def landingRecherche(request):
 
 def depotArgent(request):
     return render(request,'depotArgent.html')
+class ShowProfileBenevole(DetailView):
+    model=Benevole
+    template_name= 'profilBenevole.html'
+    def get_context_data(self, *args,**kwargs):
+        profile=Benevole.objects.all()
+        context=super(ShowProfileBenevole,self).get_context_data(*args,**kwargs)
+        page_user = get_object_or_404(Benevole,id=self.kwargs['pk'])
+        context['page_user']=page_user
+        
+        
+        return context
+def ListeBenevole (request):
+    benevoles= Benevole.objects.all()
+    form = CreateBenevole ()
+    if request.method =='POST':
+        username = request.user
+        association = Association.objects.get(user=username)
+        if form.is_valid :
+            titre = request.POST['titre']
+            contenu = request.POST['contenu']
+            nbr_max = request.POST['nbr_max']
+            date = request.POST['date']
+            adresse = request.POST['adresse']
+            type= request.POST['type']
+            Benevole.objects.create(
+                association = association,
+                titre = titre ,
+                contenu =contenu ,
+                nbr_max = nbr_max ,
+                date = date ,
+                adresse = adresse ,
+                type = type ,
+            )
+
+    context= {'form':form , 'benevoles':benevoles}
+    return render(request,'benevole.html',context)

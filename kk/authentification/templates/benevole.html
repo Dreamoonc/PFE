@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+   
+
+    <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/style/benevole.css">
+    <link rel="stylesheet" href="../static/style/style.css">
+    <title>benevole</title>
+</head>
+
+<body>
+    <div class="core1">
+
+        <section>
+            <div class="sidebar">
+                <ul>
+                    <li><a href="{% url 'annonce' %}">
+                            <div><i class="fa-solid fa-house"></i></div></i> Annonce
+                        </a></li>
+                    <li> <a href="{% url 'profile' %}">
+                            <div><i class="fa-solid fa-user"></i></div> Profile
+                        </a> </li>
+                    <li> <a href="{% url 'cagniote' %}">cagnotte</a> </li>
+                    <li> <a href="{% url 'logout'%}">logout</a></li>
+                </ul>
+            </div>
+        </section>
+        <div class="core2">
+            <section style="width:100%;">
+                <div class="navBar">
+                    <img alt="Image profile" src="https://bit.ly/dan-abramov">
+                    <div class="icon">
+                        <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
+                            class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+            <section class="benevoles" >
+                {% for benevole in benevoles  %}
+                <div class="benevole">
+                    
+
+                    {% if benevole.type  == "SOLIDARITÉ ET INSERTION" %}
+                    <img src="../../media/download.jpg" alt="">
+                    <div class="type typeSo">{{benevole.type}}</div>
+                    {% endif %}
+                    {% if benevole.type  == "ÉDUCATION POUR TOUS" %}
+                    <img src="../../media/education-pour-tous-5___large_1087_518.webp" alt="">
+                    <div class="type typeE">{{benevole.type}}</div>
+                    {% endif %}
+                    {% if benevole.type  == "PRÉVENTION ET PROTECTION" %}
+                    <img src="../../media/3OAo7cTMAsKbxIt___large_1087_518.webp" alt="">
+                    <div class="type typeP">{{benevole.type}}</div>
+                    {% endif %}
+                    {% if benevole.type  == "ART ET CULTURE POUR TOUS" %}
+                    <img src="../../media/art-et-culture-pour-tous-5___large_1087_518.webp" alt="">
+                    <div class="type typeA">{{benevole.type}}</div>
+                    {% endif %}
+                    {% if benevole.type  == "SANTE POUR TOUS" %}
+                    <img src="../../media/sante-pour-tous-1___carousel_352_352.webp" alt="">
+                    <div class="type typeS">{{benevole.type}}</div>
+                    {% endif %}
+                    {% if benevole.type  == "SPORT POUR TOUS" %}
+                    <img src="../../media/ksa0J6PYwh8hODt___large_1087_518.webp" alt="">
+                    <div class="type typeSP">{{benevole.type}}</div>
+                    {% endif %}
+                    {% if benevole.type  == "PROTECTION DE LA NATURE" %}
+                    <img src="../../media/Biggest-Tree-Planting-Stock-image-hands-and-plant-o3r9lghjay4ovjl168p0b0d0f3ys3qcuk4y467qi6g.jpg" alt="">
+                    <div class="type typePN">{{benevole.type}}</div>
+                    {% endif %}
+                   
+                  
+                    
+                    
+                    <div class="contenu">
+                        
+                        <h3>{{benevole.titre}}</h3>
+                        <a href="{% url 'ShowProfileBenevole' benevole.id %}">plus d'information ...</a>
+                       
+                    </div>   
+                    <div class="nombre" >
+                        {{benevole.nbr_max}}<span>personne rechercher</span>
+                    </div> 
+                </div>
+
+                
+               
+                {% endfor %}
+              
+
+
+            </section>
+
+            {% if request.user.is_association == True %}
+            <a href="#ajout">
+                <button type="button" class="btn_add">  
+                    <i class="fa-duotone fa-plus fa-4x"></i>
+                </button>
+            </a>
+            {% endif %}
+            <div id="ajout" class="modal1">
+                <div class="modal__content1">
+                    <section>
+                        <form class="form" action="" method="post">
+                            <h1>creer votre cagniote </h1>
+                            {% csrf_token %}
+                            {{form.titre}}
+                            {{form.contenu}}
+                            {{form.adresse}}
+                            {{form.type}}
+                            <div class="input_parll">
+                                {{form.nbr_max}}
+                            <input type="date" class="input" name="date" id="">
+                            </div>
+                            
+                            <input class="green_btn" type="submit" value="envoyer">
+                        </form>
+                    </section>
+
+                    <a href="" class="modal__close1">&times;</a>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+
+    <script>
+        var form_fields = document.getElementsByTagName('input')
+        var text = document.querySelector('textarea')
+        var  type= document.querySelector('select')
+        form_fields[1].placeholder = 'titre'
+        form_fields[2].placeholder = 'adresse'
+        var types = document.querySelectorAll('.type')
+       
+
+        for (typess in types){
+            
+            
+            
+            
+        }
+        
+        form_fields[3].placeholder = 'nombre max des participant '
+        text.placeholder = 'contenu'
+        
+        var progress = document.querySelectorAll('#progress')
+        var demandes = document.querySelectorAll('#demande')
+        var recoltes = document.querySelectorAll('#recolte')
+
+        
+
+       
+
+        form_fields[1].classList.add('input')
+        form_fields[2].classList.add('input')
+        form_fields[3].classList.add('input')
+        form_fields[4].classList.add('input')
+        type.classList.add('input')
+        type.classList.add('select')
+        text.classList.add('input')
+    </script>
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                
+</body>
+
+</html>
