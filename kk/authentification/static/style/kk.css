@@ -1,0 +1,134 @@
+form.formFilter {
+    display: flex;
+    flex-direction: column;
+}
+.drop{
+    background-color: white;
+}
+
+.dd {
+    z-index:1;
+    position:relative;
+    display: inline-block;
+  }
+  .dd-a {
+    padding:10px;
+    background:white;
+    position:relative;
+
+  }
+  .dd input {
+    top:0;
+    opacity:0;
+    display:block;
+    padding:0;
+    margin:0;
+    border:0;
+    position:absolute;
+    height:100%;
+    width:100%;
+  }
+  .dd input:hover {
+    cursor:pointer;
+  }
+  
+  .dd input:checked:after {
+    transform: scaleX(1);
+    -webkit-transform: scaleX(1);
+  }
+  .dd input:checked ~ .dd-c {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1);
+  }
+ 
+  .dd-c{
+    display:block;
+    left:-120px;
+    padding: 30px;
+    position: absolute;
+    background:white;
+    height:auto;
+    transform: scaleY(0);
+    transform-origin: top left;
+    transition-duration: 0.2s;
+    -webkit-transform: scaleY(0);
+    -webkit-transform-origin: top left;
+    -webkit-transition-duration: 0.2s;
+    border-radius: 20px;
+    box-shadow: 0px 2px 6px   #ebebeb;
+  }
+ 
+  #searchbox {
+    /* background: url(http://4.bp.blogspot.com/-u0fEq-zSTYI/VD1gGDLy3aI/AAAAAAAAAhw/im3bcQd5wBM/s1600/search-box.png) no-repeat; */
+    height: 35px;
+    width: 260px;
+    /* background-color: #ebebeb; */
+    border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;
+    /* border-top-left-radius: 0%; */
+    /* border: 1px black solid; */
+    box-shadow: 0px 2px 6px #efefef;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+input:focus:-moz-placeholder {
+    color: transparent;
+}
+
+input:focus::-moz-placeholder {
+    color: transparent;
+}
+
+#searchbox input {
+    outline: none;
+}
+
+#searchbox input[type= "text"] {
+    background: transparent;
+    margin: 0px 0px 0px 12px;
+    padding: 5px 0px 5px 0px;
+    border-width: 0px;
+    font-family: « Arial Narrow », Arial, sans-serif;
+    font-size: 17px;
+    font-style: italic;
+    width: 77%;
+    /* color: #040404; */
+    display: inline-table;
+    vertical-align: top;
+    padding-top: 7px;
+}
+
+#button-submit {
+    /* background: url(http://2.bp.blogspot.com/-4OxjMRukhCM/VD1gBscpzII/AAAAAAAAAhk/TUxMSv7bCzA/s1600/search-button.png) no-repeat; */
+    border-width: 0px;
+    cursor: pointer;
+    width: 43.874998px;
+    height: 35px;
+    background-color: #4fd1c5;
+    /* border-radius: 100%; */
+    border-top-right-radius: 30%;
+    border-bottom-right-radius: 30%;
+}
+
+#button-submit:hover {
+    background-color: #86e0d7;
+}
+
+#button-submit::-moz-focus-inner {
+    border: 0;
+}
+
+
+
+.filtrage {
+    display: flex;
+    align-items: center;
+}
+i.fa-solid.fa-filter {
+    font-size: 25px;
+    color:#50d1c5 ;
+    
+  }

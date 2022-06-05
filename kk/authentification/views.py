@@ -25,6 +25,8 @@ def Register (request):
             name = request.POST['name']
             file = request.POST['file']
             willaya = request.POST['willaya']
+            type = request.POST['type']
+            category = request.POST['category']
             
             user = form.save()
             user.is_association =True
@@ -33,7 +35,9 @@ def Register (request):
                     user=user ,
                     name=name ,
                     file=file,
-                    willaya=willaya
+                    willaya=willaya,
+                    type = type ,
+                    category = category,
             )
 
             messages.success(request,'account created seccefully ')
@@ -304,7 +308,11 @@ def deleteAnnonce (request,myid) :
 
 
 def List_Association (request):
-    associations = Association.objects.all()
+    if 'q' in request.GET :
+        q=request.GET['q']
+        associations = Association.objects.filter(name__icontains=q)
+    else :
+        associations = Association.objects.all()
 
     a= AssociationFilter(request.GET, queryset=associations)
     associations=a.qs
