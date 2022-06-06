@@ -193,6 +193,7 @@ class Annonce (models.Model):
     type=models.CharField(choices=TYPE_ANNONCE,max_length=10,default='demande')
     auteur= models.ForeignKey(User,on_delete=models.CASCADE)
     signial = models.IntegerField(default=0)
+    category=models.TextField(choices=CATEGORY_ANNONCE , max_length=50, default="Autre")
     def __str__(self):
         return str(self.id)
     class Meta:

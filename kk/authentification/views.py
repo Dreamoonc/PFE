@@ -191,11 +191,13 @@ def annonce (request):
                 image = request.POST['image']
             contenu = request.POST['contenu']
             type = request.POST['type']
+            category= request.POST['category']
             Annonce.objects.create(
                 auteur = auteur,
                 image = image ,
                 contenu =contenu ,
-                type = type 
+                type = type ,
+                category=category
             )
             return redirect('annonce')
         else:

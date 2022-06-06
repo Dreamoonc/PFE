@@ -44,11 +44,12 @@ class AnnonceForm (ModelForm):
     # image=forms.ImageField(widget=)
     class Meta:
         model=Annonce
-        fields=['contenu','image','type']
+        fields=['contenu','image','type', 'category']
         widgets={
             'contenu':forms.Textarea(attrs={'class':'textholder','placeholder':'ecrire ...'}),
             'image':forms.widgets.FileInput(attrs={'id':'image_input'}),
-            'type':forms.Select(attrs={'class':'input'})
+            'type':forms.Select(attrs={'class':'input'}),
+            'category':forms.Select(attrs={'class':'input'})
         }
 
 class CommentForm (ModelForm):
