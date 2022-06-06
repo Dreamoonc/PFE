@@ -90,8 +90,3 @@ class CreateBenevole (forms.ModelForm):
         model= Benevole
         fields=["titre","contenu","adresse","type","nbr_max"]
 
-
-class update_cagniotte (ModelForm):
-    class Meta:
-        model=Cagniote
-        field=["sommeRecolter"]
