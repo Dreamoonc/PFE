@@ -330,8 +330,15 @@ def Landing(request):
 def landingRecherche(request):
     return render(request,'landingRecherche.html')
 
-def depotArgent(request):
-    return render(request,'depotArgent.html')
+class depotArgent(DetailView):
+    model=Cagniote
+    template_name='depotArgent.html'
+    def get_context_data(self, *args,**kwargs):
+        context=super(depotArgent,self).get_context_data(*args,**kwargs)
+        page_user = get_object_or_404(Cagniote,id=self.kwargs['pk'])
+        context['cag']=page_user     
+        return context
+    
 class ShowProfileBenevole(DetailView):
     model=Benevole
     template_name= 'profilBenevole.html'
@@ -339,10 +346,9 @@ class ShowProfileBenevole(DetailView):
         profile=Benevole.objects.all()
         context=super(ShowProfileBenevole,self).get_context_data(*args,**kwargs)
         page_user = get_object_or_404(Benevole,id=self.kwargs['pk'])
-        context['page_user']=page_user
-        
-        
+        context['page_user']=page_user  
         return context
+
 def ListeBenevole (request):
     benevoles= Benevole.objects.all()
     form = CreateBenevole ()

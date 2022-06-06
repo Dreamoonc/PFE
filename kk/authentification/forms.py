@@ -1,4 +1,5 @@
 
+from dataclasses import field
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm , PasswordChangeForm
@@ -88,3 +89,9 @@ class CreateBenevole (forms.ModelForm):
     class Meta:
         model= Benevole
         fields=["titre","contenu","adresse","type","nbr_max"]
+
+
+class update_cagniotte (ModelForm):
+    class Meta:
+        model=Cagniote
+        field=["sommeRecolter"]

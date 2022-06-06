@@ -214,6 +214,8 @@ class localisation (models.Model):
     commune_name= models.CharField(max_length=255)
     daira_name=models.CharField(max_length=255)
     wilaya_name=models.CharField(max_length=255)
+
+    
 class Benevole (models.Model):
     titre = models.CharField(max_length=255)
     contenu = models.TextField(max_length=600)

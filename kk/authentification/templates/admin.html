@@ -18,14 +18,19 @@
         <section>
             <div class="sidebar">
                 <ul>
-                    <li><a href="{% url 'annonce'%}">
-                            <div><i class="fa-solid fa-house"></i></div></i> Annonce
-                        </a></li>
-                    <li> <a href="">
-                            <div><i class="fa-solid fa-user"></i></div> Profile
-                        </a> </li>
-                    <li> <a href="{% url 'cagniote' %}">cagnotte</a> </li>
-                    <li> <a href="{% url 'logout'%}">logout</a></li>
+                    {% if request.user.is_admin == True%}
+                    <li> <a href="{% url 'administrateur'%}"> <div><i class="fa-solid fa-chart-line"></i></div>Dashboard</a> </li>
+                    <li> <a href="{% url 'control'%}"> <div><i class="fa-solid fa-gear"></i></div>Controle</a> </li>
+                    <li> <a href="{% url 'logout'%}"> <div> <i class="fa-solid fa-right-from-bracket"></i></div>Déconnexion</a></li>
+                    {% else%}
+                    <li><a href="{% url 'annonce'%}"><div><i class="fa-solid fa-house"></i></div></i>Annonce</a></li>
+                    <li> <a href="{% url 'profile'%}"> <div><i class="fa-solid fa-user"></i></div>Profile</a> </li>
+                    <li> <a href="{% url 'cagniote'%}"> <div><i class="fa-solid fa-hand-holding-dollar"></i></div>Cagnotte</a> </li>
+                    <li> <a href="{% url 'benevole'%}"> <div><i class="fa-solid fa-handshake-angle"></i></div>Mission</a> </li>
+                    <li> <a href="{% url 'list_association'%}"> <div><i class="fa-solid fa-magnifying-glass"></i></div>Association</a> </li>
+                    <li> <a href="{% url 'logout'%}"> <div> <i class="fa-solid fa-right-from-bracket"></i></div>Déconnexion</a></li>
+                    {% endif %}
+
                 </ul>
             </div>
         </section>
