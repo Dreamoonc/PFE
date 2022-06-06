@@ -159,6 +159,11 @@ class User(AbstractBaseUser):
     def has_module_perms(self , app_label ):
         return True
 
+class localisation (models.Model):
+    id= models.IntegerField(primary_key=True)
+    commune_name= models.CharField(max_length=255)
+    daira_name=models.CharField(max_length=255)
+    wilaya_name=models.CharField(max_length=255)
 
 
   
@@ -167,6 +172,8 @@ class PhysicalUser (models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     willaya=models.CharField(choices=WILLAYA ,  max_length=10)
+    adresse = models.ForeignKey(localisation , on_delete=models.CASCADE, default = 1)
+    
     
 
 class Association (models.Model):
@@ -175,7 +182,8 @@ class Association (models.Model):
     file = models.CharField (max_length=200)
     type = models.CharField(choices=TYPE_ASSOCIATION ,  max_length=10)
     category = models.CharField(choices=CATEGORY_ASSOCIATION ,  max_length=50)
-    willaya=models.CharField(choices=WILLAYA ,  max_length=10)
+    willaya=models.CharField(choices=WILLAYA ,  max_length=10 )
+    adresse = models.ForeignKey(localisation , on_delete=models.CASCADE, default = 1)
     is_valid = models.BooleanField(default=False)
 
 class Annonce (models.Model):
@@ -209,11 +217,6 @@ class Cagniote (models.Model):
     def __str__(self):
         return self.titre
 
-class localisation (models.Model):
-    id= models.IntegerField(primary_key=True)
-    commune_name= models.CharField(max_length=255)
-    daira_name=models.CharField(max_length=255)
-    wilaya_name=models.CharField(max_length=255)
 
     
 class Benevole (models.Model):
@@ -221,10 +224,10 @@ class Benevole (models.Model):
     contenu = models.TextField(max_length=600)
     nbr_max = models.IntegerField()
     nbr_actuel = models.IntegerField(default=0)
-    adresse = models.CharField(max_length=255)
     date =models.DateField()
     type = models.CharField(choices=TYPE_BENEVOLE  ,  max_length=60)
     association = models.ForeignKey(Association ,on_delete=models.CASCADE)
+    adresse = models.ForeignKey(localisation , on_delete=models.CASCADE)
 
     def __str__(self):
         return self.titre

@@ -221,6 +221,16 @@ span{
   .input2{
     width: 400px;
   }
+
+  .input3{
+    
+    outline: none;
+    padding: 15px;
+    border-radius: 15px;
+    border:#E2E8F0 1px solid;
+    margin: 8px 0;
+    font-size: 14px;
+  }
   
   
   .form-step {

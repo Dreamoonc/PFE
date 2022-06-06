@@ -22,6 +22,7 @@
                         <div  class="progress-step kk" data-title="" ></div>
                         <div class="progress-step  progress-step-active" data-title=""></div>
                         <div class="progress-step" data-title=""></div>
+                        <div class="progress-step" data-title=""></div>
                       </div>
 
                     <div class="form-step form-step-active">
@@ -36,12 +37,41 @@
                        
                     
                     </div>
-                    <div class="form-step ">
-                    {{form.phone}}
+                    <div class="form-step">
+                      {{form.phone}}
                     {% for field in form2 %}            
                     {{field }}
                     {% endfor%}
                     <div class="btns-group">
+                      <a href="" class="btn ">Retour</a>
+                      <a href="#" class="btn btn-next">Suivant</a>
+                    </div>
+                    
+                    </div>
+                    <div class="form-step ">
+                      <select class="input1 input2" name="commune_name" >
+                        <option value="" >commune</option>
+                        {% for options in local %}
+                        <option  value="{{options.commune_name}}">{{options.commune_name}}</option>
+                        {% endfor %}
+                      </select>
+                      <select class="input1 input2" name="wilaya_name" >
+                        <option value="" >wilaya</option>
+                        {% for options in local %}
+                        <option value="{{options.wilaya_name}}">{{options.wilaya_name}}</option>
+                        {% endfor %}
+                      </select>
+                      <select class="input1 input2" name="daira_name" >
+                        <option value="" >daira</option>
+                        {% for options in local %}
+                        <option value="{{options.daira_name}}">{{options.daira_name}}</option>
+                        {% endfor %}
+                      </select>
+                      <input class="input1" type="hidden">
+                      
+                      
+                      
+                      <div class="btns-group">
                         <a href="#" class="btn btn-prev">Retour</a>
                         <input type="submit" value="Envoyer" class="btn" />
                       </div>
@@ -63,7 +93,9 @@
     
     <script>
         var form_fields = document.getElementsByTagName('input')
-        var select = document.querySelector("select")
+        var select = document.querySelectorAll("select")
+        document.querySelector("#id_type").querySelector('option').innerHTML = "type"
+        document.querySelector("#id_category").querySelector('option').innerHTML = "categorie"
         
         form_fields[1].placeholder='Email'
         form_fields[2].placeholder='Username'
@@ -72,8 +104,8 @@
         form_fields[3].placeholder='password'
         form_fields[4].placeholder='confirm password '
         form_fields[5].placeholder='phone Number'
-        form_fields[6].placeholder='name of asociation '
-        form_fields[7].placeholder='file '
+       
+        form_fields[6].placeholder='file '
 
         form_fields[1].classList.add('input1')
         form_fields[2].classList.add('input1')
@@ -83,7 +115,15 @@
         form_fields[5].classList.add('input1')
         form_fields[7].classList.add('input1')
         form_fields[6].classList.add('input1')
-        select.classList.add('input1')
+        select[0].classList.add('input2')
+        select[0].classList.add('input1')
+
+        select[1].classList.add('input1')
+        
+        select[1].classList.add('input2')
+    
+       
+        
 
         
 const prevBtns = document.querySelectorAll(".btn-prev");

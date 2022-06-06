@@ -22,6 +22,7 @@
                         <div  class="progress-step kk" data-title="" ></div>
                         <div class="progress-step  progress-step-active" data-title=""></div>
                         <div class="progress-step" data-title=""></div>
+<div class="progress-step" data-title=""></div>
                       </div>
 
                     <div class="form-step form-step-active">
@@ -36,16 +37,46 @@
                        
                     
                     </div>
-                    <div class="form-step ">
-                    {{form.phone}}
+                    <div class="form-step">
+                      {{form.phone}}
                     {% for field in form2 %}            
                     {{field }}
                     {% endfor%}
                     <div class="btns-group">
-                        <a href="#" class="btn btn-prev">Previous</a>
-                        <input type="submit" value="Submit" class="btn" />
+                      <a href="" class="btn ">Retour</a>
+                      <a href="#" class="btn btn-next">Suivant</a>
+                    </div>
+                    
+                    </div>
+                    <div class="form-step ">
+                      <select name="commune_name" id="commune_name">
+                        <option value="" >commune</option>
+                        {% for options in local %}
+                        <option value="{{options.commune_name}}">{{options.commune_name}}</option>
+                        {% endfor %}
+                      </select>
+                      <select name="wilaya_name" id="wilaya_name">
+                        <option value="" >wilaya</option>
+                        {% for options in local %}
+                        <option value="{{options.wilaya_name}}">{{options.wilaya_name}}</option>
+                        {% endfor %}
+                      </select>
+                      <select name="daira_name" id="daira_name">
+                        <option value="" >daira</option>
+                        {% for options in local %}
+                        <option value="{{options.daira_name}}">{{options.daira_name}}</option>
+                        {% endfor %}
+                      </select>
+                      
+                      
+                      
+                      
+                      <div class="btns-group">
+                        <a href="#" class="btn btn-prev">Retour</a>
+                        <input type="submit" value="Envoyer" class="btn" />
                       </div>
                     </div>
+
                     <p class="message">
                         {{form.errors}}
                     </p>
@@ -63,7 +94,7 @@
     
     <script>
         var form_fields = document.getElementsByTagName('input')
-        var select = document.querySelector("select")
+        var select = document.querySelectorAll("select")
         
         form_fields[1].placeholder='Email'
         form_fields[2].placeholder='Username'
@@ -83,7 +114,9 @@
         form_fields[5].classList.add('input1')
         form_fields[7].classList.add('input1')
         form_fields[6].classList.add('input1')
-        select.classList.add('input1')
+        select[0].classList.add('input1')
+        select[1].classList.add('input1')
+        select[2].classList.add('input1')
 
         
 const prevBtns = document.querySelectorAll(".btn-prev");
