@@ -33,12 +33,12 @@ class LoginForm(forms.ModelForm):
 class CreateAssociation (forms.ModelForm):
      class Meta:
         model=Association
-        fields=["name","file","willaya","type","category"]
+        fields=["file","type","category"]
 
 class CreatePersonne (forms.ModelForm):
      class Meta:
         model=PhysicalUser
-        fields=["first_name","last_name","willaya"]
+        fields=["first_name","last_name"]
 
 class AnnonceForm (ModelForm):
     # image=forms.ImageField(widget=)
@@ -89,4 +89,15 @@ class CreateBenevole (forms.ModelForm):
     class Meta:
         model= Benevole
         fields=["titre","contenu","adresse","type","nbr_max"]
+
+class CreateLocalisation (forms.ModelForm):
+     class Meta:
+        model=localisation
+        fields=["commune_name","daira_name","wilaya_name"]
+        widgets={
+            'commune_name':forms.Select(attrs={'class':'input'}),
+            'daira_name':forms.Select(attrs={'class':'input'}),
+            'wilaya_name':forms.Select(attrs={'class':'input'})
+        }
+
 

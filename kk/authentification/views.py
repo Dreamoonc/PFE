@@ -18,48 +18,64 @@ from django.contrib import messages
 def Register (request):
     form = CreateUserForm()
     form2 = CreateAssociation()
+    form3 =CreateLocalisation()
+    local = localisation.objects.all()
     if request.method =='POST':
         form = CreateUserForm(request.POST)
+
         
         if form.is_valid():
-            name = request.POST['name']
+            
             file = request.POST['file']
-            willaya = request.POST['willaya']
+            
             type = request.POST['type']
             category = request.POST['category']
+            commune = request.POST['commune_name']
+            daira = request.POST['daira_name']
+            wilaya = request.POST['wilaya_name']
             
+            loc_id = localisation.objects.filter(commune_name__icontains=commune , daira_name__icontains=daira , wilaya_name__icontains=wilaya  )
+            print(loc_id)
+             
             user = form.save()
             user.is_association =True
             user.save()
             Association.objects.create(
                     user=user ,
-                    name=name ,
+                    
                     file=file,
-                    willaya=willaya,
+                    
                     type = type ,
                     category = category,
+                    adresse = loc_id[0]
             )
 
             messages.success(request,'account created seccefully ')
             return redirect('login')
 
-    context= {'form':form ,'form2':form2} 
+    context= {'form':form ,'form2':form2 , "form3":form3,"local":local} 
     return render(request,'signup.html',context)
-
-
-
 
 
 def RegisterUser (request):
     form = CreateUserForm()
     form2 = CreatePersonne()
+    form3 = CreateLocalisation()
+    local = localisation.objects.all()
     if request.method =='POST':
         form = CreateUserForm(request.POST)
         
         if form.is_valid():
             name = request.POST['first_name']
             last_name = request.POST['last_name']
-            willaya = request.POST['willaya']
+        
+            commune = request.POST['commune_name']
+            daira = request.POST['daira_name']
+            wilaya = request.POST['wilaya_name']
+            
+            
+            loc_id = localisation.objects.filter(commune_name__icontains=commune , daira_name__icontains=daira , wilaya_name__icontains=wilaya  )
+            
              
             user = form.save()
             user.is_person =True
@@ -68,15 +84,14 @@ def RegisterUser (request):
                     user=user ,
                     first_name=name ,
                     last_name=last_name,
-                    willaya=willaya , 
+                    adresse = loc_id[0]
             )
 
             messages.success(request,'account created seccefully ')
             return redirect('login')
 
-    context= {'form':form ,'form2':form2} 
+    context= {'form':form ,'form2':form2 , "form3" :form3,"local":local,} 
     return render(request,'physical.html',context)
-
 
 
 def Loginin (request):
