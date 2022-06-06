@@ -175,9 +175,13 @@
     width: 500px;
     margin-bottom: 15px;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 } 
 
+.information h5{
+    margin-top: 50px;
+}
 .main-content{
     max-width: 3000px;
     width: 100%;
@@ -202,4 +206,7 @@
 .personnel li{
     color: #718096;
     font-weight: 400;
+}
+.personnel{
+    margin-top: -30px;
 }
