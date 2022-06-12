@@ -16,13 +16,13 @@
                 <form method="POST" class="form_container" >  
                     
                    {% csrf_token %}
-                    <h1 class="title">Creer Votre Compte</h1>
+                    <h1 class="title">Créer Votre Compte</h1>
                     <div class="progressbar">
                         <div class="progress "  id="progress"></div>
                         <div  class="progress-step kk" data-title="" ></div>
                         <div class="progress-step  progress-step-active" data-title=""></div>
                         <div class="progress-step" data-title=""></div>
-<div class="progress-step" data-title=""></div>
+                        <div class="progress-step" data-title=""></div>
                       </div>
 
                     <div class="form-step form-step-active">
@@ -82,7 +82,7 @@
                     </p>
                    
                     <p class="account">Vous avez deja un compte  ?   
-                     <a href="{% url 'login'%}">Login</a>
+                     <a href="{% url 'login'%}" class="span">Connectez-vous</a>
                     </p>   
                 </form>
             </div>

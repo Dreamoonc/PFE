@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+body{
+    font-family:'Roboto',sans-serif !important;
+}
 .login_container {
 	width: 100%;
 	min-height: 97vh;
@@ -13,14 +18,31 @@
 	display: flex;
 }
 .title {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 	font-size: 40px;
 	margin-top: 40px;
+  color: #4FD1C5;
+  text-align: center;
 }
 .title1 {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 	font-size: 40px;
 	margin-top: 40px;
+  color: #4FD1C5;
+  padding-bottom: 0px;
+}
+.description{
+  margin-bottom: 36px;
+  color: #A0AEC0;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: -30px;
+  letter-spacing:0.7px;
+}
+.span{
+  text-decoration: none;
+  color: #4FD1C5;
+  font-weight: 700;
 }
 .account{
 	margin-bottom: 36px;
@@ -60,6 +82,10 @@
 	margin: 15px 0;
 	font-size: 14px;
 }
+
+.input::placeholder{
+  color: #A0AEC0;
+}
 .input1 {
 	outline: none;
 	width: 370px;
@@ -68,6 +94,10 @@
 	border:#E2E8F0 1px solid;
 	margin: 8px 0;
 	font-size: 14px;
+}
+
+.input1::placeholder{
+  color: #A0AEC0;
 }
 
 .input1:focus{
@@ -177,12 +207,12 @@ span{
     transform: translateY(-50%);
     height: 4px;
     width: 100%;
-    background-color: #dcdcdc;
+    background-color: #E2E8F0;
     z-index: 1;
   }
   
   .progress {
-    background-color: #dcdcdc;
+    background-color: #E2E8F0;
     width: 0%;
     transition: 0.3s;
   }
@@ -191,7 +221,7 @@ span{
   .progress-step {
     width: 2.1875rem;
     height: 2.1875rem;
-    background-color: #dcdcdc;
+    background-color: #E2E8F0;
     border-radius: 50%;
     display: flex;
 	flex-direction: row;
@@ -253,11 +283,12 @@ span{
   }
   
   .btn {
+    font-weight: 500;
     padding: 0.75rem;
     display: block;
     text-decoration: none;
     background-color: var(--primary-color);
-    color: #f3f3f3;
+    color: white;
     text-align: center;
     border-radius: 15px;
     cursor: pointer;

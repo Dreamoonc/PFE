@@ -172,3 +172,29 @@ body {
     color: white;
 
 }
+
+.fa-ellipsis-v{
+    color: #4FD1C5 !important;
+}
+
+.btn-primary{
+    background-color: #4FD1C5 !important;
+    border: #4FD1C5 !important;
+}
+.type1{
+    background-color: #4FD1C5;
+
+    padding: 3px 10px;
+    border-radius: 15px;
+
+    font-weight: 500;
+    font-size: 16px;
+
+}
+.categorie{
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    border: solid 2px #4FD1C5;
+}

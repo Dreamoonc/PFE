@@ -378,6 +378,8 @@ def ListeBenevole (request):
             nbr_max = request.POST['nbr_max']
             date = request.POST['date']
             adresse = request.POST['adresse']
+            loc_id = localisation.objects.filter( id__icontains=adresse  )
+            print(loc_id)
             type= request.POST['type']
             Benevole.objects.create(
                 association = association,
@@ -385,7 +387,7 @@ def ListeBenevole (request):
                 contenu =contenu ,
                 nbr_max = nbr_max ,
                 date = date ,
-                adresse = adresse ,
+                adresse = loc_id[0] ,
                 type = type ,
             )
 

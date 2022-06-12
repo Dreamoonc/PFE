@@ -83,7 +83,7 @@
                                     {% endif %}
                                     <div class="info">
                                         <h1>{{benevole.titre}}</h1>
-                                        <P>Publier par l'association <span>{{benevole.association.name}}</span></P>
+                                        <P>Publier par l'association <span>{{benevole.association.user.username}}</span></P>
                                     </div>
 
 
@@ -113,9 +113,9 @@
                         <p>{{benevole.contenu}}</p>
                     </div>
                     <div class="contain">
-                        <h3>Découvrez l'association  <span style="text-transform: uppercase;">{{benevole.association.name}}</span> </h3>
+                        <h3>Découvrez l'association  <span style="text-transform: uppercase;">{{benevole.association.user.username}}</span> </h3>
                         <p>
-                            {{benevole.association.name}} est une association  {{benevole.association.type}} dans le demaine {{benevole.association.category}} ,elle  accompagne et réunit des citoyens engagés, des
+                            {{benevole.association.user.username}} est une association  {{benevole.association.type}} dans le demaine {{benevole.association.category}} ,elle  accompagne et réunit des citoyens engagés, des
                             entrepreneurs passionnés, et des organisations visionnaires pour résoudre ensemble les défis sociaux et environnementaux de notre époque.
                         </p>
                         <a href="{% url 'ShowProfilePersonne' benevole.association.user.id %}" >
@@ -162,7 +162,7 @@
                         </h3>
                         <p>{{benevole.nbr_actuel}} PERSONNES DÉJÀ INSCRITES </p>
                         <div>
-                            <p> <span><i class="fa-solid fa-location-dot"></i></span>{{benevole.adresse}} </p>
+                            <p> <span><i class="fa-solid fa-location-dot"></i></span>{{benevole.adresse.wilaya_name}} ,{{benevole.adresse.daira_name}} ,{{benevole.adresse.commune_name}} </p>
                             <p> <span><i class="fa-solid fa-calendar-days"></i></span> {{benevole.date}} </p>
                         </div>
 

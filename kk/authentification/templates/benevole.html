@@ -143,25 +143,18 @@
     <script>
         var form_fields = document.getElementsByTagName('input')
         var text = document.querySelector('textarea')
-        var  type= document.querySelector('select')
+        var  type= document.querySelectorAll('select')
         form_fields[1].placeholder = 'titre'
-        form_fields[2].placeholder = 'adresse'
-        var types = document.querySelectorAll('.type')
+        
+       
        
 
-        for (typess in types){
-            
-            
-            
-            
-        }
+       
         
-        form_fields[3].placeholder = 'nombre max des participant '
+        form_fields[2].placeholder = 'nombre max des participant '
         text.placeholder = 'contenu'
         
-        var progress = document.querySelectorAll('#progress')
-        var demandes = document.querySelectorAll('#demande')
-        var recoltes = document.querySelectorAll('#recolte')
+       
 
         
 
@@ -169,10 +162,12 @@
 
         form_fields[1].classList.add('input')
         form_fields[2].classList.add('input')
-        form_fields[3].classList.add('input')
-        form_fields[4].classList.add('input')
-        type.classList.add('input')
-        type.classList.add('select')
+       
+        
+        type[0].classList.add('input')
+        type[0].classList.add('select')
+        type[1].classList.add('input')
+        type[1].classList.add('select')
         text.classList.add('input')
     </script>
                 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

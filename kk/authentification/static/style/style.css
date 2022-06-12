@@ -26,6 +26,21 @@ ul{
     justify-content: center;
     align-items: center;
 }
+
+.active a{
+    color: black !important;
+}
+.active div{
+    background-color:#4FD1C5 !important;
+}
+.active i{
+    color: #fff !important;
+}
+.active{
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.05);
+    border-radius: 10px;
+}
+
 .sidebar li{
     list-style: none;
     margin-bottom: 5px;
@@ -38,7 +53,7 @@ ul{
     border-radius: 10px;
 }
 .sidebar a:hover{
-    color: #A0AEC0!important;
+    color: #A0AEC0;
 }
 .sidebar a{
     text-decoration: none;
