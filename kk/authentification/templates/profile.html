@@ -71,7 +71,7 @@
                             <a href="#ajout" >
                                 <button type="button" class="button1">
                                     <i class="fa-solid fa-pencil fa-lg"></i>
-                                    <p>EDIT</p>
+                                    <p>Modifier</p>
                                 </button>
                             </a>
                            
@@ -131,15 +131,19 @@
                                         </div>
                                         {% endif %}
                                     </div>
+                                    <div>
+                                        <span class="type1">{{annonce.type}}</span>
+                                        <span class="categorie">{{annonce.category}}</span>    
+                                    </div>
+                                    <br>
                                     <div class="mb-3">
                                         <div class="d-flex justify-content-between mb-2">
                                             <div class="d-flex">
-                                                <a href="#!" class="text-danger mr-2"><span><i class="fa fa-heart"></i></span></a>
-                                                <a href="#!" class="text-dark mr-2"><span>Comment</span></a>
+                                                <a href="#!" class="text-danger mr-2"><span><i class="fa-solid fa-handshake-simple"></i></span></a>
+                                                <a href="#comment" class="text-dark mr-2"><span>3 soutiens</span></a>
                                             </div>
-                                            <a href="#!" class="text-dark"><span>Share</span></a>
+                                            <a href="#!" class="text-dark"><span><i class="fa-solid fa-share"></i> Partager</span></a>
                                         </div>
-                                        <p class="mb-0">Liked by <a href="#!" class="text-muted font-weight-bold">John doe</a> & <a href="#!" class="text-muted font-weight-bold">25 others</a></p>
                                     </div>
                                     <hr>
                                     <div class="post-block__comments">
@@ -148,7 +152,7 @@
                                             <div class="input-group mb-3">
                                                 {% csrf_token %}
                                                 {{commentForm.contenu}}
-                                                <!-- <input type="text" class="form-control" placeholder="Add your comment"> -->
+                                                <input type="text" class="form-control" placeholder="Add your comment">
                                                 <div class="input-group-append">
                                                       <button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
                                                 </div>
@@ -166,18 +170,14 @@
                                                 <div>
                                                     <h6 class="mb-1"><a href="#!" class="text-dark">{{comment.auteur.username}}</a> <small class="text-muted">{{comment.date}}</small></h6>
                                                     <p class="mb-1">{{comment.contenu}}</p>
-                                                    <div class="d-flex">
-                                                        <a href="#!" class="text-dark mr-2"><span><i class="fa fa-heart-o"></i></span></a>
-                                                        <a href="#!" class="text-dark mr-2"><span>Reply</span></a>
-                                                    </div>
                                                 </div>
                                             </div>
+                                            <hr>
+                                            <a href="#!" class="text-dark">View More comments <span class="font-weight-bold">(2)</span></a>
                                         </div>
                                             {%endfor%}
                                         {%endif%}
-                                        <!-- More Comments -->
-                                        <hr>
-                                        <a href="#!" class="text-dark">View More comments <span class="font-weight-bold">(12)</span></a>
+                                       
                                     </div>
                                 </div>
                                 
@@ -187,13 +187,29 @@
                     </div>
                 </section>
                 <section class="information">
-                    <h5>Information du Profile</h5>
+                    {% if request.user.is_association == True %}
+                    <h5>Description</h5>
+                    <p>{{info.description}}</p>
+                    {% endif %}
+                    <h5 style="margin-top:10px;">Information Du Profile</h5>
                     <div class="personnel" >
                         
-                        <ul>
+                        <ul>                        
+                            {%if page_user.is_personne == True %}
+                            <li> <span>Nom :</span> {{info.first_name}}</li>
+                            <li> <span>Prenom :</span> {{info.last_name}}</li>
+                            {% endif %}
                             <li> <span>Email :</span> {{request.user.email}}</li>
                             <li> <span>Phone :</span> {{request.user.phone}}</li>
-                            <li> <span>Wilaya :</span> {{ info.willaya }}</li>
+                            <li> <span>Wilaya :</span> {{ info.adresse.wilaya_name }}</li>
+                            <li> <span>Daira :</span> {{ info.adresse.daira_name }}</li>
+                            <li> <span>Commune :</span> {{ info.adresse.commune_name }}</li>
+                            {%if request.user.is_association == True %}
+                            <li> <span>Adresse :</span>{{info.local}} </li>
+                            <li> <span>Type:</span> {{ info.type }}</li>
+                            <li> <span>Domaine:</span> {{ info.category }}</li>
+                            <li class="reseau"> <span>Réseau :</span> <i class="fa-brands fa-facebook-f"></i> <i class="fa-brands fa-instagram"></i> <i class="fa-brands fa-twitter"></i></li>
+                            {% endif %}   
                             
                         </ul>
                     </div>

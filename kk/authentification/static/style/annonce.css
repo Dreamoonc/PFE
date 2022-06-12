@@ -182,11 +182,11 @@ body {
     border: #4FD1C5 !important;
 }
 .type1{
-    background-color: #4FD1C5;
+    background-color: #5eecdd;
 
     padding: 3px 10px;
     border-radius: 15px;
-
+    border: #5eecdd solid 2px;
     font-weight: 500;
     font-size: 16px;
 
@@ -196,5 +196,20 @@ body {
     border-radius: 15px;
     font-size: 16px;
     font-weight: 500;
-    border: solid 2px #4FD1C5;
+    border: solid 2px #5eecdd;
+}
+
+.dd-a{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 20px;
+    margin-right: 35px;
+    color: #A0AEC0;
+    font-weight: 400;
+}
+.dd-a i{
+    font-size: 20px;
+    color: #4FD1C5;
+    margin-top: 0px;
+    margin-left: 5px;
 }

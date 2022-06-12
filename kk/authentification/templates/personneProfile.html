@@ -191,11 +191,23 @@
                     </div>
                 </section>
                 <section class="information">
+                   {% if page_user.is_association == True %}
+                    <h5>Description</h5>
+                    <p></p>
+                    {% endif %}
+                    <h5>Information Du Profile</h5>
                     <div class="personnel">
                         <ul>
                             <li> <span>Email :</span> {{page_user.email}}</li>
                             <li> <span>Phone :</span> {{page_user.phone}}</li>
-                            <li> <span>Wilaya :</span> {{ info.willaya }}</li>
+                            <li> <span>Wilaya :</span> {{ info.adresse.wilaya_name }}</li>
+                            <li> <span>Daira :</span> {{ info.adresse.daira_name }}</li>
+                            <li> <span>Commune :</span> {{ info.adresse.commune_name }}</li>
+                            {%if page_user.is_association == True %}
+                            <li> <span>Type :</span> {{ info.type }}</li>
+                            <li> <span>Domaine :</span> {{ info.category }}</li>
+                            <li> <span>Réseau :</span> <i class="fa-brands fa-facebook-f"></i> <i class="fa-brands fa-instagram"></i> <i class="fa-brands fa-twitter"></i></li>
+                            {% endif %}
                             
                         </ul>
                     </div>

@@ -127,7 +127,7 @@ class UserEdit (generic.UpdateView):
         context['annonces'] = Annonce.objects.filter(auteur=self.request.user)
         if self.request.user.is_person == True:
             context['info']=PhysicalUser.objects.get(user=self.request.user)
-        elif self.request.user.association == True:
+        elif self.request.user.is_association == True:
             context['info']=Association.objects.get(user=self.request.user)
         return context
 

@@ -39,7 +39,7 @@
         <div class="core2">
             <section style="width:100%;">
                 <div class="navBar">
-                    <img alt="Image profile" src="https://bit.ly/dan-abramov">
+                    <img alt="Image profile" src="{{request.user.img.url}}">
                     <div class="icon">
                         <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
                             class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +56,7 @@
                 <div class="cagniote">
                     <div class="head flex">
                         <div class="user">
-                            <img src="../../media/images/avatar.jpg" alt="userProfile" width="50" height="50">
+                            <img src="{{cagniote.user.user.img.url}}" alt="userProfile" width="50" height="50">
                             <div>
                                 <span>{{ cagniote.user.user}} </span>
                             <p class="date">{{cagniote.dateCreation}}</p>
@@ -124,7 +124,7 @@
                 <div class="modal__content1">
                     <section>
                         <form class="form" action="" method="post">
-                            <h1>creer votre cagniote </h1>
+                            <h1>créer votre cagnotte </h1>
                             {% csrf_token %}
                             {% for field in form %}
                             {{ field }}

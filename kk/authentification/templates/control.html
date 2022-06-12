@@ -17,18 +17,11 @@
         <section>
             <div class="sidebar">
                 <ul>
-                    {% if request.user.is_admin == True%}
+               
                     <li> <a href="{% url 'administrateur'%}"> <div><i class="fa-solid fa-chart-line"></i></div>Dashboard</a> </li>
-                    <li> <a href="{% url 'control'%}"> <div><i class="fa-solid fa-gear"></i></div>Controle</a> </li>
+                    <li class="active"> <a href="{% url 'control'%}"> <div><i class="fa-solid fa-gear"></i></div>Controle</a> </li>
                     <li> <a href="{% url 'logout'%}"> <div> <i class="fa-solid fa-right-from-bracket"></i></div>Déconnexion</a></li>
-                    {% else%}
-                    <li><a href="{% url 'annonce'%}"><div><i class="fa-solid fa-house"></i></div></i>Annonce</a></li>
-                    <li> <a href="{% url 'profile'%}"> <div><i class="fa-solid fa-user"></i></div>Profile</a> </li>
-                    <li> <a href="{% url 'cagniote'%}"> <div><i class="fa-solid fa-hand-holding-dollar"></i></div>Cagnotte</a> </li>
-                    <li> <a href="{% url 'benevole'%}"> <div><i class="fa-solid fa-handshake-angle"></i></div>Mission</a> </li>
-                    <li> <a href="{% url 'list_association'%}"> <div><i class="fa-solid fa-magnifying-glass"></i></div>Association</a> </li>
-                    <li> <a href="{% url 'logout'%}"> <div> <i class="fa-solid fa-right-from-bracket"></i></div>Déconnexion</a></li>
-                    {% endif %}
+                  
 
                 </ul>
             </div>
@@ -36,7 +29,7 @@
         <div class="core2">
             <section style="width:100%;">
                 <div class="navBar">
-                    <img alt="Image profile" src="https://bit.ly/dan-abramov">
+                    <img alt="Image profile" src="../static/images/admin.png">
                     <div class="icon">
                         <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
                             class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +50,7 @@
                             <tr>
                                 <th>Username</th>
                                 <th>Email</th>
-                                <th>Signialement</th>
+                                <th>Signalement</th>
                                 <th>Supprimer</th>
                             </tr>
                         </thead>
@@ -82,31 +75,14 @@
 
                     <div class="pagination">
                         <span class="step-links">
-                            {% if users.has_previous %}
+                            
 
-                            <a href="?page={{ users.previous_page_number }}" class="control"><i
+                            <a href="" class="control"><i
                                     class="fa-solid fa-angle-left"></i></a>
-                            {% else %}
-                            <a href="#" class="control"><i class="fa-solid fa-angle-left"></i></a>
-                            {% endif %}
 
-                            <span class="current">
-
-                                {% for i in users.paginator.page_range %}
-                                {% if users.number == i %}
-                                <a class="num" href="#">{{ i }} </a>
-                                {% else %}
-                                <a class="num active" href="?page={{ i }}">{{ i }}</a>
-                                {% endif %}
-                                {% endfor %}
-
-
-                            </span>
-                            {% if users.has_next %}
-                            <a href="?page={{ users.next_page_number }}" class="control"><i class="fa-solid fa-angle-right"></i></a>
-                            {% else %}
+                                    &nbsp; &nbsp; 1
                             <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
-                            {% endif %}
+                            
                         </span>
                     </div>
                 </div>
@@ -117,10 +93,10 @@
                         <thead>
 
                             <tr>
-                                <th>Username</th>
-                                <th>Signialement</th>
+                                <th>Pseudo</th>
+                                <th>Signalement</th>
                                 <th>Annonce</th>
-                                <th>supprimer</th>
+                                <th>Supprimer</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,7 +107,7 @@
 
                             <tr>
                                 <td data-column="Auter">{{annonce.auteur.username}}</td>
-                                <td data-column="Signialement">{{annonce.auteur.signial}}</td>
+                                <td data-column="Signialement">{{annonce.signial}}</td>
                                 <td data-column="Annonce"><a>lien</a></td>
                                 <td data-column="Supprimer"><a href="{% url 'deleteuser' user.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
                             </tr>
@@ -189,9 +165,9 @@
                             {% for association in associations %}
                             {% if association.is_valid == False %}
                             <tr>
-                                <td data-column="Name">{{association.name}}</td>
+                                <td data-column="Name">{{association.user.username}}</td>
                                 <td data-column="Email">{{association.user.email}}</td>
-                                <td data-column="Fiche">{{association.file}}</td>
+                                <td data-column="Fiche"> <em>{{association.file}}</em> </td>
                                 <td data-column="Accepter"><a href="{% url 'valider' association.user_id %}"><i
                                             class="fa-solid fa-check"></i></a>
                                 </td>

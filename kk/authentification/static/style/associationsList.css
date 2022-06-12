@@ -79,9 +79,12 @@ only screen and (max-width: 760px),
         position: absolute;
         top: -9999px;
         left: -9999px;
+       
     }
     
-
+    thead th{
+      font-weight: 600;
+    }
     
     td { 
         /* Behave  like a "row" */
@@ -184,12 +187,12 @@ option[selected]{
     font-weight: bold;
     font-size: 15px;
     cursor: pointer;
-    background-color: #5be4a8;
+    background-color: #4FD1C5;
     color: white;
   margin-top: 25px;
 }
 .green_btn:hover{
-  background-color:  #88e9bf;
+  background-color:  #5eecdd;
 }
 
 

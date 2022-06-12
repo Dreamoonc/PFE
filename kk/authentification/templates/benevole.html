@@ -28,7 +28,7 @@
                     <li><a href="{% url 'annonce'%}"><div><i class="fa-solid fa-house"></i></div></i>Annonce</a></li>
                     <li> <a href="{% url 'profile'%}"> <div><i class="fa-solid fa-user"></i></div>Profile</a> </li>
                     <li> <a href="{% url 'cagniote'%}"> <div><i class="fa-solid fa-hand-holding-dollar"></i></div>Cagnotte</a> </li>
-                    <li> <a href="{% url 'benevole'%}"> <div><i class="fa-solid fa-handshake-angle"></i></div>Mission</a> </li>
+                    <li class="active"> <a href="{% url 'benevole'%}"> <div><i class="fa-solid fa-handshake-angle"></i></div>Mission</a> </li>
                     <li> <a href="{% url 'list_association'%}"> <div><i class="fa-solid fa-magnifying-glass"></i></div>Association</a> </li>
                     <li> <a href="{% url 'logout'%}"> <div> <i class="fa-solid fa-right-from-bracket"></i></div>Déconnexion</a></li>
                     {% endif %}
@@ -39,7 +39,7 @@
         <div class="core2">
             <section style="width:100%;">
                 <div class="navBar">
-                    <img alt="Image profile" src="https://bit.ly/dan-abramov">
+                    <img alt="Image profile" src="{{request.user.img.url}}">
                     <div class="icon">
                         <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
                             class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +117,7 @@
                 <div class="modal__content1">
                     <section>
                         <form class="form" action="" method="post">
-                            <h1>creer votre cagniote </h1>
+                            <h1>créer votre mission de bénévolat </h1>
                             {% csrf_token %}
                             {{form.titre}}
                             {{form.contenu}}

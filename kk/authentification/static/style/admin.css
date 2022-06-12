@@ -1,13 +1,12 @@
 .row {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
 }
 .col {
     display: flex;
     flex-direction: row;
     height: 100px;
-    width: 200px;
+    width: 150px;
     align-items: center;
     padding: 15px;
     background-color: white;
@@ -17,6 +16,6 @@
 }
 
 .fa-solid {
-    padding: 25px;
-    color: blue;
+    padding: 25px 10px;
+    color: #4FD1C5;
 }

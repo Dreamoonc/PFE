@@ -31,8 +31,8 @@
                     {{form.password1}}
                     {{form.password2}}
                     <div class="btns-group">
-                      <a href="{% url 'select'%}" class="btn ">Previous</a>
-                      <a href="#" class="btn btn-next">Next</a>
+                      <a href="{% url 'select'%}" class="btn ">Retour</a>
+                      <a href="#" class="btn btn-next">Suivant</a>
                     </div>
                        
                     
@@ -96,8 +96,8 @@
         var form_fields = document.getElementsByTagName('input')
         var select = document.querySelectorAll("select")
         
-        form_fields[1].placeholder='Email'
-        form_fields[2].placeholder='Username'
+        form_fields[1].placeholder='email'
+        form_fields[2].placeholder='pseudo'
         
         
         form_fields[3].placeholder='mot de passe '

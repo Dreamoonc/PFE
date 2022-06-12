@@ -178,12 +178,12 @@ class PhysicalUser (models.Model):
 
 class Association (models.Model):
     user = models.OneToOneField(User , on_delete=models.CASCADE, primary_key=True,)
-    name = models.CharField(max_length=255)
     file = models.CharField (max_length=200)
     type = models.CharField(choices=TYPE_ASSOCIATION ,  max_length=10)
     category = models.CharField(choices=CATEGORY_ASSOCIATION ,  max_length=50)
-    willaya=models.CharField(choices=WILLAYA ,  max_length=10 )
     adresse = models.ForeignKey(localisation , on_delete=models.CASCADE, default = 1)
+    local=models.CharField(max_length=200,null=True ,blank=True )
+    description=models.TextField(max_length=800 , null=True ,blank=True)
     is_valid = models.BooleanField(default=False)
 
 class Annonce (models.Model):
@@ -212,9 +212,7 @@ class Cagniote (models.Model):
     sommeRecolter = models.FloatField(default=0)
     dateCreation = models.DateField(auto_now=True)
     user = models.ForeignKey(Association , on_delete=models.CASCADE)
-    arret=models.BooleanField(default=False)
-    
-
+    arret=models.BooleanField(default=False)    
     def __str__(self):
         return self.titre
 

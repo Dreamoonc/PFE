@@ -40,7 +40,8 @@
         <div class="core2">
             <section style="width:100%;">
                 <div class="navBar">
-                    <img alt="Image profile" src="https://bit.ly/dan-abramov">
+                    <a href="{% url 'profile'%}"><img alt="Image profile" src="{{request.user.img.url}}"></a>
+                    
                     <div class="icon">
                         <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
                             class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +55,7 @@
             <section>
                 <div class="table-users">
                     <div class="header">
-                        <h3>ASSOCIATIONS</h3>
+                        <h3>Associations</h3>
 
                         <div class="filtrage">
                             <form action="" methode="get" id="searchbox">
@@ -74,14 +75,6 @@
                             </div>
                           </div>
                         </div>
-                    
-
-                        
-                        
-
-
-
-
 
                     </div>
 
@@ -89,9 +82,9 @@
                         <thead>
                             <tr>
                                 <th>nom</th>
-                                <th>Email</th>
+                                <th>email</th>
                                 <th>type</th>
-                                <th>willaya</th>
+                                <th>wilaya</th>
                                 <th>category</th>
                             </tr>
                         </thead>
@@ -99,13 +92,12 @@
                             {% for association in associations %}
                             
                             <tr>
-                                <td data-column="nom">{{association.name}}</td>
+                                <td data-column="nom">{{association.user.username}}</td>
                                 <td data-column="Email">{{association.user.email}}</td>
                                 <td data-column="type">{{association.type}}</td>
-                                <td data-column="willaya"> {{association.willaya}}
+                                <td data-column="willaya"> {{association.adresse.wilaya_name}}
                                 </td>
-                                <td data-column="category">{{association.category}}
-                                       </td>
+                                <td data-column="category">{{association.category}}</td>
                             </tr>
                             
                             {% endfor %}
