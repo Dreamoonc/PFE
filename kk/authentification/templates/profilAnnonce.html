@@ -1,0 +1,177 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/annonce.css' %}"> 
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/profile.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+    
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="core1">
+        <section>
+            <div class="sidebar">
+                <ul>
+                    {% if request.user.is_admin == True%}
+                    <li> <a href="{% url 'administrateur'%}"> <div><i class="fa-solid fa-chart-line"></i></div>Dashboard</a> </li>
+                    <li> <a href="{% url 'control'%}"> <div><i class="fa-solid fa-gear"></i></div>Controle</a> </li>
+                    <li> <a href="{% url 'logout'%}"> <div> <i class="fa-solid fa-right-from-bracket"></i></div>Déconnexion</a></li>
+                    {% else%}
+                    <li><a href="{% url 'annonce'%}"><div><i class="fa-solid fa-house"></i></div></i>Annonce</a></li>
+                    <li class="active"> <a href="{% url 'profile'%}"> <div><i class="fa-solid fa-user"></i></div>Profile</a> </li>
+                    <li> <a href="{% url 'cagniote'%}"> <div><i class="fa-solid fa-hand-holding-dollar"></i></div>Cagnotte</a> </li>
+                    <li> <a href="{% url 'benevole'%}"> <div><i class="fa-solid fa-handshake-angle"></i></div>Mission</a> </li>
+                    <li> <a href="{% url 'list_association'%}"> <div><i class="fa-solid fa-magnifying-glass"></i></div>Association</a> </li>
+                    <li> <a href="{% url 'logout'%}"> <div> <i class="fa-solid fa-right-from-bracket"></i></div>Déconnexion</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </section>
+        <div class="core2">
+            <section style="width:100%;">
+                <div class="navBar">
+                        <img alt="Image profile" src="{{request.user.img.url}}">
+
+                    <div class="icon">
+                        <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
+                            class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+            
+
+            <div class="core3">
+                <section class="main-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-11 ">
+                                
+                                
+                                <div class="post-block">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex mb-3">
+                                            
+                                           
+                                           
+                                            <div class="mr-2">
+                                                <a href="{% url 'ShowProfilePersonne' annonce.auteur.id %}" class="text-dark"><img src="{{annonce.auteur.img.url}}" alt="User" class="author-img"></a>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-0"><a href="{% url 'ShowProfilePersonne' annonce.auteur.id %}" class="text-dark">{{annonce.auteur.username}}</a></h5>
+                                                <p class="mb-0 text-muted">{{annonce.date}}</p>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="post-block__user-options">
+                                            <a href="#!" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+                                                {% if user.id == annonce.auteur.id %}
+                                                <a class="dropdown-item text-dark" href="{% url 'updateAnnonce' annonce.id %}"><i class="fa fa-pencil mr-1"></i>Edit</a>
+                                                <a class="dropdown-item text-danger" href="{% url 'delete_annonce' annonce.id %}"><i class="fa fa-trash mr-1"></i>Delete</a>
+                                                {% else %}
+                                                <a class="dropdown-item text-dark" href="#!">Signaler</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="post-block__content mb-2">
+                                        <p>{{annonce.contenu}}</p>
+                                        {% if annonce.image %}
+                                        <div>
+                                            <img src="{{annonce.image.url}}" alt="Content img">
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <span class="type1">{{annonce.type}}</span>
+                                        <span class="categorie">{{annonce.category}}</span>    
+                                    </div>
+                                    <br>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="d-flex">
+                                                <a href="#!" class="text-danger mr-2"><span><i class="fa-solid fa-handshake-simple"></i></span></a>
+                                                <a href="#comment" class="text-dark mr-2"><span>3 soutiens</span></a>
+                                            </div>
+                                            <a href="#!" class="text-dark"><span><i class="fa-solid fa-share"></i> Partager</span></a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="post-block__comments">
+                                        <!-- Comment Input -->
+                                        <form action="{% url 'add_comment' annonce.id %}" method="post">
+                                            <div class="input-group mb-3">
+                                                {% csrf_token %}
+                                                {{commentForm.contenu}}
+                                                <input type="text" class="form-control" placeholder="Add your comment">
+                                                <div class="input-group-append">
+                                                      <button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-paper-plane"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        
+                                        <!-- Comment content -->
+                                        {%if not annonce.comments.all %}
+                                        <p>Aucun commentaire ...</p>
+                                        {% else %}
+                                            {% for comment in annonce.comments.all%}
+                                        <div class="comment-view-box mb-3">
+                                            <div class="d-flex mb-2">
+                                                <img src="img/user2.jpg" alt="User img" class="author-img author-img--small mr-2">
+                                                <div>
+                                                    <h6 class="mb-1"><a href="#!" class="text-dark">{{comment.auteur.username}}</a> <small class="text-muted">{{comment.date}}</small></h6>
+                                                    <p class="mb-1">{{comment.contenu}}</p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <a href="#!" class="text-dark">View More comments <span class="font-weight-bold">(2)</span></a>
+                                        </div>
+                                            {%endfor%}
+                                        {%endif%}
+                                       
+                                    </div>
+                                </div>
+                                
+                              
+                            </div>
+                        </div>
+                    </div>
+                </section>
+               
+            </div>
+
+            <div id="ajout" class="modal1">
+                <div class="modal__content1">
+                    <form method="POST" class="form" enctype="multipart/form-data"  >
+                        {% csrf_token %}
+                        {{form}}
+                        <input type="submit" value="modifier" class="green_btn">
+                    </form>
+                    <a href="#" class="modal__close1">&times;</a>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

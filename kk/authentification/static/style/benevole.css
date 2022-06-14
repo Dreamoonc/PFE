@@ -12,7 +12,7 @@
 	padding: 15px;
 	border-radius: 15px;
 	border:#E2E8F0 1px solid;
-	margin: 15px 0;
+	margin: 10px 0;
 	font-size: 14px;
 }
 .input:focus{
@@ -67,9 +67,18 @@ button{
 .input_parll .input{
     width: 150px;
 }
-.select{
+.select {
+    color: gray;
     width: 430px;
-    padding: 20px;
+    outline: none;
+    width: 420px;
+    height: 20px;
+    border-radius: 15px;
+    border: #E2E8F0 1px solid;
+    margin: 10px 0;
+    font-size: 14px;
+    height: 50px;
+    padding-left: 15px;
 }
 
 section.benevoles {

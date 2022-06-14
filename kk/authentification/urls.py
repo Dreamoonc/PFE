@@ -34,4 +34,7 @@ urlpatterns = [
     path('<int:pk>/depotArgent/',depotArgent.as_view(),name="depotArgent"),
     path('benevole/',views.ListeBenevole,name='benevole'),
     path('<int:pk>/profilBenevole/',ShowProfileBenevole.as_view(),name='ShowProfileBenevole'),
+    path('<int:pk>/profilAnnonce/',ShowProfileAnnonce.as_view(),name='ShowProfileAnnonce'),
+    path('arreterBenevole/<str:myid>/',ArreterBenevole,name='arreterBenevole'),
+    path('ajouterPersonne/<str:myid>/',ajouterPersonne,name='ajouterPersonne'),
 ]

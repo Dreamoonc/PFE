@@ -121,8 +121,25 @@
                             {% csrf_token %}
                             {{form.titre}}
                             {{form.contenu}}
-                            {{form.adresse}}
                             {{form.type}}
+                            <select class="select" name="commune_name" >
+                                <option value="" >commune</option>
+                                {% for options in local %}
+                                <option  value="{{options.commune_name}}">{{options.commune_name}}</option>
+                                {% endfor %}
+                              </select>
+                              <select class="select" name="wilaya_name" >
+                                <option value="" >wilaya</option>
+                                {% for options in local %}
+                                <option value="{{options.wilaya_name}}">{{options.wilaya_name}}</option>
+                                {% endfor %}
+                              </select>
+                              <select class="select" name="daira_name" >
+                                <option value="" >daira</option>
+                                {% for options in local %}
+                                <option value="{{options.daira_name}}">{{options.daira_name}}</option>
+                                {% endfor %}
+                              </select>
                             <div class="input_parll">
                                 {{form.nbr_max}}
                             <input type="date" class="input" name="date" id="">
@@ -145,6 +162,8 @@
         var text = document.querySelector('textarea')
         var  type= document.querySelectorAll('select')
         form_fields[1].placeholder = 'titre'
+        document.querySelector('select').querySelector('option').innerHTML='Type'
+        
         
        
        
@@ -162,12 +181,14 @@
 
         form_fields[1].classList.add('input')
         form_fields[2].classList.add('input')
+        
        
         
-        type[0].classList.add('input')
+        
         type[0].classList.add('select')
-        type[1].classList.add('input')
-        type[1].classList.add('select')
+        
+        
+        
         text.classList.add('input')
     </script>
                 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

@@ -89,7 +89,7 @@ class PasswordForm(PasswordChangeForm):
 class CreateBenevole (forms.ModelForm):
     class Meta:
         model= Benevole
-        fields=["titre","contenu","adresse","type","nbr_max"]
+        fields=["titre","contenu","type","nbr_max"]
 
 class CreateLocalisation (forms.ModelForm):
      class Meta:

@@ -290,23 +290,37 @@ def Arreter (request,myid) :
     return redirect(ListCagniote)
 
 def Control (request):
-    associations = Association.objects.all()
-    users = User.objects.all()
-    annonces = Annonce.objects.all()
+    associations1 = Association.objects.all()
+    users1 = User.objects.all()
+    annonces1 = Annonce.objects.all()
 
-    paginator= Paginator(users,5)
-    page_number=request.GET.get('page')
-    users=paginator.get_page(page_number)
+    users = []
+    annonces = []
+    associations = []
+
+    for i in associations1 :
+        if i.is_valid == False   :
+            associations.append (i) 
 
     paginator= Paginator(associations,5)
-    page_number=request.GET.get('page')
-    associations=paginator.get_page(page_number)
+    page_number2=request.GET.get('page2')
+    associations=paginator.get_page(page_number2) 
+
+    for i in users1 :
+        if i.signial > 0  :
+            users.append (i)  
+
+    paginator= Paginator(users,5)
+    page_number1=request.GET.get('page1')
+    users=paginator.get_page(page_number1)
+
+    for i in annonces1 :
+        if i.signial > 0  :
+            annonces.append (i)  
 
     paginator= Paginator(annonces,5)
-    page_number=request.GET.get('page')
-    annonces=paginator.get_page(page_number)
-
-    
+    page_number3=request.GET.get('page3')
+    annonces=paginator.get_page(page_number3)
 
     context= {'associations': associations,'users':users, 'annonces':annonces}
     return render(request,'control.html',context)    
@@ -378,10 +392,20 @@ class ShowProfileBenevole(DetailView):
         page_user = get_object_or_404(Benevole,id=self.kwargs['pk'])
         context['page_user']=page_user  
         return context
+class ShowProfileAnnonce(DetailView):
+    model=Annonce
+    template_name= 'profilAnnonce.html'
+    def get_context_data(self, *args,**kwargs):
+        profile=Annonce.objects.all()
+        context=super(ShowProfileAnnonce,self).get_context_data(*args,**kwargs)
+        page_user = get_object_or_404(Annonce,id=self.kwargs['pk'])
+        context['page_user']=page_user  
+        return context
 
 def ListeBenevole (request):
     benevoles= Benevole.objects.all()
     form = CreateBenevole ()
+    local = localisation.objects.all()
     if request.method =='POST':
         username = request.user
         association = Association.objects.get(user=username)
@@ -390,8 +414,11 @@ def ListeBenevole (request):
             contenu = request.POST['contenu']
             nbr_max = request.POST['nbr_max']
             date = request.POST['date']
-            adresse = request.POST['adresse']
-            loc_id = localisation.objects.filter( id__icontains=adresse  )
+            commune = request.POST['commune_name']
+            daira = request.POST['daira_name']
+            wilaya = request.POST['wilaya_name']
+            loc_id = localisation.objects.filter(commune_name__icontains=commune , daira_name__icontains=daira , wilaya_name__icontains=wilaya  )
+            print(loc_id)
             print(loc_id)
             type= request.POST['type']
             Benevole.objects.create(
@@ -400,9 +427,22 @@ def ListeBenevole (request):
                 contenu =contenu ,
                 nbr_max = nbr_max ,
                 date = date ,
-                adresse = loc_id[0] ,
+                adresse = loc_id[0],             
                 type = type ,
             )
 
-    context= {'form':form , 'benevoles':benevoles}
+    context= {'form':form , 'benevoles':benevoles , 'local' :local}
     return render(request,'benevole.html',context)
+
+def ArreterBenevole (request,myid) :
+    item = Benevole.objects.get(id =myid)
+    item.arret = True
+    item.save()
+    
+    return redirect('profilBenevole.html')
+def ajouterPersonne (request,myid) : 
+    item = Benevole.objects.get(id =myid)
+    item.nbr_actuel = item.nbr_actuel +1
+    item.save()
+
+    return redirect('profilBenevole.html')

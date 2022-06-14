@@ -49,40 +49,49 @@
                         <thead>
                             <tr>
                                 <th>Username</th>
-                                <th>Email</th>
                                 <th>Signalement</th>
+                                <th>profile</th>
                                 <th>Supprimer</th>
                             </tr>
                         </thead>
-
-
                         <tbody>
-                            {% for user in users %}
-                            {% if user.signial > 0 %}
-
+                            {% for user in users %}                       
                             <tr>
                                 <td data-column="Username">{{user.username}}</td>
-                                <td data-column="email">{{user.email}}</td>
                                 <td data-column="signialement">{{user.signial}}</td>
+                                <td data-column="email"><a href="{% url 'ShowProfilePersonne' user.id  %}">profile de {{user.username}}</a></td>
                                 <td data-column="supprimer"><a href="{% url 'deleteuser' user.id %}">
                                         <i class="fa-solid fa-trash-can"></i> </a></td>
-                            </tr>
-                            {% endif %}
+                            </tr>                       
                             {% endfor %}
-
                         </tbody>
                     </table>
 
                     <div class="pagination">
                         <span class="step-links">
-                            
-
-                            <a href="" class="control"><i
+                            {% if users.has_previous %}
+                            <a href="?page1={{ users.previous_page_number }}" class="control"><i
                                     class="fa-solid fa-angle-left"></i></a>
+                            {% else %}
+                            <a href="#" class="control"><i class="fa-solid fa-angle-left"></i></a>
+                            {% endif %}
+                            <span class="current">
+                                {% for i in users.paginator.page_range %}
+                                {% if users.number == i %}
+                                <a class="num" href="#">{{ i }} </a>
+                                {% else %}
+                                <a class="num active" href="?page1={{ i }}">{{ i }}</a>
+                                {% endif %}
+                                {% endfor %}
 
-                                    &nbsp; &nbsp; 1
+
+                            </span>
+                            {% if users.has_next %}
+                            <a href="?page1={{ users.next_page_number }}" class="control">
+                                <i class="fa-solid fa-angle-right"></i></a>
+                            {% else %}
                             <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
-                            
+                            {% endif %}
                         </span>
                     </div>
                 </div>
@@ -108,7 +117,7 @@
                             <tr>
                                 <td data-column="Auter">{{annonce.auteur.username}}</td>
                                 <td data-column="Signialement">{{annonce.signial}}</td>
-                                <td data-column="Annonce"><a>lien</a></td>
+                                <td data-column="Annonce"><a href="{% url 'ShowProfileAnnonce' annonce.id %}">lien</a></td>
                                 <td data-column="Supprimer"><a href="{% url 'deleteuser' user.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
                             </tr>
                             {% endif %}
@@ -120,7 +129,7 @@
                         <span class="step-links">
                             {% if annonces.has_previous %}
 
-                            <a href="?page={{ annonces.previous_page_number }}" class="control"><i
+                            <a href="?page3={{ annonces.previous_page_number }}" class="control"><i
                                     class="fa-solid fa-angle-left"></i></a>
                             {% else %}
                             <a href="#" class="control"><i class="fa-solid fa-angle-left"></i></a>
@@ -132,14 +141,14 @@
                                 {% if annonces.number == i %}
                                 <a class="num" href="#">{{ i }} </a>
                                 {% else %}
-                                <a class="num active" href="?page={{ i }}">{{ i }}</a>
+                                <a class="num active" href="?page3={{ i }}">{{ i }}</a>
                                 {% endif %}
                                 {% endfor %}
 
 
                             </span>
                             {% if annonces.has_next %}
-                            <a href="?page={{ annonces.next_page_number }}" class="control">
+                            <a href="?page3={{ annonces.next_page_number }}" class="control">
                                 <i class="fa-solid fa-angle-right"></i></a>
                             {% else %}
                             <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
@@ -163,18 +172,24 @@
                         </thead>
                         <tbody>
                             {% for association in associations %}
-                            {% if association.is_valid == False %}
                             <tr>
                                 <td data-column="Name">{{association.user.username}}</td>
                                 <td data-column="Email">{{association.user.email}}</td>
-                                <td data-column="Fiche"> <em>{{association.file}}</em> </td>
+                                <td data-column="Fiche"><a href="#ajout"><em>Agrément</em></a></td>
+                                <div id="ajout" class="modal1">
+                                    <div class="modal__content1">
+                                        <section>
+                                           <img src="{{association.file.url}}" alt="Agrément">
+                                        </section>
+                                        <a href="" class="modal__close1">&times;</a>
+                                    </div>
+                                </div>
                                 <td data-column="Accepter"><a href="{% url 'valider' association.user_id %}"><i
                                             class="fa-solid fa-check"></i></a>
                                 </td>
                                 <td data-column="Refuser"><a href="{% url 'deleteAssociation' association.user.id %}">
                                     <i class="fa-solid fa-xmark"></i></a></td>
                             </tr>
-                            {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>
@@ -183,7 +198,7 @@
                         <span class="step-links">
                             {% if associations.has_previous %}
 
-                            <a href="?page={{ associations.previous_page_number }}" class="control">
+                            <a href="?page2={{ associations.previous_page_number }}" class="control">
                                 <i class="fa-solid fa-angle-left"></i></a>
                             {% else %}
                             <a href="#" class="control"><i class="fa-solid fa-angle-left"></i></a>
@@ -195,14 +210,14 @@
                                 {% if associations.number == i %}
                                 <a class="num" href="#">{{ i }} </a>
                                 {% else %}
-                                <a class="num active" href="?page={{ i }}">{{ i }}</a>
+                                <a class="num active" href="?page2={{ i }}">{{ i }}</a>
                                 {% endif %}
                                 {% endfor %}
 
 
                             </span>
                             {% if associations.has_next %}
-                            <a href="?page={{ associations.next_page_number }}" class="control">
+                            <a href="?page2={{ associations.next_page_number }}" class="control">
                                 <i class="fa-solid fa-angle-right"></i></a>
                             {% else %}
                             <a href="#" class="control"><i class="fa-solid fa-angle-right"></i></a>
@@ -213,6 +228,7 @@
                 </div>
 
             </section>
+           
 
         </div>
 
