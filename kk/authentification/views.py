@@ -238,6 +238,19 @@ def delete_comment (request,myid):
     messages.info(request,'commentaire supprimé')
     return  redirect(annonce)
 
+def signaler_annonce (request,myid):
+    item=Annonce.objects.get(id=myid)
+    item.signial+=1
+    item.save()
+    messages.info(request,'Annonce signalé')
+    return redirect(annonce)
+
+def signaler_user(request,myid):
+    item=User.objects.get(id=myid)
+    item.signial+=1
+    item.save()
+    messages.info(request,'Utilisateur signalé')
+    return redirect(annonce)
 def ListCagniote (request):
     cagnites= Cagniote.objects.all()
     form = CreateCagniote ()
