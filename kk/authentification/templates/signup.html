@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style/auth.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
     <title>Document</title>
 </head>
 <body>
@@ -49,22 +50,23 @@
                     
                     </div>
                     <div class="form-step ">
-                      <select class="input1 input2" name="commune_name" >
-                        <option value="" >commune</option>
-                        {% for options in local %}
-                        <option  value="{{options.commune_name}}">{{options.commune_name}}</option>
-                        {% endfor %}
-                      </select>
-                      <select class="input1 input2" name="wilaya_name" >
+                      
+                      <select id="wilaya" class="input1 input2" name="wilaya_name" >
                         <option value="" >wilaya</option>
-                        {% for options in local %}
+                        {% for options in wilaya %}
                         <option value="{{options.wilaya_name}}">{{options.wilaya_name}}</option>
                         {% endfor %}
                       </select>
-                      <select class="input1 input2" name="daira_name" >
+                      <select id="daira" class="input1 input2" name="daira_name" >
                         <option value="" >daira</option>
                         {% for options in local %}
                         <option value="{{options.daira_name}}">{{options.daira_name}}</option>
+                        {% endfor %}
+                      </select>
+                      <select id="commune"  class="input1 input2" name="commune_name" >
+                        <option value="" >commune</option>
+                        {% for options in local %}
+                        <option  value="{{options.commune_name}}">{{options.commune_name}}</option>
                         {% endfor %}
                       </select>
                       <input class="input1" type="hidden">
@@ -92,6 +94,47 @@
         </div>
     
     <script>
+
+       $("#wilaya").change(function(){
+      
+       const wilaya=$(this).val();
+      $.ajax({
+        url:"{% url  'get_Daira' %}",
+        data:{
+          'wilaya':wilaya
+        },
+        success:function(data){
+          console.log(data)
+          $("#daira").html(data);
+        },
+        error:function(error){
+                console.log(error)
+        }
+      })
+    }
+    )
+
+    $("#daira").change(function(){
+      
+      const daira=$(this).val();
+     $.ajax({
+       url:"{% url  'get_Commune' %}",
+       data:{
+         'daira':daira
+       },
+       success:function(data){
+         console.log(data)
+         $("#commune").html(data);
+       },
+       error:function(error){
+               console.log(error)
+       }
+     })
+   }
+   )
+
+
+
         var form_fields = document.getElementsByTagName('input')
         var select = document.querySelectorAll("select")
         document.querySelector("#id_type").querySelector('option').innerHTML = "type"

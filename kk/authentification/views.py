@@ -1,4 +1,4 @@
-
+from audioop import reverse
 from xml.dom.pulldom import parseString
 from django.shortcuts import  get_object_or_404, redirect, render
 from django.http import HttpRequest
@@ -11,15 +11,42 @@ from .filters import *
 from django.contrib.auth.forms import UserChangeForm ,PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from django.views.generic import DetailView
+from django.views.generic import DetailView ,View
 from django.views import generic
 from django.contrib import messages
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.utils.http import urlsafe_base64_encode , urlsafe_base64_decode
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
+from django.utils.encoding import force_bytes  , DjangoUnicodeDecodeError
+from .utils import token_generator
 
+import smtplib
+creds={
+    "email":"mdjassia@outlook.fr",
+    "pass":"assiaqueen2001"
+}
+
+def SendGmail(People,title, Subject, msg):
+    try:
+        server = smtplib.SMTP("smtp.office365.com:587")
+        server.ehlo()
+        server.starttls()
+        server.login(creds["email"], creds["pass"])
+        message = "Subject: {}\n\n{}".format(Subject, msg)
+        server.sendmail(f"{title} <{creds['email']}>", People, message)
+        print("email has been sent")
+    except Exception as e:
+        print(("error",e))
+        
 def Register (request):
     form = CreateUserForm()
     form2 = CreateAssociation()
     form3 =CreateLocalisation()
     local = localisation.objects.all()
+    wilaya = localisation.objects.values("wilaya_name").distinct()
+    print(wilaya)
     if request.method =='POST':
         form = CreateUserForm(request.POST)
 
@@ -27,7 +54,7 @@ def Register (request):
         if form.is_valid():
             
             file = request.POST['file']
-            
+            adress = request.POST['email']
             type = request.POST['type']
             category = request.POST['category']
             commune = request.POST['commune_name']
@@ -36,31 +63,43 @@ def Register (request):
             
             loc_id = localisation.objects.filter(commune_name__icontains=commune , daira_name__icontains=daira , wilaya_name__icontains=wilaya  )
             print(loc_id)
-             
+         
             user = form.save()
+            user.is_active= False 
             user.is_association =True
+            
             user.save()
             Association.objects.create(
                     user=user ,
-                    
                     file=file,
-                    
                     type = type ,
                     category = category,
                     adresse = loc_id[0]
             )
+            
+            uidb64 = urlsafe_base64_encode (force_bytes(user.pk))
 
-            messages.success(request,'account created seccefully ')
+            domain = get_current_site(request).domain
+            link = reverse('ActiverCompte',kwargs={'uidb64':uidb64, 'token':token_generator.make_token(user)})
+            link1 = reverse('validerCompte',kwargs={'pk':user.email})
+            url = 'http://'+domain+link
+            emailbody = "hi"+ user.username+'please use this link to verify ur account \n'+url
+            url1 = 'http://'+domain+link1
+            body = "hi"+ user.username+'please use this link to verify ur account \n'+url1
+
+            SendGmail([user.email], "title","email confirmation ",body)
+
+            messages.success(request,' Confirmer votre compte  ')
             return redirect('login')
 
-    context= {'form':form ,'form2':form2 , "form3":form3,"local":local} 
+    context= {'form':form ,'form2':form2 , "form3":form3,"local":local, 'wilaya':wilaya } 
     return render(request,'signup.html',context)
-
 
 def RegisterUser (request):
     form = CreateUserForm()
     form2 = CreatePersonne()
     form3 = CreateLocalisation()
+    wilaya = localisation.objects.values("wilaya_name").distinct()
     local = localisation.objects.all()
     if request.method =='POST':
         form = CreateUserForm(request.POST)
@@ -86,13 +125,23 @@ def RegisterUser (request):
                     last_name=last_name,
                     adresse = loc_id[0]
             )
+            uidb64 = urlsafe_base64_encode (force_bytes(user.pk))
 
-            messages.success(request,'account created seccefully ')
+            domain = get_current_site(request).domain
+            link = reverse('ActiverCompte',kwargs={'uidb64':uidb64, 'token':token_generator.make_token(user)})
+            link1 = reverse('validerCompte',kwargs={'pk':user.email})
+            url = 'http://'+domain+link
+            emailbody = "hi"+ user.username+'please use this link to verify ur account \n'+url
+            url1 = 'http://'+domain+link1
+            body = "hi"+ user.username+'please use this link to verify ur account \n'+url1
+
+            SendGmail([user.email], "title","email confirmation ",body)
+
+            messages.success(request,'confirmer votre email')
             return redirect('login')
 
-    context= {'form':form ,'form2':form2 , "form3" :form3,"local":local,} 
+    context= {'form':form ,'form2':form2 , "form3" :form3,"local":local,'wilaya':wilaya} 
     return render(request,'physical.html',context)
-
 
 def Loginin (request):
     form = LoginForm()
@@ -103,16 +152,19 @@ def Loginin (request):
             password=request.POST['password']
             user = authenticate(request , email=email,password=password )  
             if user is not None :
-                if  user.is_association   :
-                    ass = Association.objects.get(user = user)
-                    if ass.is_valid == True :
-                        login (request , user ) 
-                        return redirect('profile')
-                    else :
-                        messages.error(request , "cette association n'est pas valide")
+                if user.is_active == True : 
+                    if  user.is_association :
+                        ass = Association.objects.get(user = user)
+                        if ass.is_valid == True :
+                            login (request , user ) 
+                            return redirect('profile')
+                        else :
+                            messages.error(request , "cette association n'est pas valide")
                 else :
-                    login (request , user ) 
-                    return redirect('profile')           
+                    messages.error(request , "ce compte  n'est pas valide")
+            else :
+                login (request , user ) 
+                return redirect('profile')           
     context= {'form':form}
     return render(request,'login.html',context)
 
@@ -152,7 +204,6 @@ class PasswordChange (PasswordChangeView):
     template_name='passwordChange.html'
     success_url = reverse_lazy('password_success')
 
-
 def password_success(request):
     return render(request,'password_success.html')
 
@@ -167,13 +218,10 @@ def updateAnnonce (request,pk):
     context={'formAnnonce':formAnnonce}    
     return render(request,'annonce.html',context)
    
-
-
 def Select (request):
     
     context= {}
     return render(request,'select.html',context)
-
 
 def Logoutt (request):
     logout(request)
@@ -224,8 +272,6 @@ def add_comment (request,myid):
     context={}
     return render(request,'annonce.html',context)
 
-
-
 def delete_annonce (request,myid) :
     item = Annonce.objects.get(id =myid)
     item.delete()
@@ -270,7 +316,6 @@ def ListCagniote (request):
 
     context= {'form':form , 'cagniotes':cagnites}
     return render(request,'cagniote.html',context)
-
 
 def Admin (request):
     cagniote = Cagniote.objects.all()
@@ -329,6 +374,8 @@ def Valider (request,myid) :
     item = Association.objects.get(user_id =myid)
     item.is_valid = True
     item.save()
+    SendGmail([item.user.email], "title","confirmation association"," votre association a ete confirmer par administrateur vous pouver maintenant se connecter ")
+    
     
     return redirect(Control)
 
@@ -349,7 +396,6 @@ def deleteAnnonce (request,myid) :
     item.delete()
     
     return redirect(Control)
-
 
 def List_Association (request):
     if 'q' in request.GET :
@@ -406,6 +452,7 @@ def ListeBenevole (request):
     benevoles= Benevole.objects.all()
     form = CreateBenevole ()
     local = localisation.objects.all()
+    wilaya = localisation.objects.values("wilaya_name").distinct()
     if request.method =='POST':
         username = request.user
         association = Association.objects.get(user=username)
@@ -431,7 +478,7 @@ def ListeBenevole (request):
                 type = type ,
             )
 
-    context= {'form':form , 'benevoles':benevoles , 'local' :local}
+    context= {'form':form , 'benevoles':benevoles , 'local' :local, 'wilaya':wilaya}
     return render(request,'benevole.html',context)
 
 def ArreterBenevole (request,myid) :
@@ -446,3 +493,24 @@ def ajouterPersonne (request,myid) :
     item.save()
 
     return redirect('profilBenevole.html')
+
+class Verification(View):
+    def get(self,request,uidb64,token):
+      return redirect('login.html')
+
+def validerCompte (request,pk):
+    item = User.objects.get(email =pk)
+    item.is_active = True 
+    item.save()
+    return redirect('login')
+
+def get_Daira (request):
+    wilaya = request.GET.get('wilaya')
+    daira = localisation.objects.filter(wilaya_name=wilaya).values('daira_name').distinct()
+    context={'daira':daira}
+    return render(request,'daira.html',context)
+def get_Commune (request):
+    daira = request.GET.get('daira')
+    commune = localisation.objects.filter(daira_name=daira).values('commune_name').distinct()
+    context={'commune':commune}
+    return render(request,'commune.html',context) 
