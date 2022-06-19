@@ -93,3 +93,14 @@ class AssociationFilter(django_filters.FilterSet):
        model = Association
        fields = ['willaya','type','category']
 
+
+class AssociationFilter2(django_filters.FilterSet):
+    willaya=ChoiceFilter(choices=WILLAYA,label='',empty_label="willaya",widget=Select(attrs={'class':'selectform'}))
+    
+    type=ChoiceFilter(choices=TYPE_ASSOCIATION,label='',empty_label="type",widget=Select(attrs={'class':'selectform'}))
+    category=ChoiceFilter(choices=CATEGORY_ASSOCIATION,label='',empty_label="category",widget=Select(attrs={'class':'selectform'}))
+    
+    class  Meta :
+       model = Association
+       fields = ['willaya','type','category']
+

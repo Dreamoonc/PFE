@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
     <link rel="stylesheet" href="{% static 'style/landing.css' %}">
+    <link rel="stylesheet" href="{% static 'style/recherche.css' %}">
     <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
@@ -34,11 +35,35 @@
          </p>
         </div>        
      </header>
-         <div class="more">
-
-           
-
-         </div>
+     <div class="more">
+        <form class="formFilter" action="" methode="get">
+            <input name="q" type="text" placeholder="name" class="selectform">
+            {{filtre.form}}
+            <button class="green_btn" type="submit"> Search </button>
+        </form>
+        <section class="benevoles" >
+            {% for association in associations  %}
+            <div class="benevole">
+                
+                <img src="{{association.user.img.url}}" alt="profile association">
+                {% if association.type == "National" %}
+                <div class="type  typeSo ">association {{association.type}}</div>
+                {% endif %}
+                {% if association.type == "Locale" %}
+                <div class="type  typeP">association {{association.type}}</div>
+                {% endif %}
+                <div class="contenu">  
+                    <h3>{{association.user.username}}</h3>
+                    <p><span> <strong>Categorie :</strong>  </span> {{association.category}}</p>
+                    <p><span><strong>Adresse  :</strong> </span> {{association.adresse.wilaya_name}} , {{association.adresse.daira_name}} , {{association.adresse.commune_name}} </p>
+                </div>   
+                <div class="nombre">
+                    <i class="fa-brands fa-facebook-f"></i> <i class="fa-brands fa-instagram"></i> <i class="fa-brands fa-twitter"></i></li>
+                           
+                 </div>                
+            </div>
+            {% endfor %}
+        </section>
      </div>
 </body>
 </html>

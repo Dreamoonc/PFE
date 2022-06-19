@@ -21,6 +21,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.utils.encoding import force_bytes  , DjangoUnicodeDecodeError
 from .utils import token_generator
+from django.contrib.auth.decorators import login_required
 
 import smtplib
 creds={
@@ -52,8 +53,8 @@ def Register (request):
 
         
         if form.is_valid():
-            
-            file = request.POST['file']
+            if  request.FILES:
+                file = request.FILES['file']
             adress = request.POST['email']
             type = request.POST['type']
             category = request.POST['category']
@@ -152,6 +153,8 @@ def Loginin (request):
             password=request.POST['password']
             user = authenticate(request , email=email,password=password )  
             if user is not None :
+                if user.is_admin ==True :
+                    return redirect('control') 
                 if user.is_active == True : 
                     if  user.is_association :
                         ass = Association.objects.get(user = user)
@@ -227,6 +230,7 @@ def Logoutt (request):
     logout(request)
     return redirect('login')
 
+@login_required(login_url='../login/')
 def annonce (request):
     annonces= Annonce.objects.all()
     formAnnonce=AnnonceForm()
@@ -297,6 +301,7 @@ def signaler_user(request,myid):
     item.save()
     messages.info(request,'Utilisateur signalé')
     return redirect(annonce)
+@login_required(login_url='../login/')
 def ListCagniote (request):
     cagnites= Cagniote.objects.all()
     form = CreateCagniote ()
@@ -333,7 +338,7 @@ def Arreter (request,myid) :
     item.save()
     
     return redirect(ListCagniote)
-
+@login_required(login_url='../login/')
 def Control (request):
     associations1 = Association.objects.all()
     users1 = User.objects.all()
@@ -396,7 +401,7 @@ def deleteAnnonce (request,myid) :
     item.delete()
     
     return redirect(Control)
-
+@login_required(login_url='../login/')
 def List_Association (request):
     if 'q' in request.GET :
         q=request.GET['q']
@@ -415,10 +420,22 @@ def List_Association (request):
     return render(request,'listAssociations.html',context)
 
 def Landing(request):
-    return render(request,'landing.html')
+    associations = Association.objects.all()
+    cagnottes = Cagniote.objects.all()
+    Benevoles = Benevole.objects.all()
+    annonce = Annonce.objects.all()
+
+    context= {'associations':associations.__len__ , "cagnottes":cagnottes.__len__ ,"Benevoles":Benevoles.__len__ ,"annonce" :annonce.__len__}
+
+    return render(request,'landing.html' , context)
 
 def landingRecherche(request):
-    return render(request,'landingRecherche.html')
+    
+    associations = Association.objects.all()
+    a= AssociationFilter2(request.GET, queryset=associations)
+    associations=a.qs
+    context= {'associations':associations, 'filtre': a}
+    return render(request,'landingRecherche.html',context)
 
 class depotArgent(DetailView):
     model=Cagniote
@@ -428,7 +445,8 @@ class depotArgent(DetailView):
         page_user = get_object_or_404(Cagniote,id=self.kwargs['pk'])
         context['cag']=page_user     
         return context
-    
+
+  
 class ShowProfileBenevole(DetailView):
     model=Benevole
     template_name= 'profilBenevole.html'
@@ -448,6 +466,7 @@ class ShowProfileAnnonce(DetailView):
         context['page_user']=page_user  
         return context
 
+@login_required(login_url='../login/')
 def ListeBenevole (request):
     benevoles= Benevole.objects.all()
     form = CreateBenevole ()
