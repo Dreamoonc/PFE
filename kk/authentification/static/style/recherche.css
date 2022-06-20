@@ -26,7 +26,7 @@
     padding: 15px 0;
     margin: 0;
     border-radius: 15px;
-    width: 425px;
+    width: 85px;
     font-weight: bold;
     font-size: 15px;
     cursor: pointer;
@@ -94,7 +94,7 @@ section.benevoles {
     margin: 25px;
     border-radius: 15px;
     box-shadow: 0px 4px 12px #dfddddbf;
-    height: 350px;
+    height: 360px;
     overflow: hidden;
 }
 .benevole img{
@@ -106,8 +106,7 @@ section.benevoles {
     
     filter: brightness(75%);
     -webkit-filter: brightness(75%);
-       
-       
+           
 }
 .type {
     margin: 10px;
@@ -148,16 +147,24 @@ background-color: #aa8625;
 
 }
 .contenu {
-    padding:  0 20px;
-    border-bottom: 1px solid rgba(202, 202, 202, 0.822);
-    height: 130px;
+    padding: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    height: 180px;
     display: grid;
+    justify-content: start;
+    border-bottom: 1px solid gray;
 }
 .contenu h3 {
-    height: 50px;
+    height: 20px;
 }
 .contenu a {
     color: #abb7c7;
+}
+.contenu p {
+    margin-top: 0 ;
 }
 .benevole:hover{
     box-shadow: 2px 4px 15px #b9b8b8bf;
@@ -166,12 +173,43 @@ background-color: #aa8625;
     transform: scale(1.1);
 }
 
+
 .nombre{
-    padding :10px ;
+    padding: 10px 0px ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.nombre{
-    padding: 10px 20px;
+.nombre i {
+    padding: 0 10px;
+    color: #4FD1C5;
 }
 span {
-    padding-left: 5px ;
+    padding-left: 0px ;
+}
+
+
+
+.formFilter{
+    display: flex;
+}
+
+
+.selectform{
+   
+        outline: none;
+        width: 250px;
+        /* height: 20px; */
+        padding: 15px;
+        border-radius: 15px;
+        border: #E2E8F0 1px solid;
+        margin: 10px 0;
+        font-size: 14px;
+    
+}
+.formFilter {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    margin-bottom: 10px;
 }

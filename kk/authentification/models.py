@@ -182,7 +182,7 @@ class PhysicalUser (models.Model):
 
 class Association (models.Model):
     user = models.OneToOneField(User , on_delete=models.CASCADE, primary_key=True,)
-    file = models.CharField (max_length=200)
+    file = models.ImageField(verbose_name="image", upload_to='images/')
     type = models.CharField(choices=TYPE_ASSOCIATION ,  max_length=10)
     category = models.CharField(choices=CATEGORY_ASSOCIATION ,  max_length=50)
     adresse = models.ForeignKey(localisation , on_delete=models.CASCADE, default = 1)
@@ -229,6 +229,7 @@ class Benevole (models.Model):
     nbr_actuel = models.IntegerField(default=0)
     date =models.DateField()
     type = models.CharField(choices=TYPE_BENEVOLE  ,  max_length=60)
+    arret=models.BooleanField(default=False) 
     association = models.ForeignKey(Association ,on_delete=models.CASCADE)
     adresse = models.ForeignKey(localisation , on_delete=models.CASCADE)
 

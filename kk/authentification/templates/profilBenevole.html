@@ -41,7 +41,6 @@
             <section style="width:100%;">
                 <div class="navBar">
                     <img alt="Image profile" src="{{request.user.img.url}}">
-
                     <div class="icon">
                         <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
                             class="chakra-icon css-1k2rqkh" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -57,10 +56,8 @@
                     <div class="cover1">
                         <div class="cover2">
                             <div class="cover3">
-
                                 <div class="coverInfo">
                                     {% if benevole.type == "SOLIDARITÉ ET INSERTION" %}
-
                                     <div class="type typeSo">{{benevole.type}}</div>
                                     {% endif %}
                                     {% if benevole.type == "ÉDUCATION POUR TOUS" %}
@@ -85,13 +82,10 @@
                                         <h1>{{benevole.titre}}</h1>
                                         <P>Publier par l'association <span>{{benevole.association.user.username}}</span></P>
                                     </div>
-
-
-
                                 </div>
                             </div>
                             {% if request.user == benevole.association.user %}
-                            <a href="#ajout">
+                            <a href="{% url 'arreterBenevole' benevole.id  %}"> 
 
                                 <button type="button" class="button1">
                                     <i class="fa-solid fa-pencil fa-lg"></i>
@@ -99,13 +93,10 @@
                                 </button>
                             </a>
                             {% endif %}
-
-
                         </div>
                     </div>
                 </div>
             </section>
-
             <div class="core3">
                 <section class="main-content">
                     <div class="contain">
@@ -123,7 +114,6 @@
                                 <p>en savoir plus ..</p> </button>
                         </a>
   </div>
-
                 </section>
                 <section class="information">
 
@@ -158,30 +148,24 @@
                     {% endif %}
                     <div class="contenu">
                         <h3>
-                            ils cherche {{benevole.nbr_max}} bénévoles
+                            ils cherchent {{benevole.nbr_max}} bénévoles
                         </h3>
                         <p>{{benevole.nbr_actuel}} PERSONNES DÉJÀ INSCRITES </p>
                         <div>
                             <p> <span><i class="fa-solid fa-location-dot"></i></span>{{benevole.adresse.wilaya_name}} ,{{benevole.adresse.daira_name}} ,{{benevole.adresse.commune_name}} </p>
                             <p> <span><i class="fa-solid fa-calendar-days"></i></span> {{benevole.date}} </p>
-                        </div>
-
-
-
-                        <button class="green_btn">je propose mon aide</button>
-
-                    </div>
-
+                        </div>      
+                        {% if benevole.arret == False  %}
+                        {% if benevole.nbr_actuel <  benevole.nbr_max %}
+                         <button class="green_btn"> <a href="{% url 'ajouterPersonne' benevole.id  %}"> je propose mon aide </a> </button>
+                        {% endif %}
+                        {% endif %}
+                        {% if benevole.arret == True  or benevole.nbr_actuel >=  benevole.nbr_max  %}
+                           <p>Mission fermer</p>
+                        {% endif %}
                 </section>
             </div>
-
-
-
         </div>
-
     </div>
-
-
 </body>
-
 </html>

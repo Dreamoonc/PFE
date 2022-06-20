@@ -35,4 +35,11 @@ urlpatterns = [
     path('benevole/',views.ListeBenevole,name='benevole'),
     path('<int:pk>/profilBenevole/',ShowProfileBenevole.as_view(),name='ShowProfileBenevole'),
     path('ajax/getNotif',views.getNotif,name="getNotif")
+    path('<int:pk>/profilAnnonce/',ShowProfileAnnonce.as_view(),name='ShowProfileAnnonce'),
+    path('arreterBenevole/<str:myid>/',ArreterBenevole,name='arreterBenevole'),
+    path('ajouterPersonne/<str:myid>/',ajouterPersonne,name='ajouterPersonne'),
+    path('get_Daira/',views.get_Daira,name='get_Daira'),
+    path('get_Commune/',views.get_Commune,name='get_Commune'),
+    path('validerCompte/<pk>/',validerCompte,name='validerCompte'),
+    path('ActiverCompte/<uidb64>/<token>',Verification.as_view(),name='ActiverCompte'),
 ]

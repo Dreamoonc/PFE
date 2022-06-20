@@ -1,4 +1,4 @@
-
+from audioop import reverse
 from xml.dom.pulldom import parseString
 from django.shortcuts import  get_object_or_404, redirect, render
 from django.http import HttpRequest, JsonResponse
@@ -11,22 +11,54 @@ from .filters import *
 from django.contrib.auth.forms import UserChangeForm ,PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from django.views.generic import DetailView
+from django.views.generic import DetailView ,View
 from django.views import generic
 from django.contrib import messages
+<<<<<<< HEAD
 from .consumers import TestConsumer
 
+=======
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.utils.http import urlsafe_base64_encode , urlsafe_base64_decode
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
+from django.utils.encoding import force_bytes  , DjangoUnicodeDecodeError
+from .utils import token_generator
+from django.contrib.auth.decorators import login_required
+
+import smtplib
+creds={
+    "email":"mdjassia@outlook.fr",
+    "pass":"assiaqueen2001"
+}
+
+def SendGmail(People,title, Subject, msg):
+    try:
+        server = smtplib.SMTP("smtp.office365.com:587")
+        server.ehlo()
+        server.starttls()
+        server.login(creds["email"], creds["pass"])
+        message = "Subject: {}\n\n{}".format(Subject, msg)
+        server.sendmail(f"{title} <{creds['email']}>", People, message)
+        print("email has been sent")
+    except Exception as e:
+        print(("error",e))
+        
+>>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
 def Register (request):
     form = CreateUserForm()
     form2 = CreateAssociation()
     form3 =CreateLocalisation()
     local = localisation.objects.all()
+    wilaya = localisation.objects.values("wilaya_name").distinct()
+    print(wilaya)
     if request.method =='POST':
         form = CreateUserForm(request.POST)   
         if form.is_valid():
-            
-            file = request.POST['file']
-            
+            if  request.FILES:
+                file = request.FILES['file']
+            adress = request.POST['email']
             type = request.POST['type']
             category = request.POST['category']
             commune = request.POST['commune_name']
@@ -35,30 +67,47 @@ def Register (request):
             
             loc_id = localisation.objects.filter(commune_name__icontains=commune , daira_name__icontains=daira , wilaya_name__icontains=wilaya  )
             print(loc_id)
-             
+         
             user = form.save()
+            user.is_active= False 
             user.is_association =True
+            
             user.save()
             Association.objects.create(
                     user=user ,
-                    
                     file=file,
-                    
                     type = type ,
                     category = category,
                     adresse = loc_id[0]
             )
+            
+            uidb64 = urlsafe_base64_encode (force_bytes(user.pk))
 
-            messages.success(request,'account created seccefully ')
+            domain = get_current_site(request).domain
+            link = reverse('ActiverCompte',kwargs={'uidb64':uidb64, 'token':token_generator.make_token(user)})
+            link1 = reverse('validerCompte',kwargs={'pk':user.email})
+            url = 'http://'+domain+link
+            emailbody = "hi"+ user.username+'please use this link to verify ur account \n'+url
+            url1 = 'http://'+domain+link1
+            body = "hi"+ user.username+'please use this link to verify ur account \n'+url1
+
+            SendGmail([user.email], "title","email confirmation ",body)
+
+            messages.success(request,' Confirmer votre compte  ')
             return redirect('login')
+<<<<<<< HEAD
     context= {'form':form ,'form2':form2 , "form3":form3,"local":local} 
-    return render(request,'signup.html',context)
+=======
 
+    context= {'form':form ,'form2':form2 , "form3":form3,"local":local, 'wilaya':wilaya } 
+>>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
+    return render(request,'signup.html',context)
 
 def RegisterUser (request):
     form = CreateUserForm()
     form2 = CreatePersonne()
     form3 = CreateLocalisation()
+    wilaya = localisation.objects.values("wilaya_name").distinct()
     local = localisation.objects.all()
     if request.method =='POST':
         form = CreateUserForm(request.POST)
@@ -81,13 +130,23 @@ def RegisterUser (request):
                     last_name=last_name,
                     adresse = loc_id[0]
             )
+            uidb64 = urlsafe_base64_encode (force_bytes(user.pk))
 
-            messages.success(request,'account created seccefully ')
+            domain = get_current_site(request).domain
+            link = reverse('ActiverCompte',kwargs={'uidb64':uidb64, 'token':token_generator.make_token(user)})
+            link1 = reverse('validerCompte',kwargs={'pk':user.email})
+            url = 'http://'+domain+link
+            emailbody = "hi"+ user.username+'please use this link to verify ur account \n'+url
+            url1 = 'http://'+domain+link1
+            body = "hi"+ user.username+'please use this link to verify ur account \n'+url1
+
+            SendGmail([user.email], "title","email confirmation ",body)
+
+            messages.success(request,'confirmer votre email')
             return redirect('login')
 
-    context= {'form':form ,'form2':form2 , "form3" :form3,"local":local,} 
+    context= {'form':form ,'form2':form2 , "form3" :form3,"local":local,'wilaya':wilaya} 
     return render(request,'physical.html',context)
-
 
 def Loginin (request):
     form = LoginForm()
@@ -98,16 +157,21 @@ def Loginin (request):
             password=request.POST['password']
             user = authenticate(request , email=email,password=password )  
             if user is not None :
-                if  user.is_association   :
-                    ass = Association.objects.get(user = user)
-                    if ass.is_valid == True :
-                        login (request , user ) 
-                        return redirect('profile')
-                    else :
-                        messages.error(request , "cette association n'est pas valide")
+                if user.is_admin ==True :
+                    return redirect('control') 
+                if user.is_active == True : 
+                    if  user.is_association :
+                        ass = Association.objects.get(user = user)
+                        if ass.is_valid == True :
+                            login (request , user ) 
+                            return redirect('profile')
+                        else :
+                            messages.error(request , "cette association n'est pas valide")
                 else :
-                    login (request , user ) 
-                    return redirect('profile')           
+                    messages.error(request , "ce compte  n'est pas valide")
+            else :
+                login (request , user ) 
+                return redirect('profile')           
     context= {'form':form}
     return render(request,'login.html',context)
 
@@ -147,7 +211,6 @@ class PasswordChange (PasswordChangeView):
     template_name='passwordChange.html'
     success_url = reverse_lazy('password_success')
 
-
 def password_success(request):
     return render(request,'password_success.html')
 
@@ -162,18 +225,16 @@ def updateAnnonce (request,pk):
     context={'formAnnonce':formAnnonce}    
     return render(request,'annonce.html',context)
    
-
-
 def Select (request):
     
     context= {}
     return render(request,'select.html',context)
 
-
 def Logoutt (request):
     logout(request)
     return redirect('login')
 
+@login_required(login_url='../login/')
 def annonce (request):
     annonces= Annonce.objects.all()
     notifications=Notification.objects.all()
@@ -228,8 +289,6 @@ def add_comment (request,myid,notifid):
     context={}
     return render(request,'annonce.html',context)
 
-
-
 def delete_annonce (request,myid) :
     item = Annonce.objects.get(id =myid)
     item.delete()
@@ -255,6 +314,7 @@ def signaler_user(request,myid):
     item.save()
     messages.info(request,'Utilisateur signalé')
     return redirect(annonce)
+@login_required(login_url='../login/')
 def ListCagniote (request):
     cagnites= Cagniote.objects.all()
     form = CreateCagniote ()
@@ -275,7 +335,6 @@ def ListCagniote (request):
     context= {'form':form , 'cagniotes':cagnites}
     return render(request,'cagniote.html',context)
 
-
 def Admin (request):
     cagniote = Cagniote.objects.all()
     association = Association.objects.all()
@@ -290,25 +349,39 @@ def Arreter (request,myid) :
     item.save()
     
     return redirect(ListCagniote)
-
+@login_required(login_url='../login/')
 def Control (request):
-    associations = Association.objects.all()
-    users = User.objects.all()
-    annonces = Annonce.objects.all()
+    associations1 = Association.objects.all()
+    users1 = User.objects.all()
+    annonces1 = Annonce.objects.all()
 
-    paginator= Paginator(users,5)
-    page_number=request.GET.get('page')
-    users=paginator.get_page(page_number)
+    users = []
+    annonces = []
+    associations = []
+
+    for i in associations1 :
+        if i.is_valid == False   :
+            associations.append (i) 
 
     paginator= Paginator(associations,5)
-    page_number=request.GET.get('page')
-    associations=paginator.get_page(page_number)
+    page_number2=request.GET.get('page2')
+    associations=paginator.get_page(page_number2) 
+
+    for i in users1 :
+        if i.signial > 0  :
+            users.append (i)  
+
+    paginator= Paginator(users,5)
+    page_number1=request.GET.get('page1')
+    users=paginator.get_page(page_number1)
+
+    for i in annonces1 :
+        if i.signial > 0  :
+            annonces.append (i)  
 
     paginator= Paginator(annonces,5)
-    page_number=request.GET.get('page')
-    annonces=paginator.get_page(page_number)
-
-    
+    page_number3=request.GET.get('page3')
+    annonces=paginator.get_page(page_number3)
 
     context= {'associations': associations,'users':users, 'annonces':annonces}
     return render(request,'control.html',context)    
@@ -317,6 +390,8 @@ def Valider (request,myid) :
     item = Association.objects.get(user_id =myid)
     item.is_valid = True
     item.save()
+    SendGmail([item.user.email], "title","confirmation association"," votre association a ete confirmer par administrateur vous pouver maintenant se connecter ")
+    
     
     return redirect(Control)
 
@@ -341,8 +416,7 @@ def deleteAnnonce (request,myid) :
             )
 
     return redirect(Control)
-
-
+@login_required(login_url='../login/')
 def List_Association (request):
     if 'q' in request.GET :
         q=request.GET['q']
@@ -358,11 +432,24 @@ def List_Association (request):
     return render(request,'listAssociations.html',context)
 
 def Landing(request):
-    return render(request,'landing.html')
+    associations = Association.objects.all()
+    cagnottes = Cagniote.objects.all()
+    Benevoles = Benevole.objects.all()
+    annonce = Annonce.objects.all()
+
+    context= {'associations':associations.__len__ , "cagnottes":cagnottes.__len__ ,"Benevoles":Benevoles.__len__ ,"annonce" :annonce.__len__}
+
+    return render(request,'landing.html' , context)
 
 def landingRecherche(request):
-    return render(request,'landingRecherche.html')
+    
+    associations = Association.objects.all()
+    a= AssociationFilter2(request.GET, queryset=associations)
+    associations=a.qs
+    context= {'associations':associations, 'filtre': a}
+    return render(request,'landingRecherche.html',context)
 
+<<<<<<< HEAD
 def depotArgent(request,pk):
     form=DepotArgentForm()
     myitem=Cagniote.objects.get(id=pk)
@@ -378,6 +465,18 @@ def depotArgent(request,pk):
     context={'form':form}
     return render(request,'depotArgent.html',context) 
 
+=======
+class depotArgent(DetailView):
+    model=Cagniote
+    template_name='depotArgent.html'
+    def get_context_data(self, *args,**kwargs):
+        context=super(depotArgent,self).get_context_data(*args,**kwargs)
+        page_user = get_object_or_404(Cagniote,id=self.kwargs['pk'])
+        context['cag']=page_user     
+        return context
+
+  
+>>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
 class ShowProfileBenevole(DetailView):
     model=Benevole
     template_name= 'profilBenevole.html'
@@ -387,11 +486,26 @@ class ShowProfileBenevole(DetailView):
         page_user = get_object_or_404(Benevole,id=self.kwargs['pk'])
         context['page_user']=page_user  
         return context
+class ShowProfileAnnonce(DetailView):
+    model=Annonce
+    template_name= 'profilAnnonce.html'
+    def get_context_data(self, *args,**kwargs):
+        profile=Annonce.objects.all()
+        context=super(ShowProfileAnnonce,self).get_context_data(*args,**kwargs)
+        page_user = get_object_or_404(Annonce,id=self.kwargs['pk'])
+        context['page_user']=page_user  
+        return context
 
+<<<<<<< HEAD
 
+=======
+@login_required(login_url='../login/')
+>>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
 def ListeBenevole (request):
     benevoles= Benevole.objects.all()
     form = CreateBenevole ()
+    local = localisation.objects.all()
+    wilaya = localisation.objects.values("wilaya_name").distinct()
     if request.method =='POST':
         username = request.user
         association = Association.objects.get(user=username)
@@ -400,8 +514,11 @@ def ListeBenevole (request):
             contenu = request.POST['contenu']
             nbr_max = request.POST['nbr_max']
             date = request.POST['date']
-            adresse = request.POST['adresse']
-            loc_id = localisation.objects.filter( id__icontains=adresse  )
+            commune = request.POST['commune_name']
+            daira = request.POST['daira_name']
+            wilaya = request.POST['wilaya_name']
+            loc_id = localisation.objects.filter(commune_name__icontains=commune , daira_name__icontains=daira , wilaya_name__icontains=wilaya  )
+            print(loc_id)
             print(loc_id)
             type= request.POST['type']
             Benevole.objects.create(
@@ -410,13 +527,49 @@ def ListeBenevole (request):
                 contenu =contenu ,
                 nbr_max = nbr_max ,
                 date = date ,
-                adresse = loc_id[0] ,
+                adresse = loc_id[0],             
                 type = type ,
             )
 
-    context= {'form':form , 'benevoles':benevoles}
+    context= {'form':form , 'benevoles':benevoles , 'local' :local, 'wilaya':wilaya}
     return render(request,'benevole.html',context)
 
+<<<<<<< HEAD
 def getNotif(request):
     queryset=Notification.objects.filter(user=request.user)
     return JsonResponse({"notifications":list(queryset.values())})
+=======
+def ArreterBenevole (request,myid) :
+    item = Benevole.objects.get(id =myid)
+    item.arret = True
+    item.save()
+    
+    return redirect('profilBenevole.html')
+def ajouterPersonne (request,myid) : 
+    item = Benevole.objects.get(id =myid)
+    item.nbr_actuel = item.nbr_actuel +1
+    item.save()
+
+    return redirect('profilBenevole.html')
+
+class Verification(View):
+    def get(self,request,uidb64,token):
+      return redirect('login.html')
+
+def validerCompte (request,pk):
+    item = User.objects.get(email =pk)
+    item.is_active = True 
+    item.save()
+    return redirect('login')
+
+def get_Daira (request):
+    wilaya = request.GET.get('wilaya')
+    daira = localisation.objects.filter(wilaya_name=wilaya).values('daira_name').distinct()
+    context={'daira':daira}
+    return render(request,'daira.html',context)
+def get_Commune (request):
+    daira = request.GET.get('daira')
+    commune = localisation.objects.filter(daira_name=daira).values('commune_name').distinct()
+    context={'commune':commune}
+    return render(request,'commune.html',context) 
+>>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
