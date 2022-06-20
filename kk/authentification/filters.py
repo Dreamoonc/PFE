@@ -103,7 +103,6 @@ class AssociationFilter(django_filters.FilterSet):
        model = Association
        fields = ['willaya','type','category']
 
-<<<<<<< HEAD
 class AnnonceFilter(django_filters.FilterSet):
     type=ChoiceFilter(choices=TYPE_ANNONCE,label='',empty_label="type",widget=Select(attrs={'class':'input1'}))
     category=ChoiceFilter(choices=CATEGORY_ANNONCE,label='',empty_label="categorie",widget=Select(attrs={'class':'input1'}))
@@ -111,7 +110,6 @@ class AnnonceFilter(django_filters.FilterSet):
     class  Meta :
        model = Annonce
        fields = ['type','category','date']
-=======
 
 class AssociationFilter2(django_filters.FilterSet):
     willaya=ChoiceFilter(choices=WILLAYA,label='',empty_label="willaya",widget=Select(attrs={'class':'selectform'}))
@@ -123,4 +121,3 @@ class AssociationFilter2(django_filters.FilterSet):
        model = Association
        fields = ['willaya','type','category']
 
->>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9

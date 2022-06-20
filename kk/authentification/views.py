@@ -14,10 +14,8 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView ,View
 from django.views import generic
 from django.contrib import messages
-<<<<<<< HEAD
 from .consumers import TestConsumer
 
-=======
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_encode , urlsafe_base64_decode
@@ -45,7 +43,6 @@ def SendGmail(People,title, Subject, msg):
     except Exception as e:
         print(("error",e))
         
->>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
 def Register (request):
     form = CreateUserForm()
     form2 = CreateAssociation()
@@ -95,12 +92,8 @@ def Register (request):
 
             messages.success(request,' Confirmer votre compte  ')
             return redirect('login')
-<<<<<<< HEAD
-    context= {'form':form ,'form2':form2 , "form3":form3,"local":local} 
-=======
 
     context= {'form':form ,'form2':form2 , "form3":form3,"local":local, 'wilaya':wilaya } 
->>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
     return render(request,'signup.html',context)
 
 def RegisterUser (request):
@@ -449,7 +442,6 @@ def landingRecherche(request):
     context= {'associations':associations, 'filtre': a}
     return render(request,'landingRecherche.html',context)
 
-<<<<<<< HEAD
 def depotArgent(request,pk):
     form=DepotArgentForm()
     myitem=Cagniote.objects.get(id=pk)
@@ -465,18 +457,6 @@ def depotArgent(request,pk):
     context={'form':form}
     return render(request,'depotArgent.html',context) 
 
-=======
-class depotArgent(DetailView):
-    model=Cagniote
-    template_name='depotArgent.html'
-    def get_context_data(self, *args,**kwargs):
-        context=super(depotArgent,self).get_context_data(*args,**kwargs)
-        page_user = get_object_or_404(Cagniote,id=self.kwargs['pk'])
-        context['cag']=page_user     
-        return context
-
-  
->>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
 class ShowProfileBenevole(DetailView):
     model=Benevole
     template_name= 'profilBenevole.html'
@@ -496,11 +476,8 @@ class ShowProfileAnnonce(DetailView):
         context['page_user']=page_user  
         return context
 
-<<<<<<< HEAD
 
-=======
 @login_required(login_url='../login/')
->>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
 def ListeBenevole (request):
     benevoles= Benevole.objects.all()
     form = CreateBenevole ()
@@ -534,11 +511,9 @@ def ListeBenevole (request):
     context= {'form':form , 'benevoles':benevoles , 'local' :local, 'wilaya':wilaya}
     return render(request,'benevole.html',context)
 
-<<<<<<< HEAD
 def getNotif(request):
     queryset=Notification.objects.filter(user=request.user)
     return JsonResponse({"notifications":list(queryset.values())})
-=======
 def ArreterBenevole (request,myid) :
     item = Benevole.objects.get(id =myid)
     item.arret = True
@@ -572,4 +547,3 @@ def get_Commune (request):
     commune = localisation.objects.filter(daira_name=daira).values('commune_name').distinct()
     context={'commune':commune}
     return render(request,'commune.html',context) 
->>>>>>> 3af11df1ddbbf8e049fda0cdc82e7de5a00314d9
