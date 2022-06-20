@@ -155,3 +155,28 @@ ul{
 .modal__close1:hover{
     color: #fb5360;
 }
+
+
+.notification{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+}
+
+.notify_item{
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #dbdaff;
+}
+
+.notify_info p{
+	margin-bottom: 5px;
+    width: 100%;
+}
+
+.notify_time{
+	color: #c5c5e6;
+	font-size: 12px;
+}

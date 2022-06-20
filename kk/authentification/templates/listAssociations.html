@@ -89,17 +89,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for association in associations %}
-                            
+                            {% for association in associations %}                           
                             <tr>
                                 <td data-column="nom">{{association.user.username}}</td>
                                 <td data-column="Email">{{association.user.email}}</td>
                                 <td data-column="type">{{association.type}}</td>
-                                <td data-column="willaya"> {{association.adresse.wilaya_name}}
-                                </td>
+                                <td data-column="willaya"> {{association.adresse.wilaya_name}}</td>
                                 <td data-column="category">{{association.category}}</td>
-                            </tr>
-                            
+                            </tr>                           
                             {% endfor %}
                         </tbody>
                     </table>

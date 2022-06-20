@@ -1,3 +1,5 @@
+from random import choices
+from unicodedata import name
 from django.db.models import fields
 from django.forms.widgets import *
 import django_filters
@@ -20,6 +22,14 @@ CATEGORY_ASSOCIATION =(
     ('association des femmes' , 'association des femmes'),
     ("association d'enfances","association d'enfances"),
     ('association culturelles et sport pour handicapés','association culturelles et sport pour handicapés')
+)
+CATEGORY_ANNONCE =(
+    ("Alimentaire", "Alimentaire"),
+    ('Medical','Medical'),
+    ("Vestimentaire","Vestimentaire"),
+    ('Educatif' , 'Educatif'),
+    ("Financière","Financière"),
+    ("Autre","Autre")
 )
 WILLAYA=(
 (1,	'Adrar'	),
@@ -87,9 +97,16 @@ WILLAYA=(
 class AssociationFilter(django_filters.FilterSet):
     willaya=ChoiceFilter(choices=WILLAYA,label='',empty_label="willaya",widget=Select(attrs={'class':'input'}))
     type=ChoiceFilter(choices=TYPE_ASSOCIATION,label='',empty_label="type",widget=Select(attrs={'class':'input'}))
-    category=ChoiceFilter(choices=CATEGORY_ASSOCIATION,label='',empty_label="category",widget=Select(attrs={'class':'input'}))
+    category=ChoiceFilter(choices=CATEGORY_ASSOCIATION,label='',empty_label="categorie",widget=Select(attrs={'class':'input'}))
 
     class  Meta :
        model = Association
        fields = ['willaya','type','category']
 
+class AnnonceFilter(django_filters.FilterSet):
+    type=ChoiceFilter(choices=TYPE_ANNONCE,label='',empty_label="type",widget=Select(attrs={'class':'input1'}))
+    category=ChoiceFilter(choices=CATEGORY_ANNONCE,label='',empty_label="categorie",widget=Select(attrs={'class':'input1'}))
+    date = DateRangeFilter(label='',empty_label="date",widget=Select(attrs={'class':'input1'}))
+    class  Meta :
+       model = Annonce
+       fields = ['type','category','date']

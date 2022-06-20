@@ -1,7 +1,7 @@
 
 from xml.dom.pulldom import parseString
 from django.shortcuts import  get_object_or_404, redirect, render
-from django.http import HttpRequest
+from django.http import HttpRequest, JsonResponse
 from django.contrib.auth import authenticate , login ,logout
 from .models import *
 from django.core.paginator import Paginator 
@@ -14,6 +14,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views import generic
 from django.contrib import messages
+from .consumers import TestConsumer
 
 def Register (request):
     form = CreateUserForm()
@@ -21,9 +22,7 @@ def Register (request):
     form3 =CreateLocalisation()
     local = localisation.objects.all()
     if request.method =='POST':
-        form = CreateUserForm(request.POST)
-
-        
+        form = CreateUserForm(request.POST)   
         if form.is_valid():
             
             file = request.POST['file']
@@ -52,7 +51,6 @@ def Register (request):
 
             messages.success(request,'account created seccefully ')
             return redirect('login')
-
     context= {'form':form ,'form2':form2 , "form3":form3,"local":local} 
     return render(request,'signup.html',context)
 
@@ -67,13 +65,10 @@ def RegisterUser (request):
         
         if form.is_valid():
             name = request.POST['first_name']
-            last_name = request.POST['last_name']
-        
+            last_name = request.POST['last_name']        
             commune = request.POST['commune_name']
             daira = request.POST['daira_name']
-            wilaya = request.POST['wilaya_name']
-            
-            
+            wilaya = request.POST['wilaya_name']            
             loc_id = localisation.objects.filter(commune_name__icontains=commune , daira_name__icontains=daira , wilaya_name__icontains=wilaya  )
             
              
@@ -181,6 +176,10 @@ def Logoutt (request):
 
 def annonce (request):
     annonces= Annonce.objects.all()
+    notifications=Notification.objects.all()
+    
+    a= AnnonceFilter(request.GET, queryset=annonces)
+    annonces=a.qs
     formAnnonce=AnnonceForm()
     if request.method =='POST':
         auteur= request.user
@@ -203,20 +202,25 @@ def annonce (request):
         else:
             formAnnonce = AnnonceForm()
     commentForm=CommentForm()
-    context= {'formAnnonce':formAnnonce , 'annonces':annonces ,'commentForm':commentForm}
+    context= {'formAnnonce':formAnnonce , 'annonces':annonces ,'commentForm':commentForm,'filter':a,'notifications':notifications}
     return render(request,'annonce.html',context)
 
-def add_comment (request,myid):
+def add_comment (request,myid,notifid):
     formComment=CommentForm()
     if request.method == "POST":
         auteur=request.user
         annonce=Annonce.objects.get(id=myid)
+        user_notif=User.objects.get(id=notifid)
         if formComment.is_valid:
             contenu=request.POST['contenu']
             Comment.objects.create(
                 auteur=auteur,
                 contenu=contenu,
                 annonce=annonce
+            )
+            Notification.objects.create(
+                user=user_notif,
+                notification="Vous avez un nouveau commentaire"    
             )
             return redirect('annonce')
         else:
@@ -277,8 +281,6 @@ def Admin (request):
     association = Association.objects.all()
     person = PhysicalUser.objects.all()
     annonce = Annonce.objects.all()
-    
-    
     context= {'cagniote':cagniote.__len__,'association':association.__len__ , 'person':person.__len__ ,'annonce':annonce.__len__}
     return render(request,'admin.html',context)
 
@@ -333,7 +335,11 @@ def deleteUser (request,myid) :
 def deleteAnnonce (request,myid) :
     item = Annonce.objects.get(id =myid)
     item.delete()
-    
+    Notification.objects.create(
+                user=item.auteur,
+                notification="Votre aannonce a etait supprimer par l'administrateur"    
+            )
+
     return redirect(Control)
 
 
@@ -343,14 +349,11 @@ def List_Association (request):
         associations = Association.objects.filter(name__icontains=q)
     else :
         associations = Association.objects.all()
-
     a= AssociationFilter(request.GET, queryset=associations)
     associations=a.qs
-
     paginator= Paginator(associations,10)
     page_number=request.GET.get('page')
     associations=paginator.get_page(page_number)
-
     context= {'associations':associations , "filtre":a}
     return render(request,'listAssociations.html',context)
 
@@ -360,15 +363,21 @@ def Landing(request):
 def landingRecherche(request):
     return render(request,'landingRecherche.html')
 
-class depotArgent(DetailView):
-    model=Cagniote
-    template_name='depotArgent.html'
-    def get_context_data(self, *args,**kwargs):
-        context=super(depotArgent,self).get_context_data(*args,**kwargs)
-        page_user = get_object_or_404(Cagniote,id=self.kwargs['pk'])
-        context['cag']=page_user     
-        return context
-    
+def depotArgent(request,pk):
+    form=DepotArgentForm()
+    myitem=Cagniote.objects.get(id=pk)
+    if request.method =='POST':
+        print("here")
+        if form.is_valid :
+            argent= request.POST['sommeRecolter']
+            myitem.sommeRecolter+=float(argent)
+            myitem.save()
+            return redirect('cagniote')
+        else:
+            form=DepotArgentForm()
+    context={'form':form}
+    return render(request,'depotArgent.html',context) 
+
 class ShowProfileBenevole(DetailView):
     model=Benevole
     template_name= 'profilBenevole.html'
@@ -378,6 +387,7 @@ class ShowProfileBenevole(DetailView):
         page_user = get_object_or_404(Benevole,id=self.kwargs['pk'])
         context['page_user']=page_user  
         return context
+
 
 def ListeBenevole (request):
     benevoles= Benevole.objects.all()
@@ -406,3 +416,7 @@ def ListeBenevole (request):
 
     context= {'form':form , 'benevoles':benevoles}
     return render(request,'benevole.html',context)
+
+def getNotif(request):
+    queryset=Notification.objects.filter(user=request.user)
+    return JsonResponse({"notifications":list(queryset.values())})

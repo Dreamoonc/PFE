@@ -1,9 +1,13 @@
-from distutils.command.upload import upload
+
+import json
 from pyexpat import model
 from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser , BaseUserManager
 from django.utils import timezone
+from channels.layers import  get_channel_layer
+from asgiref.sync import async_to_sync
+
 # Create your models here.
 
 TYPE_ANNONCE=(
@@ -210,7 +214,7 @@ class Cagniote (models.Model):
     contenu = models.TextField(max_length=600)
     sommeDemander= models.FloatField()
     sommeRecolter = models.FloatField(default=0)
-    dateCreation = models.DateField(auto_now=True)
+    dateCreation = models.DateField(auto_now_add=True)
     user = models.ForeignKey(Association , on_delete=models.CASCADE)
     arret=models.BooleanField(default=False)    
     def __str__(self):
@@ -230,3 +234,29 @@ class Benevole (models.Model):
 
     def __str__(self):
         return self.titre
+
+class Notification(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    notification=models.TextField(max_length=200)
+    date=models.DateTimeField(auto_now_add=True)        
+    is_seen=models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-date']
+
+    def save(self, *args,**kwars):
+        print('save called')
+        channel_layer = get_channel_layer()
+        notification_objs = Notification.objects.filter(is_seen=False).count()
+        data = {'count' : notification_objs , 'current_notification' : self.notification }
+
+        print(data)
+        async_to_sync(channel_layer.group_send)(
+            'test_consumer_group' , {
+                'type' : 'send_notification',
+                'value' : json.dumps(data)
+            }
+            
+        )
+        super(Notification, self).save(*args,**kwars)
+    

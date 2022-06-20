@@ -27,11 +27,12 @@ urlpatterns = [
     path('deleteAssociation/<str:myid>/',deleteAssociation,name='deleteAssociation'),
     path('deleteuser/<str:myid>/',deleteUser,name='deleteuser'),
     path('deleteAnnonce/<str:myid>/',deleteAnnonce,name='deleteAnnonce'),
-    path('add_comment/<str:myid>/',views.add_comment,name='add_comment'),
+    path('add_comment/<str:myid>/<str:notifid>',views.add_comment,name='add_comment'),
     path('updateAnnonce/<int:pk>/',views.updateAnnonce , name="updateAnnonce"),
     path('password/',PasswordChange.as_view()),
     path('password_success/',views.password_success,name="password_success"),
-    path('<int:pk>/depotArgent/',depotArgent.as_view(),name="depotArgent"),
+    path('<int:pk>/depotArgent/',views.depotArgent,name="depotArgent"),
     path('benevole/',views.ListeBenevole,name='benevole'),
     path('<int:pk>/profilBenevole/',ShowProfileBenevole.as_view(),name='ShowProfileBenevole'),
+    path('ajax/getNotif',views.getNotif,name="getNotif")
 ]

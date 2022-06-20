@@ -12,6 +12,8 @@
     <title>Document</title>
 </head>
 <body>
+
+    <h3></h3>
     <div class="core1">
 
         
@@ -40,14 +42,32 @@
             <section style="width:100%;">
                 <div class="navBar">
                     <a href="{% url 'profile'%}"><img alt="Image profile" src="{{request.user.img.url}}"></a>
-                    <div class="icon">
+                    <!-- <div class="icon">
                         <svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
                             height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z">
                             </path>
                         </svg>
+                    </div> -->
+
+                    <div class="notification">
+                        <div class="dd">
+                        <div class="dd-a" style="margin:0; font-size:22px;"><svg fill="#718096" stroke-width="0" viewBox="0 0 16 16" focusable="false"
+                            height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z">
+                            </path>
+                        </svg>
+                        </div>
+                        <input type="checkbox">
+                        <div class="dd-c" id="list-notif" data-url="{% url 'getNotif'%}" style="width:300px; margin-left:-50px; max-height: 300px; overflow: auto; " >
+                        </div>
+                      </div>
                     </div>
+
+                    
+                    
                 </div>
             </section>
 
@@ -84,7 +104,23 @@
                         </div>
                     
                     </div>
-                    <div class="dd-a">filtrer<i class="fa-solid fa-filter"></i></div>
+
+                    <div class="filtrage">
+                        <div class="dd">
+                        <div class="dd-a">filtrer<i class="fa-solid fa-filter"></i></div>
+                        <input type="checkbox">
+                        <div class="dd-c">
+                            <form class="formFilter" action="" methode="get">
+                                {{filter.form}}
+                                <button class="green_btn" type="submit"> Search </button>
+                            </form>
+                         
+                        </div>
+                      </div>
+                    </div>
+
+
+                
                 </div>
             </section>
 
@@ -156,7 +192,7 @@
                                 
                                 <div class="post-block__comments">
                                     <!-- Comment Input -->
-                                    <form action="{% url 'add_comment' annonce.id %}" method="post">
+                                    <form action="{% url 'add_comment' annonce.id annonce.auteur.id%}" method="post">
                                         <div class="input-group mb-3" id="comment">
                                             {% csrf_token %}
                                             {{commentForm.contenu}}
@@ -225,10 +261,12 @@
                     </div>
                 </div>
             </section>
-            
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
+            <script src="{% static 'script.js' %}"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+            
+            
             
         </div>
 

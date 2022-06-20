@@ -1,5 +1,6 @@
 
 from dataclasses import field
+from tkinter import Widget
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm , PasswordChangeForm
@@ -101,4 +102,10 @@ class CreateLocalisation (forms.ModelForm):
             'wilaya_name':forms.Select(attrs={'class':'input'})
         }
 
-
+class DepotArgentForm (ModelForm):
+    class Meta:
+        model=Cagniote
+        fields=["sommeRecolter"]
+        widgets={
+            'sommeRecolter':forms.NumberInput(attrs={'class':'input'})
+        }

@@ -75,13 +75,15 @@
                     <label for="mdp">Mot de passe</label>
                     <input type="password" class="input" name="mdp">
                 </div>
-               
-                <form action="" method="post" style="margin-bottom:20px;">
+                {% csrf_token %}
+                <form  method="post" style="margin-bottom:20px;">  
+                    {% csrf_token %}
+                    {{form.sommeRecolter}}
                     <div class="label">
                         <label for="somme">Somme</label>
-                        <input type="number" class="input" name="somme">
+                    
                     </div>
-                    <input type="submit" value="Envoyer" class="ajouter" >
+                    <input type="submit" value="Envoyer" class="ajouter">
                 </form>
             </div>
         </div>

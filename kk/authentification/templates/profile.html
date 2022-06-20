@@ -148,7 +148,7 @@
                                     <hr>
                                     <div class="post-block__comments">
                                         <!-- Comment Input -->
-                                        <form action="{% url 'add_comment' annonce.id %}" method="post">
+                                        <form action="{% url 'add_comment' annonce.id annonce.auteur.id %}" method="post">
                                             <div class="input-group mb-3">
                                                 {% csrf_token %}
                                                 {{commentForm.contenu}}
