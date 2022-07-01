@@ -11,6 +11,7 @@
     <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
     <link rel="stylesheet" href="{% static 'style/depot.css' %}">
+    <link rel="stylesheet" href="../static/fontawesome-free-6.1.1-web/css/all.css">
     <title>Document</title>
 </head>
 
@@ -78,10 +79,10 @@
                 {% csrf_token %}
                 <form  method="post" style="margin-bottom:20px;">  
                     {% csrf_token %}
-                    {{form.sommeRecolter}}
+                    
                     <div class="label">
                         <label for="somme">Somme</label>
-                    
+                        {{form.sommeRecolter}}
                     </div>
                     <input type="submit" value="Envoyer" class="ajouter">
                 </form>

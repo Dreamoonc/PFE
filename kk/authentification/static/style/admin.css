@@ -19,3 +19,166 @@
     padding: 25px 10px;
     color: #4FD1C5;
 }
+.graph{
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px #dfdfdfc2;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 380px;
+}
+
+.graph p{
+    color: #A0AEC0;
+}
+
+.dashboard{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+
+
+
+table { 
+	width: 100%; 
+	border-collapse: collapse; 
+	
+	}
+  .table{
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px #eee;
+    margin-bottom: 30px;
+    margin-top:   20px;
+    padding: 20px 0px;
+    
+  }
+
+tbody tr:nth-child(2n){
+  background-color : #f7f9fb;
+}
+
+th { 
+	color: #a0aec0;
+  font-weight: 400;
+  font-size:16px;
+	}
+
+td, th { 
+	padding: 10px; 
+	text-align: left; 
+	font-size: 18px;
+	}
+tr{
+  color: #16365f;
+}
+thead tr {
+  background-color : white ;
+}
+tbody tr:hover{
+  background-color : #4FD1C5;;
+  color: white;
+}
+
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	table { 
+	  	width: 100%; 
+	}
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		position: relative;
+		padding-left: 50%; 
+	}
+
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		/* Label the data */
+		content: attr(data-column);
+
+		color: #000;
+		font-weight: bold;
+	}
+
+}
+
+
+.info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+.info img{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.info p{
+    color: #000;
+    font-weight: 500;
+    margin-left: 10px;
+}
+.info span{
+    color: #A0AEC0;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.header{
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#select{
+    width: 100px;
+    height: 30px;
+    color: white;
+    background-color: #4FD1C5;
+    border: #4FD1C5;
+    border-radius: 10px;
+    text-align-last:center;
+    margin-right:20px;
+}

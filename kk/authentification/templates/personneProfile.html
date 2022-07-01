@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'style/profile.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/fontawesome-free-6.1.1-web/css/all.css">
 
     <title>Document</title>
 </head>
@@ -135,19 +136,13 @@
                                         {% endif %}
                                     </div>
                                     <div class="mb-3">
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <div class="d-flex">
-                                                <a href="#!" class="text-danger mr-2"><span><i class="fa fa-heart"></i></span></a>
-                                                <a href="#!" class="text-dark mr-2"><span>Comment</span></a>
-                                            </div>
-                                            <a href="#!" class="text-dark"><span>Share</span></a>
-                                        </div>
-                                        <p class="mb-0">Liked by <a href="#!" class="text-muted font-weight-bold">John doe</a> & <a href="#!" class="text-muted font-weight-bold">25 others</a></p>
+                                       
+                                       
                                     </div>
                                     <hr>
                                     <div class="post-block__comments">
                                         <!-- Comment Input -->
-                                        <form action="{% url 'add_comment' annonce.id %}" method="post">
+                                        <form action="{% url 'add_comment' annonce.id annonce.auteur.id %}" method="post">
                                             <div class="input-group mb-3">
                                                 {% csrf_token %}
                                                 {{commentForm.contenu}}
@@ -181,7 +176,7 @@
                                         {%endif%}
                                         <!-- More Comments -->
                                         <hr>
-                                        <a href="#!" class="text-dark">View More comments <span class="font-weight-bold">(12)</span></a>
+                                        
                                     </div>
                                 </div>
                                 

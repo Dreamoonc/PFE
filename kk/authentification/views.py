@@ -342,7 +342,7 @@ def Arreter (request,myid) :
     item.save()
     
     return redirect(ListCagniote)
-@login_required(login_url='../login/')
+
 def Control (request):
     associations1 = Association.objects.all()
     users1 = User.objects.all()
@@ -437,7 +437,7 @@ def Landing(request):
 def landingRecherche(request):
     
     associations = Association.objects.all()
-    a= AssociationFilter2(request.GET, queryset=associations)
+    a= AssociationFilter(request.GET, queryset=associations)
     associations=a.qs
     context= {'associations':associations, 'filtre': a}
     return render(request,'landingRecherche.html',context)

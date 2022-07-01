@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
     <link rel="stylesheet" href="{% static 'style/admin.css' %}">
     <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="../static/fontawesome-free-6.1.1-web/css/all.css">
     <title>Table</title>
 </head>
 
@@ -81,6 +83,69 @@
                 
                
                 </div>
+
+                <div class="dashboard">
+                    <div class="graph">
+                        <canvas id="myChart" width="600px" height="300px"></canvas>
+                        <p>Nombre de visites des utilisateurs par mois</p>
+                    </div>
+                    <div class=" table">
+                        <div class="header">
+                            <p>Activités</p>
+                            <select name="pets" id="select">
+                                <option value="">semaine</option>
+                                <option value="dog">mois</option>
+                                <option value="cat">année</option>
+                            </select>
+                        </div>
+
+                    <table cellspacing="0">
+                        <thead>
+
+                            <tr>
+                                <th>CLASSEMENT</th>
+                                <th>ASSOCIATION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            
+
+                            <tr>
+                                <td data-column="Auter" >1</td>
+                                <td data-column="Signialement" class="info">
+                                    <img src="../static/images/sarp.png" alt="">
+                                    <p>SARP <br> <span>sarp.sarp@gmail.com</span></p>
+                                    
+                                </td>
+                                
+                            </tr>
+                            <tr>
+                                <td data-column="Auter"  >2</td>
+                                <td data-column="Signialement"></td>
+                
+                            </tr>
+                            <tr>
+                                <td data-column="Auter" >3</td>
+                                <td data-column="Signialement"></td>
+                
+                            </tr>
+                            <tr>
+                                <td data-column="Auter" >4</td>
+                                <td data-column="Signialement"></td>
+                
+                            </tr>
+                            <tr>
+                                <td data-column="Auter" >5</td>
+                                <td data-column="Signialement"></td>
+                
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
             </div>
  
         </div>
@@ -88,7 +153,28 @@
 
         
     </div>
-
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Avril', 'Mai', 'Juin'],
+                datasets: [{
+                    label: 'nb de visite',
+                    data: [0, 20, 41],
+                    borderColor: '#4fd1c5',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        </script>
 
 </body>
 

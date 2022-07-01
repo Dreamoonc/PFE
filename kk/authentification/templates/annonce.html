@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="{% static 'style/annonce.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/fontawesome-free-6.1.1-web/css/all.css">
+    <link rel="stylesheet" href="../static/bootstrap-5.2.0-beta1-dist/css/bootstrap.css">
+    <script src="../static/bootstrap-5.2.0-beta1-dist/js/bootstrap.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -182,7 +185,7 @@
                                     <div class="d-flex justify-content-between mb-2">
                                         <div class="d-flex">
                                             <a href="#!" class="text-danger mr-2"><span><i class="fa-solid fa-handshake-simple"></i></span></a>
-                                            <a href="#comment" class="text-dark mr-2"><span>3 soutiens</span></a>
+                                            <a href="#comment" class="text-dark mr-2"><span>0 soutiens</span></a>
                                         </div>
                                         <a href="#!" class="text-dark"><span><i class="fa-solid fa-share"></i> Partager</span></a>
                                     </div>
@@ -219,8 +222,7 @@
                                                
                                             </div>
                                         </div>
-                                        <hr>
-                                        <a href="#!" class="text-dark">View More comments <span class="font-weight-bold">(2)</span></a>
+                                        <hr style=" width:650px;">
                                         {% else %}
                                         <div class="d-flex mb-2">
                                             <a href="{% url 'ShowProfilePersonne' comment.auteur.id %}"><img src="{{comment.auteur.img.url}}" alt="User img" class="author-img author-img--small mr-2"></a>
@@ -231,7 +233,6 @@
                                             </div>
                                         </div>
                                         <hr style=" width:650px;">
-                                        <a href="#!" class="text-dark">View More comments <span class="font-weight-bold">(2)</span></a>
                                         {% endif %}
                                     </div>
                                     <div class="post-block__user-options">
@@ -265,6 +266,7 @@
             <script src="{% static 'script.js' %}"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+            <script src="../static/bootstrap-5.2.0-beta1-dist/js/bootstrap.min.js"></script>
             
             
             

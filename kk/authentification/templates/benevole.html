@@ -11,7 +11,11 @@
     <script src="https://kit.fontawesome.com/dd08ef7328.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../static/style/benevole.css">
     <link rel="stylesheet" href="../static/style/style.css">
+   
+    <link rel="stylesheet" href="../static/fontawesome-free-6.1.1-web/css/all.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+
+    
     <title>benevole</title>
 </head>
 
@@ -52,12 +56,12 @@
                 </div>
             </section>
             <section class="benevoles" >
-                {% for benevole in benevoles  %}
+                {% for benevole in benevoles %}
                 <div class="benevole">
                     
 
                     {% if benevole.type  == "SOLIDARITÉ ET INSERTION" %}
-                    <img src="../../media/download.jpg" alt="">
+                    <img src="../../media/unnamed.jpg" alt="">
                     <div class="type typeSo">{{benevole.type}}</div>
                     {% endif %}
                     {% if benevole.type  == "ÉDUCATION POUR TOUS" %}
@@ -123,19 +127,19 @@
                             {{form.titre}}
                             {{form.contenu}}
                             {{form.type}}
-                            <select id="wilaya" class="input1 input2" name="wilaya_name" >
+                            <select id="wilaya" class="select" name="wilaya_name" id="wilaya" >
                                 <option value="" >wilaya</option>
                                 {% for options in wilaya %}
                                 <option value="{{options.wilaya_name}}">{{options.wilaya_name}}</option>
                                 {% endfor %}
                               </select>
-                              <select id="daira" class="input1 input2" name="daira_name" >
+                              <select id="daira" class="select" name="daira_name" id="daira" >
                                 <option value="" >daira</option>
                                 {% for options in local %}
                                 <option value="{{options.daira_name}}">{{options.daira_name}}</option>
                                 {% endfor %}
                               </select>
-                              <select id="commune"  class="input1 input2" name="commune_name" >
+                              <select id="commune"  class="select" name="commune_name" id="commune">
                                 <option value="" >commune</option>
                                 {% for options in local %}
                                 <option  value="{{options.commune_name}}">{{options.commune_name}}</option>
@@ -157,8 +161,9 @@
 
         </div>
     </div>
-
     <script>
+
+
 
 $("#wilaya").change(function(){
       
@@ -231,9 +236,11 @@ $("#wilaya").change(function(){
         
         text.classList.add('input')
     </script>
+
                 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                <script src="../static/bootstrap-5.2.0-beta1-dist/js/bootstrap.min.js"></script>
                 
 </body>
 
